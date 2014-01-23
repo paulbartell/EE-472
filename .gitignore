@@ -16,3 +16,9 @@
 *.exe
 *.out
 *.app
+
+#debug files
+*.pbd
+*.pbd.browse
+*.pbi
+*.cout
