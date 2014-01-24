@@ -10,7 +10,7 @@ unsigned int diastolicPressRaw = 80;
 unsigned int pulseRateRaw = 50;
 
 MeasureData measureData = {&temperatureRaw, &systolicPressRaw,
-                  &diastolicPressRaw, &pulseRateRaw};
+  &diastolicPressRaw, &pulseRateRaw};
 
 unsigned char* tempCorrected;
 unsigned char* systolicPressCorrected;
@@ -23,12 +23,12 @@ unsigned char bpOutOfRange;
 unsigned char tempOutOfRange;
 unsigned char pulseOutOfRange;
 
+WarningAlarmData warningAlarmData = {&temperatureRaw, &systolicPressRaw,
+  &diastolicPressRaw, &pulseRateRaw, &batteryState};
+
 Bool bpHigh;
 Bool tempHigh;
 Bool pulseLow;
-
-// Initialize data passing structs
-
 
 TCB taskQueue[TASK_QUEUE_LEN];
 

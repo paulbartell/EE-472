@@ -11,5 +11,3 @@ struct TaskControlBlock
   void* taskDataPtr;
 };
 typedef struct TaskControlBlock TCB;
-
-

@@ -6,42 +6,71 @@
   <configuration>
     <name>Debug</name>
     <outputs>
+      <file>$PROJ_DIR$\measure.c</file>
       <file>$PROJ_DIR$\main.c</file>
-      <file>C:\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</file>
+      <file>$PROJ_DIR$\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</file>
       <file>$PROJ_DIR$\startup_ewarm.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\Debug\Exe\c.out</file>
       <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
       <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$PROJ_DIR$\Debug\Exe\c.out</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.pbi</file>
       <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
-      <file>$PROJ_DIR$\Debug\Obj\lab2.pbd</file>
       <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\lab2.pbd</file>
       <file>$PROJ_DIR$\tasks.h</file>
+      <file>$PROJ_DIR$\main.h</file>
       <file>$TOOLKIT_DIR$\config\linker\TexasInstruments\LM3S8962.icf</file>
       <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
-      <file>$PROJ_DIR$\main.h</file>
-      <file>$PROJ_DIR$\measure.c</file>
       <file>$PROJ_DIR$\Debug\Obj\measure.o</file>
       <file>$PROJ_DIR$\Debug\Obj\measure.pbi</file>
+      <file>$PROJ_DIR$\warningAlarm.c</file>
     </outputs>
     <file>
-      <name>$PROJ_DIR$\main.c</name>
+      <name>$PROJ_DIR$\measure.c</name>
       <outputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 3</file>
+          <name>BICOMP</name>
+          <file> 19</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 4</file>
+          <name>ICCARM</name>
+          <file> 18</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
+          <name>BICOMP</name>
+          <file> 14</file>
+        </tool>
+        <tool>
           <name>ICCARM</name>
-          <file> 12 15</file>
+          <file> 14</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 7</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 5</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 14 15</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 14 15</file>
         </tool>
       </inputs>
     </file>
@@ -49,12 +78,12 @@
       <name>$PROJ_DIR$\startup_ewarm.c</name>
       <outputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 6</file>
+          <name>BICOMP</name>
+          <file> 10</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 7</file>
+          <name>ICCARM</name>
+          <file> 4</file>
         </tool>
       </outputs>
     </file>
@@ -63,7 +92,7 @@
       <inputs>
         <tool>
           <name>ILINK</name>
-          <file> 13 1 3 17 6 9 8 11 14</file>
+          <file> 16 6 5 18 4 11 8 12 17</file>
         </tool>
       </inputs>
     </file>
@@ -72,32 +101,9 @@
       <outputs>
         <tool>
           <name>ILINK</name>
-          <file> 5</file>
+          <file> 9</file>
         </tool>
       </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\measure.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 17</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 18</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 12</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 12</file>
-        </tool>
-      </inputs>
     </file>
   </configuration>
   <configuration>
