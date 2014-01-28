@@ -9,6 +9,7 @@
 
 #define NUM_TASKS 5
 #define TASK_QUEUE_LEN 6
+#define STR_SIZE 16
 
 unsigned int globaltime = 0;
 
@@ -20,10 +21,11 @@ unsigned int pulseRateRaw = 50;
 MeasureData measureData = {&temperatureRaw, &systolicPressRaw,
   &diastolicPressRaw, &pulseRateRaw};
 
-unsigned char* tempCorrected;
-unsigned char* systolicPressCorrected;
-unsigned char* diastolicPressCorrected;
-unsigned char* pulseRateCorrected;
+unsigned char tempCorrected[STR_SIZE];
+unsigned char systolicPressCorrected[STR_SIZE];
+unsigned char diastolicPressCorrected[STR_SIZE];
+unsigned char pulseRateCorrected[STR_SIZE];
+unsigned char battCorrected[STR_SIZE];
 
 unsigned short batteryState;
 
