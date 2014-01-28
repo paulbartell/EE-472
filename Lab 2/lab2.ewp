@@ -298,6 +298,7 @@
         <option>
           <name>CCIncludePath2</name>
           <state>C:\StellarisWare</state>
+          <state>C:\StellarisWare\boards\ek-lm3s8962</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
