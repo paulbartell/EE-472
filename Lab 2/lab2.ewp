@@ -297,7 +297,7 @@
         </option>
         <option>
           <name>CCIncludePath2</name>
-          <state></state>
+          <state>C:\StellarisWare</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1835,7 +1835,7 @@
     </settings>
   </configuration>
   <file>
-    <name>$PROJ_DIR$\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</name>
+    <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</name>
   </file>
   <file>
     <name>$PROJ_DIR$\main.c</name>
@@ -1844,7 +1844,13 @@
     <name>$PROJ_DIR$\measure.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\schedule.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\startup_ewarm.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\warningAlarm.c</name>
   </file>
 </project>
 

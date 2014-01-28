@@ -1,8 +1,16 @@
+#include "inc/hw_types.h"
+#include "driverlib/sysctl.h"
+
 #include "tasks.h"
 #include "main.h"
+#include "schedule.h"
+
+
 
 #define NUM_TASKS 5
 #define TASK_QUEUE_LEN 6
+
+unsigned int globaltime = 0;
 
 unsigned int temperatureRaw = 75;
 unsigned int systolicPressRaw = 80;
@@ -32,7 +40,7 @@ Bool pulseLow;
 
 TCB taskQueue[TASK_QUEUE_LEN];
 
-// Initialize our variables
+// Initialize the scheduler and some hardware
 void init()
 {
   
@@ -44,12 +52,17 @@ void init()
   taskQueue[4] = (TCB) {&measure,&measureData};
   taskQueue[5] = (TCB) {&measure,&measureData};
   
+  // Call any setup functions needed
+  warningAlarmSetup();
+  //displaySetup();
   
 }
 
 // Main entry point
 void main()
 {
+  SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
+                   SYSCTL_XTAL_8MHZ);
   init();
   
   while(1)
@@ -58,7 +71,6 @@ void main()
     {
       //tick
       
-      
       // Run task
       (*taskQueue[i].myTask)(taskQueue[i].taskDataPtr);
       
@@ -66,6 +78,7 @@ void main()
       
       
     }
+    globaltime++;
   }
 }
 

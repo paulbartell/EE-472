@@ -17,4 +17,5 @@ typedef struct WarningAlarmData
   unsigned short* batteryState;
 } WarningAlarmData;
 
-void warningAlarm(vouid* taskData);
+void warningAlarm(void* taskData);
+void warningAlarmSetup();
