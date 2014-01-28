@@ -1,5 +1,5 @@
-enum _myBool { FALSE = 0, TRUE = 1 }; 
- typedef enum _myBool Bool; 
+enum _myBool { FALSE = 0, TRUE = 1 };
+ typedef enum _myBool Bool;
 
 typedef struct MeasureData
 {
@@ -10,7 +10,7 @@ typedef struct MeasureData
 } MeasureData;
 
 void measure(void* taskData);
-  
+
 typedef struct ComputeData
 {
   unsigned int* temperatureRaw;
@@ -41,7 +41,8 @@ void oledDisplaySetup();
 typedef struct StatusData
 {
   unsigned short* batteryState;
-}
+} StatusData;
+
 void status(void* taskData);
 
 typedef struct WarningAlarmData
