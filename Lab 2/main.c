@@ -1,5 +1,8 @@
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
+#include "driverlib/gpio.h"
+#include "inc/hw_gpio.h"
+#include "inc/hw_memmap.h"
 
 #include "tasks.h"
 #include "main.h"
@@ -27,11 +30,11 @@ unsigned char pulseRateCorrected[STR_SIZE];
 unsigned char battCorrected[STR_SIZE];
 
 ComputeData computeData = {&temperatureRaw, &systolicPressRaw,
-  &diastolicPressRaw, &pulseRateRaw, &batteryState, tempCorrected, sysCorrected, diasCorrected,
-  prCorrected, battCorrected};
+  &diastolicPressRaw, &pulseRateRaw, &batteryState, tempCorrected, systolicPressCorrected, diastolicPressCorrected,
+  pulseRateCorrected, battCorrected};
 
-DisplayData displayData = {tempCorrected, sysCorrected, diasCorrected,
-  prCorrected, battCorrected};
+DisplayData displayData = {tempCorrected, systolicPressCorrected, diastolicPressCorrected,
+  pulseRateCorrected, battCorrected};
 
 StatusData statusData = {&batteryState};
 

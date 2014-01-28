@@ -58,7 +58,7 @@ void compute(void* taskDataPtr)
   toString(storageSpace, computeDataPtr->prCorrected);
   
   // Battery correction
-  storageSpace = (int)(FPOINT*(*(computeDataPtr->batteryState)/2.0) + ROUND));
+  storageSpace = (int)(FPOINT * ( (*(computeDataPtr->batteryState)) / 2.0 + ROUND));
   
   // Store the corrected data
   toString(storageSpace, computeDataPtr->battCorrected);

@@ -1,4 +1,5 @@
 #include "tasks.h"
+#include "schedule.h"
 #include "drivers/rit128x96x4.h"
 
 /*
