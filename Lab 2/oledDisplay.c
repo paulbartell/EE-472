@@ -9,8 +9,7 @@
 5. Battery: <charge remaining>
 */
 
-
-// Precondition; OLED initialized
+// Initialize the oled and print out the current readings
 void oledDisplay(void* taskDataPtr)
 {
   // Initialize the OLED Display
@@ -18,6 +17,7 @@ void oledDisplay(void* taskDataPtr)
   
   DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
   
+  // Print out each reading
   RIT128x96x4StringDraw("Temperature:", 0, 0, 15);
   RIT128x96x4StringDraw(displayDataPtr->tempCorrected, 10, 8, 15); 
   
