@@ -73,7 +73,7 @@ void measure(void* taskDataPtr)
       diaComplete = 1;
       // Set diaComplete to 0
       // Reset diastolicPressRaw to initial value
-      if (sysComplete = 1) {
+      if (sysComplete == 1) {
         diaComplete = 0;
         dias = INTDIAS;
       }

@@ -1,4 +1,5 @@
 #include "tasks.h"
+#include "schedule.h"
 
 // We are only working with two decimal points
 #define NUM_DEC 2
@@ -20,48 +21,53 @@ void toString(int number, char* convertedNumber);
 int findSize(int number);
 int getDigits(int magnitude);
 
+extern unsigned long globaltime;
+
 // 2 Decimal places
 void compute(void* taskDataPtr)
 {   
-  int storageSpace = 0;
-  ComputeData* computeDataPtr = (ComputeData*) taskDataPtr;
-  
-  // The most we want to deal with is two digits, so we round up the ten-thousandth's place
-  // and multiply by 100 to move those decimals to the left side of the decimal point.
-  // Casting to an integer will truncate everything after the decimal point, so we will have
-  // an integer whose last two digits are actually decimal values.
-  //
-  // Problem: Numbers less than 0.1
-  
-  // Temperature correction
-  storageSpace = (int)(FPOINT*(5 + 0.75*(*(computeDataPtr->temperatureRaw)) + ROUND));
-  
-  // Store the corrected data
-  toString(storageSpace, computeDataPtr->tempCorrected);
-  
-  // Systolic correction
-  storageSpace = (int)(FPOINT*(9 + 2*(*(computeDataPtr->systolicPressRaw)) + ROUND));
-  
-  // Store the corrected data
-  toString(storageSpace, computeDataPtr->sysCorrected);
-  
-  // Disastolic correction
-  storageSpace = (int)(FPOINT*(6 + 1.5*(*(computeDataPtr->diastolicPressRaw)) + ROUND));
-  
-  // Store the corrected data
-  toString(storageSpace, computeDataPtr->diasCorrected);
-  
-  // Pulse correction
-  storageSpace = (int)(FPOINT*(8 + 3*(*(computeDataPtr->pulseRateRaw)) + ROUND));
-  
-  // Store the corrected data
-  toString(storageSpace, computeDataPtr->prCorrected);
-  
-  // Battery correction
-  storageSpace = (int)(FPOINT * ( (*(computeDataPtr->batteryState)) / 2.0 + ROUND));
-  
-  // Store the corrected data
-  toString(storageSpace, computeDataPtr->battCorrected);
+  if(globaltime % MAJORCYCLECOUNT == 0)
+  {
+    int storageSpace = 0;
+    ComputeData* computeDataPtr = (ComputeData*) taskDataPtr;
+    
+    // The most we want to deal with is two digits, so we round up the ten-thousandth's place
+    // and multiply by 100 to move those decimals to the left side of the decimal point.
+    // Casting to an integer will truncate everything after the decimal point, so we will have
+    // an integer whose last two digits are actually decimal values.
+    //
+    // Problem: Numbers less than 0.1
+    
+    // Temperature correction
+    storageSpace = (int)(FPOINT*(5 + 0.75*(*(computeDataPtr->temperatureRaw)) + ROUND));
+    
+    // Store the corrected data
+    toString(storageSpace, computeDataPtr->tempCorrected);
+    
+    // Systolic correction
+    storageSpace = (int)(FPOINT*(9 + 2*(*(computeDataPtr->systolicPressRaw)) + ROUND));
+    
+    // Store the corrected data
+    toString(storageSpace, computeDataPtr->sysCorrected);
+    
+    // Disastolic correction
+    storageSpace = (int)(FPOINT*(6 + 1.5*(*(computeDataPtr->diastolicPressRaw)) + ROUND));
+    
+    // Store the corrected data
+    toString(storageSpace, computeDataPtr->diasCorrected);
+    
+    // Pulse correction
+    storageSpace = (int)(FPOINT*(8 + 3*(*(computeDataPtr->pulseRateRaw)) + ROUND));
+    
+    // Store the corrected data
+    toString(storageSpace, computeDataPtr->prCorrected);
+    
+    // Battery correction
+    storageSpace = (int)(FPOINT * ( (*(computeDataPtr->batteryState)) / 2.0 + ROUND));
+    
+    // Store the corrected data
+    toString(storageSpace, computeDataPtr->battCorrected);
+  }
 }
 
 
