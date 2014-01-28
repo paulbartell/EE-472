@@ -1835,6 +1835,9 @@
     </settings>
   </configuration>
   <file>
+    <name>$PROJ_DIR$\compute.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</name>
   </file>
   <file>
@@ -1842,6 +1845,9 @@
   </file>
   <file>
     <name>$PROJ_DIR$\measure.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\oledDisplay.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\schedule.h</name>

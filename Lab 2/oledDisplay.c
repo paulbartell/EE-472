@@ -9,12 +9,15 @@
 5. Battery: <charge remaining>
 */
 
-// Initialize the oled and print out the current readings
-void oledDisplay(void* taskDataPtr)
+void oledDisplaySetup()
 {
   // Initialize the OLED Display
   RIT128x96x4Init(1000000);
-  
+}
+
+// print out the current readings
+void oledDisplay(void* taskDataPtr)
+{
   DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
   
   // Print out each reading

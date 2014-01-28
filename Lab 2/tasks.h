@@ -1,3 +1,6 @@
+enum _myBool { FALSE = 0, TRUE = 1 }; 
+ typedef enum _myBool Bool; 
+
 typedef struct MeasureData
 {
   unsigned int* temperatureRaw;
@@ -7,6 +10,39 @@ typedef struct MeasureData
 } MeasureData;
 
 void measure(void* taskData);
+  
+typedef struct ComputeData
+{
+  unsigned int* temperatureRaw;
+  unsigned int* systolicPressRaw;
+  unsigned int* diastolicPressRaw;
+  unsigned int* pulseRateRaw;
+  unsigned short* batteryState;
+  unsigned char* tempCorrected;
+  unsigned char* sysCorrected;
+  unsigned char* diasCorrected;
+  unsigned char* prCorrected;
+  unsigned char* battCorrected;
+} ComputeData;
+void compute(void* taskData);
+
+typedef struct DisplayData
+{
+  unsigned char* tempCorrected;
+  unsigned char* sysCorrected;
+  unsigned char* diasCorrected;
+  unsigned char* prCorrected;
+  unsigned char* battCorrected;
+} DisplayData;
+
+void oledDisplay(void* taskData);
+void oledDisplaySetup();
+
+typedef struct StatusData
+{
+  unsigned short* batteryState;
+}
+void status(void* taskData);
 
 typedef struct WarningAlarmData
 {
@@ -19,28 +55,8 @@ typedef struct WarningAlarmData
 
 void warningAlarm(void* taskData);
 void warningAlarmSetup();
-typedef struct DisplayData
-{
-  unsigned char* tempCorrected;
-  unsigned char* sysCorrected;
-  unsigned char* diasCorrected;
-  unsigned char* prCorrected;
-  unsigned char* battCorrected;
-  unsigned short batteryState;
-} DisplayData;
-void oledDisplay(void* taskData);
 
-typedef struct ComputeData
-{
-  unsigned int* temperatureRaw;
-  unsigned int* systolicPressRaw;
-  unsigned int* diastolicPressRaw;
-  unsigned int* pulseRateRaw;
-  unsigned short batteryState;
-  unsigned char* tempCorrected;
-  unsigned char* sysCorrected;
-  unsigned char* diasCorrected;
-  unsigned char* prCorrected;
-  unsigned char* battCorrected;
-} ComputeData;
-void compute(void* taskData);
+
+
+
+

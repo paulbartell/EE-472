@@ -17,6 +17,7 @@ unsigned int temperatureRaw = 75;
 unsigned int systolicPressRaw = 80;
 unsigned int diastolicPressRaw = 80;
 unsigned int pulseRateRaw = 50;
+unsigned short batteryState = 200;
 
 MeasureData measureData = {&temperatureRaw, &systolicPressRaw,
   &diastolicPressRaw, &pulseRateRaw};
@@ -27,7 +28,17 @@ unsigned char diastolicPressCorrected[STR_SIZE];
 unsigned char pulseRateCorrected[STR_SIZE];
 unsigned char battCorrected[STR_SIZE];
 
-unsigned short batteryState;
+ComputeData computeData = {&temperatureRaw, &systolicPressRaw,
+  &diastolicPressRaw, &pulseRateRaw, &batteryState, tempCorrected, sysCorrected, diasCorrected,
+  prCorrected, battCorrected};
+
+DisplayData displayData = {tempCorrected, sysCorrected, diasCorrected,
+  prCorrected, battCorrected};
+
+StatusData statusData = {&batteryState};
+
+DisplayData displayData = {tempCorrected, sysCorrected, diasCorrected,
+  prCorrected, battCorrected};
 
 unsigned char bpOutOfRange;
 unsigned char tempOutOfRange;
@@ -36,9 +47,6 @@ unsigned char pulseOutOfRange;
 WarningAlarmData warningAlarmData = {&temperatureRaw, &systolicPressRaw,
   &diastolicPressRaw, &pulseRateRaw, &batteryState};
 
-Bool bpHigh;
-Bool tempHigh;
-Bool pulseLow;
 
 TCB taskQueue[TASK_QUEUE_LEN];
 
@@ -56,7 +64,7 @@ void init()
   
   // Call any setup functions needed
   warningAlarmSetup();
-  //displaySetup();
+  oledDisplaySetup();
   
 }
 
@@ -65,20 +73,25 @@ void main()
 {
   SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_8MHZ);
+  
   init();
+  
+  // Setup GPIO G3 as output for timing measurement
+  GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_3);
   
   while(1)
   {
     for(int i = 0; i < NUM_TASKS; i++)
     {
       //tick
+      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
       
       // Run task
       (*taskQueue[i].myTask)(taskQueue[i].taskDataPtr);
       
       //tock
-      
-      
+      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
+      delayMs(10); // Remove me... for debug
     }
     globaltime++;
   }

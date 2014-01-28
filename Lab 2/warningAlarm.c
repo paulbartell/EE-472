@@ -35,6 +35,10 @@ static unsigned int alarm = 0;
 static unsigned int warning = 0;
 static unsigned int audiowarning = 0;
 
+static Bool bpHigh = FALSE;
+static Bool tempHigh = FALSE;
+static Bool pulseLow = FALSE;
+
 void warningAlarmSetup(void)
 {
   // Enable GPIO port E
