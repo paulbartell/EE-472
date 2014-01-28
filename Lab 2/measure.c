@@ -22,7 +22,7 @@ void measure(void* taskDataPtr)
     MeasureData* measureDataPtr = (MeasureData*) taskDataPtr;
 
 	// Measure Temperature
-    temp = measureDataPtr->temperatureRaw;
+    temp = *(measureDataPtr->temperatureRaw);
     if (revTemp == 0) {
         if (temp > 50) {
             revTemp = 1;
@@ -41,10 +41,10 @@ void measure(void* taskDataPtr)
             temp++;
         }
     }
-    measureDataPtr->temperatureRaw=temp;
+    *(measureDataPtr->temperatureRaw)=temp;
 
 	// Measure Systolic
-    syst = measureDataPtr->systolicPressRaw;
+    syst = *(measureDataPtr->systolicPressRaw);
     if (syst > 100){
         sysComplete = 1;
          // Set complete to true
@@ -61,9 +61,9 @@ void measure(void* taskDataPtr)
         }
         sysComplete = 0;
     }
-    measureDataPtr->systolicPressRaw=syst;
+    *(measureDataPtr->systolicPressRaw)=syst;
 	// Measure Diastolic
-    dias = measureDataPtr->diastolicPressRaw;
+    dias = *(measureDataPtr->diastolicPressRaw);
     if (dias < 40){
         diaComplete = 1;
         // Set diaComplete to 0
@@ -80,10 +80,10 @@ void measure(void* taskDataPtr)
         }
         diaComplete = 0;
     }
-    measureDataPtr->diastolicPressRaw=dias;
+    *(measureDataPtr->diastolicPressRaw)=dias;
 
     // Measure Pulse Rate
-    pulse = measureDataPtr->pulseRateRaw;
+    pulse = *(measureDataPtr->pulseRateRaw);
 	if (revPulse) {
 		if (pulse > 40) {
 			revPulse = 1;
@@ -101,7 +101,7 @@ void measure(void* taskDataPtr)
 			pulse -= 3;
 		}
 	}
-	measureDataPtr->pulseRateRaw = pulse;
+	*(measureDataPtr->pulseRateRaw) = pulse;
 
 	even = !even;
 }
