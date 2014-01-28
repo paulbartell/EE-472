@@ -21,7 +21,7 @@
 #define TRUE 1
 #define FALSE 0
 
-
+extern unsigned long globaltime;
 
 static unsigned int alarm = 0;
 static unsigned int warning = 0;
@@ -31,7 +31,7 @@ void warningAlarm(void* taskDataPtr)
 {
   WarningAlarmData* warningAlarmData = (WarningAlarmData*) taskDataPtr;
   
-  if( MAJOR CYCLE)
+  if(globaltime % MAJORCYCLECOUNT == 0)
   {
     // reset alarm/warning flags
     alarm = 0;
@@ -85,5 +85,22 @@ void warningAlarm(void* taskDataPtr)
     }
   }
   
+  if(globaltime % HALFHZCOUNT == 0)
+  {
+    // Do half HZ stuff start
+  }
+  else if(globaltime % HALFHZCOUNT = HALFHZDELAY)
+  {
+    // Do half hz stuff stop
+  }
+  
+  if(globaltime % 2HZCOUNT == 0)
+  {
+    // Do 2 HZ stuff start
+  }
+  else if(globaltime % 2HZCOUNT = 2HZDELAY)
+  {
+    // Do 2 HZ stuff stop
+  }
   
 }
