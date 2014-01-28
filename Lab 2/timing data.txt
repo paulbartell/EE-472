@@ -1,0 +1,12 @@
+Measure time
+19.3us
+
+Compute Time
+407 us
+
+Display
+14.5ms
+
+Status
+5.64us
+

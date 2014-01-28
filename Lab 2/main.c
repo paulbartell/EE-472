@@ -78,7 +78,7 @@ void main()
   
   while(1)
   {
-    for(int i = 0; i < NUM_TASKS; i++)
+    for(int i = 4; i < 5; i++)
     {
       //tick
       GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
@@ -88,9 +88,10 @@ void main()
       
       //tock
       GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
-      delayMs(10); // Remove me... for debug
+      delayMs(1); // Remove me... for debug
     }
-    globaltime++;
+    //globaltime++;
+    //for(int i=0; i<100; i++);
   }
 }
 
@@ -102,7 +103,7 @@ void delayMs(unsigned long delayTime)
       
     for (i = delayTime; i > 0; i--) 
     { 
-        for (j = 0; j < 740; j++); 
+        for (j = 0; j < 741; j++); 
     } 
 }
 

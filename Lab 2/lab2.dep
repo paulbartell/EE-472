@@ -221,6 +221,10 @@
           <name>ICCARM</name>
           <file> 45 21 20 23 24 22 7 8</file>
         </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45 21 20 23 24 22 7 8</file>
+        </tool>
       </inputs>
     </file>
     <file>
