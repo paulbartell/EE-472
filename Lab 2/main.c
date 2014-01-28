@@ -5,8 +5,6 @@
 #include "main.h"
 #include "schedule.h"
 
-
-
 #define NUM_TASKS 5
 #define TASK_QUEUE_LEN 6
 #define STR_SIZE 16
@@ -37,16 +35,12 @@ DisplayData displayData = {tempCorrected, sysCorrected, diasCorrected,
 
 StatusData statusData = {&batteryState};
 
-DisplayData displayData = {tempCorrected, sysCorrected, diasCorrected,
-  prCorrected, battCorrected};
-
 unsigned char bpOutOfRange;
 unsigned char tempOutOfRange;
 unsigned char pulseOutOfRange;
 
 WarningAlarmData warningAlarmData = {&temperatureRaw, &systolicPressRaw,
   &diastolicPressRaw, &pulseRateRaw, &batteryState};
-
 
 TCB taskQueue[TASK_QUEUE_LEN];
 
@@ -56,13 +50,13 @@ void init()
   
   // Initialize the task queue
   taskQueue[0] = (TCB) {&measure,&measureData};
-  taskQueue[1] = (TCB) {&measure,&measureData};
-  taskQueue[2] = (TCB) {&measure,&measureData};
-  taskQueue[3] = (TCB) {&measure,&measureData};
-  taskQueue[4] = (TCB) {&measure,&measureData};
-  taskQueue[5] = (TCB) {&measure,&measureData};
+  taskQueue[1] = (TCB) {&compute,&computeData};
+  taskQueue[2] = (TCB) {&oledDisplay,&displayData};
+  taskQueue[3] = (TCB) {&warningAlarm,&warningAlarmData};
+  taskQueue[4] = (TCB) {&status,&statusData};
+  taskQueue[5] = (TCB) {(void*)0,(void*)0};
   
-  // Call any setup functions needed
+  // Call any setup functions needed for each task.
   warningAlarmSetup();
   oledDisplaySetup();
   
