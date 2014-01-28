@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "tasks.h"
 
 // We are only working with two decimal points
@@ -17,8 +16,9 @@
 4. Pulse Rate in beats per minute: prCorrected = 8 + 3�bpRaw 
 */
 
-unsigned char* toString(int number, char* convertedNumber);
+void toString(int number, char* convertedNumber);
 int findSize(int number);
+int getDigits(int magnitude);
 
 // 2 Decimal places
 void compute(void* taskDataPtr)
@@ -30,6 +30,8 @@ void compute(void* taskDataPtr)
   // and multiply by 100 to move those decimals to the left side of the decimal point.
   // Casting to an integer will truncate everything after the decimal point, so we will have
   // an integer whose last two digits are actually decimal values.
+  //
+  // Problem: Numbers less than 0.1
   
   // Temperature correction
   storageSpace = (int)(FPOINT*(5 + 0.75*(*(computeDataPtr->temperatureRaw)) + ROUND));
@@ -62,6 +64,7 @@ void compute(void* taskDataPtr)
   toString(storageSpace, computeDataPtr->battCorrected);
 }
 
+
 // Converts a two decimal fixed point number into a string with the decimal point
 // in the correct space.
 void toString(int number, char* convertedNumber)
@@ -70,7 +73,7 @@ void toString(int number, char* convertedNumber)
   int magnitude = findSize(number);
   
   // Dividing magnitude by 10 will reveal the number of digits
-  int totalDigits = magnitude / 10;
+  int totalDigits = getDigits(magnitude);
   
   // The decimal point will be in this index of the string
   int decimalSpot = totalDigits - NUM_DEC;
@@ -83,16 +86,16 @@ void toString(int number, char* convertedNumber)
   int digit = 0;
   
   // Used in loops to calculate 10^x. Reset after each calculation
-  int base = 10;
+  int base = 1;
 
   // Loop counting
   int i = 0;
   int j = 0;
-
+  
   for (i = 0; i < totalDigits; i++)
   {
     // Placing the deciman in the right spot
-    if (totalDigits - i == decimalSpot)
+    if (i == decimalSpot)
     {
       // Add the decimal
       convertedNumber[digit] = '.';
@@ -127,7 +130,7 @@ void toString(int number, char* convertedNumber)
     }
     // Increment the index and reset base
     digit++;
-    base = 10;
+    base = 1;
   }
   
   // Terminate the string
@@ -142,4 +145,20 @@ int findSize(int number)
   if (number >= 10000) return 10000;
   if (number >= 1000) return 1000;
   if (number >= 100) return 100;
+  if (number >= 10) return 10;
+  else return 1;
+}
+ 
+
+
+// Finds the number of digits by consecutively dividng by 10
+// Precondition: Magnitude is a factor of 10
+int getDigits(int magnitude)
+{
+  int numDigits = 0;
+  while (magnitude > 1) {
+    magnitude = magnitude / 10;
+    numDigits++;
+  }
+  return numDigits + 1;
 }
