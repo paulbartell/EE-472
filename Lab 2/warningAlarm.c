@@ -3,6 +3,7 @@
 #include "driverlib/gpio.h"
 #include "inc/hw_gpio.h"
 #include "inc/hw_memmap.h"
+#include "driverlib/pwm.h"
 
 #include "tasks.h"
 #include "schedule.h"
@@ -28,29 +29,39 @@
 #define BATT_WARNING_LOW 20
 #define BATT_ALARM_LOW 15
 
-#define TRUE 1
-#define FALSE 0
+
+enum _myState { NORMAL = 0, WARNING = 1, ALARM = 2, ACK = 3 };
+ typedef enum _myState State;
 
 extern unsigned long globaltime;
 
-static unsigned int alarm = 0;
-static unsigned int warning = 0;
-static unsigned int audiowarning = 0;
+Bool bpOutOfRange = FALSE;
+Bool tempOutOfRange = FALSE;
+Bool pulseOutOfRange = FALSE;
+Bool batteryOutOfRange = FALSE;
 
-static Bool bpHigh = FALSE;
-static Bool tempHigh = FALSE;
-static Bool pulseLow = FALSE;
+Bool bpAlarm = FALSE;
+Bool tempAlarm = FALSE;
+Bool pulseAlarm = FALSE;
+Bool batteryAlarm = FALSE;
+State state = NORMAL;
 
 void warningAlarmSetup(void)
 {
-  // Enable GPIO port E
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-  // Enable GPIO port G
+  // Enable PWM port
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0);
+  // Enable GPIO port G (buzzer)
   SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
+  // Enable GPIO port E (GYR LEDs)
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
+  // Enable GPIO port F (Select Switch)
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
   // Set PG1 as an output for buzzer
   GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_1);
   // Set PE0 (Green), PE1 (Yellow), PE2 (RED) as outputs
   GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
+  // Set PF1 (select switch) as input
+  GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_1);
 
 }
 
@@ -60,30 +71,41 @@ void warningAlarm(void* taskDataPtr)
 
   if(globaltime % MAJORCYCLECOUNT == 0)
   {
-    // reset alarm/warning flags
-    alarm = 0;
-    audiowarning = 0;
+    // reset warning flags
+    bpOutOfRange = FALSE;
+    tempOutOfRange = FALSE;
+    pulseOutOfRange = FALSE;
+    batteryOutOfRange = FALSE;
+
+    // reset alarm flags
+    bpAlarm = FALSE;
+    tempAlarm = FALSE;
+    pulseAlarm = FALSE;
+    batteryAlarm = FALSE;
+
 
     // Pulse rate checks
     if((*(warningAlarmData->pulseRateRaw) < PULSE_WARNING_LOW ) ||
        (*(warningAlarmData->pulseRateRaw) > PULSE_WARNING_HIGH ))
     {
-      //Blink green LED with a two second period
+      pulseOutOfRange = TRUE;
+      
       if((*(warningAlarmData->pulseRateRaw) < PULSE_ALARM_LOW ) ||
          (*(warningAlarmData->pulseRateRaw) > PULSE_ALARM_HIGH ))
       {
-        alarm = 1;
+        pulseAlarm = TRUE;
       }
     }
 
     // Temperature checks
-    if((*(warningAlarmData->temperatureRaw) < TEMP_WARNING_LOW )|| (*(warningAlarmData->temperatureRaw) > TEMP_WARNING_HIGH))
+    if((*(warningAlarmData->temperatureRaw) < TEMP_WARNING_LOW )||
+       (*(warningAlarmData->temperatureRaw) > TEMP_WARNING_HIGH))
     {
-      //Blink green LED with a two second period
+      tempOutOfRange = TRUE;
       if( (*(warningAlarmData->temperatureRaw) < TEMP_ALARM_LOW) ||
          (*(warningAlarmData->temperatureRaw) > TEMP_ALARM_HIGH))
       {
-        alarm = TRUE;
+        tempAlarm = TRUE;
       }
     }
 
@@ -91,42 +113,86 @@ void warningAlarm(void* taskDataPtr)
     if((*(warningAlarmData->systolicPressRaw) > BPS_WARNING) ||
        (*(warningAlarmData->diastolicPressRaw) > BPD_WARNING))
     {
-      //Blink green LED with a two second period
+      bpOutOfRange = TRUE;
       if((*(warningAlarmData->systolicPressRaw) > BPS_ALARM) ||
          (*(warningAlarmData->diastolicPressRaw) > BPD_ALARM))
       {
-        alarm = TRUE;
+        bpAlarm = TRUE;
       }
     }
 
     // Battery Checks
     if( *(warningAlarmData->batteryState) < BATT_WARNING_LOW)
     {
-      //Buzz at .5hz
-      audiowarning = TRUE;
+      batteryOutOfRange = TRUE;
       if( *(warningAlarmData->batteryState) < BATT_ALARM_LOW)
       {
-        alarm = TRUE;
+        batteryAlarm = TRUE;
       }
     }
+    // Set state variable
+    if(bpOutOfRange || tempOutOfRange || pulseOutOfRange || batteryOutOfRange)
+      state = WARNING;
+    else if (bpAlarm || tempAlarm || pulseAlarm || batteryAlarm)
+      state = ALARM;
+    else
+      state = NORMAL;
   }
-
+  
+  // Update state WRT button every task call
+  if(GPIOPinRead(GPIO_PORTF_BASE,GPIO_PIN_1))
+  {
+    state = ACK;
+  }
+  
+  // Do half HZ stuff start
   if(globaltime % HALFHZCOUNT == 0)
   {
-    // Do half HZ stuff start
+    if(pulseOutOfRange)
+    {
+      GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2), 255);
+    }
+    if(batteryOutOfRange && (state != ACK))
+    {
+      //Turn on buzzer
+      GPIOPinWrite(GPIO_PORTG_BASE,GPIO_PIN_1, 255);
+    }
   }
+  // Do half hz stuff stop
   if(globaltime % HALFHZCOUNT == HALFHZDELAY)
   {
-    // Do half hz stuff stop
+    GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2), 0);
+    GPIOPinWrite(GPIO_PORTG_BASE,GPIO_PIN_1, 0);
   }
-
+  // Do 1 HZ stuff start
+  if(globaltime % T1HZCOUNT == 0)
+  {
+    if(tempOutOfRange)
+    {
+      GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2), 255);
+    }
+  }
+  // Do 1 hz stuff stop
+  if(globaltime % T1HZCOUNT == T2HZDELAY)
+  {
+    GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2), 0);
+  }
+  // Do 2 HZ stuff start
   if(globaltime % T2HZCOUNT == 0)
   {
-    // Do 2 HZ stuff start
+    if(bpOutOfRange)
+    {
+      GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2), 255);
+    }
+    if(state == ALARM)
+    {
+      GPIOPinWrite(GPIO_PORTG_BASE,GPIO_PIN_1, 255);
+    }
   }
+  // Do 2 HZ stuff stop
   if(globaltime % T2HZCOUNT == T2HZDELAY)
   {
-    // Do 2 HZ stuff stop
+    GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2), 0);
+    GPIOPinWrite(GPIO_PORTG_BASE,GPIO_PIN_1, 255);
   }
-  GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2), 1 << 3);
 }

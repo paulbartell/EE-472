@@ -1,12 +1,28 @@
 Measure time
-19.3us
+21.751us
 
 Compute Time
-407 us
+410.14 us
 
 Display
-14.5ms
+15.522ms
+
+Warning Alarm (major cycle)
+23.501us
+
+Warning Alarm (minor Cycle)
+unknown O(us)
 
 Status
-5.64us
+8.004us
 
+Total For Major cycle tasks:
+15.951941 ms ~= 16ms
+
+Major cycle length = 5 s
+
+5000 - 16 = 4984
+
+
+Minor cycle length = 1 ms
+5 us

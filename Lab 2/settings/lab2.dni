@@ -36,7 +36,7 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=709354672
+Checksum=2053562160
 [LMIFTDIDriver]
 LMI_ResetMode=0x00000000
 [Exceptions]
@@ -45,7 +45,7 @@ StopOnThrow=_ 0
 [CallStack]
 ShowArgs=0
 [Disassembly]
-MixedMode=1
+MixedMode=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

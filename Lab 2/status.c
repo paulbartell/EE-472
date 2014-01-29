@@ -1,6 +1,6 @@
 #include "tasks.h"
 #include "schedule.h"
-
+#define INTBAT 200
 extern unsigned long globaltime;
 
 void status(void* taskDataPtr)
@@ -9,6 +9,10 @@ void status(void* taskDataPtr)
   {
     // Pointer re-cast as pointer to the Status task's data structure
     StatusData* statusDataPtr = (StatusData*) taskDataPtr;
-    (*(statusDataPtr->batteryState))--;
+    if ((*(statusDataPtr->batteryState)) == 0) {
+      (*(statusDataPtr->batteryState)) = INTBAT;
+    } else {
+      (*(statusDataPtr->batteryState))--;
+    }
   }
 }

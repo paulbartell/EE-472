@@ -31,31 +31,34 @@ void measure(void* taskDataPtr)
     if (revTemp == 0) {
       if (temp > 50) {
         revTemp = 1;
-      } else if (even) {
+      }
+      if (even) {
         temp += 2;
       } else {
         temp--;
       }
-    }
-    if (revTemp) {
-      if (temp > 50) {
+    } else {
+      if (temp < 15) {
         revTemp = 0;
-      } else if (even) {
+      }
+      if (even) {
         temp -= 2;
       } else {
         temp++;
       }
     }
-    *(measureDataPtr->temperatureRaw)=temp;
+    
     
     // Measure Systolic
     syst = *(measureDataPtr->systolicPressRaw);
     if (syst > 100){
-      sysComplete = 1;
       // Set complete to true
+      sysComplete = 1;  
       // Reset systolicPressRaw to initial value
       if (diaComplete == 1){
+        diaComplete = 0;
         sysComplete = 0;
+        dias = INTDIAS;
         syst = INTSYS;
       }
     } else {
@@ -66,7 +69,8 @@ void measure(void* taskDataPtr)
       }
       sysComplete = 0;
     }
-    *(measureDataPtr->systolicPressRaw)=syst;
+    
+    
     // Measure Diastolic
     dias = *(measureDataPtr->diastolicPressRaw);
     if (dias < 40){
@@ -75,7 +79,9 @@ void measure(void* taskDataPtr)
       // Reset diastolicPressRaw to initial value
       if (sysComplete == 1) {
         diaComplete = 0;
+        sysComplete = 0;
         dias = INTDIAS;
+        syst = INTSYS;
       }
     } else {
       if (even){
@@ -85,27 +91,32 @@ void measure(void* taskDataPtr)
       }
       diaComplete = 0;
     }
-    *(measureDataPtr->diastolicPressRaw)=dias;
+    
     
     // Measure Pulse Rate
     pulse = *(measureDataPtr->pulseRateRaw);
-    if (revPulse) {
+    if (revPulse == 0) {
       if (pulse > 40) {
         revPulse = 1;
-      } else if (even) {
-        pulse--;
+      }  
+      if (even) {
+          pulse--;
       } else {
-        pulse += 3;
+          pulse += 3;
       }
     } else {
       if(pulse < 15){
         revPulse = 0;
-      } else if (even) {
+      } 
+      if (even) {
         pulse++;
       } else {
         pulse -= 3;
       }
     }
+    *(measureDataPtr->temperatureRaw)=temp;
+    *(measureDataPtr->systolicPressRaw)=syst;
+    *(measureDataPtr->diastolicPressRaw)=dias;
     *(measureDataPtr->pulseRateRaw) = pulse;
     
     even = !even;

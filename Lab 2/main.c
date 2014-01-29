@@ -38,9 +38,6 @@ DisplayData displayData = {tempCorrected, systolicPressCorrected, diastolicPress
 
 StatusData statusData = {&batteryState};
 
-unsigned char bpOutOfRange;
-unsigned char tempOutOfRange;
-unsigned char pulseOutOfRange;
 
 WarningAlarmData warningAlarmData = {&temperatureRaw, &systolicPressRaw,
   &diastolicPressRaw, &pulseRateRaw, &batteryState};
@@ -78,20 +75,17 @@ void main()
   
   while(1)
   {
-    for(int i = 4; i < 5; i++)
+    //tick
+    GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
+    for(int i = 0; i < TASK_QUEUE_LEN - 1; i++)
     {
-      //tick
-      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
-      
       // Run task
       (*taskQueue[i].myTask)(taskQueue[i].taskDataPtr);
-      
-      //tock
-      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
-      delayMs(1); // Remove me... for debug
     }
-    //globaltime++;
-    //for(int i=0; i<100; i++);
+    globaltime++;
+    delayMs(10);
+    //tock
+    GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
   }
 }
 
