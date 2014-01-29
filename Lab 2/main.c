@@ -14,10 +14,10 @@
 
 unsigned int globaltime = 0;
 
-unsigned int temperatureRaw = 75;
-unsigned int systolicPressRaw = 80;
-unsigned int diastolicPressRaw = 80;
-unsigned int pulseRateRaw = 50;
+unsigned int temperatureRaw = 42;
+unsigned int systolicPressRaw = 0;
+unsigned int diastolicPressRaw = 0;
+unsigned int pulseRateRaw = 20;
 unsigned short batteryState = 200;
 
 MeasureData measureData = {&temperatureRaw, &systolicPressRaw,
@@ -67,6 +67,7 @@ void main()
 {
   SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_8MHZ);
+  // Use 8MHZ crystal directly
   
   init();
   
@@ -75,17 +76,34 @@ void main()
   
   while(1)
   {
-    //tick
-    GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
-    for(int i = 0; i < TASK_QUEUE_LEN - 1; i++)
-    {
-      // Run task
-      (*taskQueue[i].myTask)(taskQueue[i].taskDataPtr);
-    }
+    
+    runTasks(); // run major cycle tasks
+    delayMs(MAJORCYCLEDELAYMS); // Major cycle 
+    //SysCtlDelay(MAJORCYCLEDELAYMS*SysCtlClockGet()/3000);
     globaltime++;
-    delayMs(10);
-    //tock
-    GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
+    
+    for(int j = 1; j < MAJORCYCLECOUNT; j++)
+    {
+      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3); //tick
+      
+      runTasks(); // run all minor cycle tasks
+      
+      globaltime++;
+      
+      delayMs(MINORCYCLEDELAYMS); // Minor cycle delay
+      //sysCtlDelay(MINORCYCLEDELAYMS*SysCtlClockGet()/3000);
+      
+      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);//tock
+    }
+  }
+}
+
+void runTasks()
+{
+  for(int i = 0; i < NUM_TASKS; i++)
+  {
+    // Run task
+    (*taskQueue[i].myTask)(taskQueue[i].taskDataPtr);
   }
 }
 

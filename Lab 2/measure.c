@@ -7,7 +7,8 @@ extern unsigned long globaltime;
 
 void measure(void* taskDataPtr)
 {
-  if(globaltime % MAJORCYCLECOUNT == 0)
+  //if(globaltime % MAJORCYCLECOUNT == 0)
+  if(0)
   {
     // Variables to be measured
     int temp;
