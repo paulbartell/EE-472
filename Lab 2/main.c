@@ -123,6 +123,7 @@ void main()
       // Write PE3 low for timing test
       GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
     }
+    // delayMs(1); // Enable for timing testing
   }
   return;
 }

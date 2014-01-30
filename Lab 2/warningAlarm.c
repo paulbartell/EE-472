@@ -42,6 +42,8 @@
 // Number of major cycles an alarm acknowledgement should last
 #define ACK_MAX_TIME 5
 
+#define TONE 1200
+
 // defines a state variable for keeping track of Alarm state.
 enum _myState { NORMAL = 0, WARNING = 1, ALARM = 2, ACK = 3 };
  typedef enum _myState State;
@@ -67,7 +69,7 @@ unsigned long button = 0;
 void warningAlarmSetup(void)
 {
   // Compute the period for 440Hz
-  unsigned long ulPeriod = SysCtlClockGet() / 1200;
+  unsigned long ulPeriod = SysCtlClockGet() / TONE;
   // Set the PWM clock reference
   SysCtlPWMClockSet(SYSCTL_PWMDIV_1);
   // Enable GPIOG for PWM output
