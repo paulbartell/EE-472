@@ -26,3 +26,16 @@ Major cycle length = 5 s
 
 Minor cycle length = 1 ms
 5 us
+
+				---
+Major Cycle execution Time (16ms)  |
+Major cycle delay 4ms		   | 20 ms
+				----
+
+					-------
+Minor cycle execution Time (5 us - negligable) |
+Minor cycle delay 20 ms			       | 20ms
+					--------
+
+1 major cycle (5s) = 250 minor cycles (20ms)
+

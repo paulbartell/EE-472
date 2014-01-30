@@ -49,13 +49,22 @@ Bool batteryAlarm = FALSE;
 State state = NORMAL;
 
 unsigned int ackCounter = 0;
+unsigned long button = 0;
+
 
 void warningAlarmSetup(void)
 {
-  // Enable PWM port
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0);
-  // Pin type as PWM
-  GPIOPinTypePWM(GPIO_PORTG_BASE, GPIO_PIN_1);
+  unsigned long ulPeriod = SysCtlClockGet() / 1200; // 440 Hz
+  SysCtlPWMClockSet(SYSCTL_PWMDIV_1); // Set the PWM clock reference
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG); // Enable GPIOG
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0);  // Enable PWM0
+  GPIOPinTypePWM(GPIO_PORTG_BASE, GPIO_PIN_1); // Pin type as PWM
+  PWMGenConfigure(PWM0_BASE, PWM_GEN_0,
+                    PWM_GEN_MODE_UP_DOWN | PWM_GEN_MODE_NO_SYNC); // Configure PWM type
+  PWMGenPeriodSet(PWM0_BASE, PWM_GEN_0, ulPeriod); // Set to 440Hz
+  PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, ulPeriod / 2); // set pulse width
+  PWMOutputState(PWM0_BASE, PWM_OUT_0_BIT | PWM_OUT_1_BIT, true);
+ 
 
   // Enable GPIO port E (GYR LEDs)
   SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
@@ -63,8 +72,11 @@ void warningAlarmSetup(void)
   SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
   // Set PE0 (Green), PE1 (Yellow), PE2 (RED) as outputs
   GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
-  // Set PF1 (select switch) as input
-  GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_1);
+  // Set PF1 (select switch) as input;
+  GPIODirModeSet(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_DIR_MODE_IN);
+  GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_STRENGTH_2MA,
+                   GPIO_PIN_TYPE_STD_WPU);
+
   GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 ), 255);
 
 }
@@ -135,16 +147,38 @@ void warningAlarm(void* taskDataPtr)
       }
     }
     // Set state variable
-    if(bpOutOfRange || tempOutOfRange || pulseOutOfRange || batteryOutOfRange)
-      state = WARNING;
-    else if (bpAlarm || tempAlarm || pulseAlarm || batteryAlarm)
-      state = ALARM;
-    else
-      state = NORMAL;
+    if(state == ACK)
+    {
+      if(ackCounter >= ACK_MAX_TIME)
+      {
+        state = NORMAL;
+        ackCounter = 0;
+      }
+      else
+      {
+        ackCounter++;
+      }
+    }
+    if(state != ACK)
+    {
+      if (bpAlarm || tempAlarm || pulseAlarm || batteryAlarm)
+      {
+        state = ALARM;
+      }
+      else if(bpOutOfRange || tempOutOfRange || pulseOutOfRange || batteryOutOfRange)
+      {
+        state = WARNING;
+      }
+      else
+      {
+        state = NORMAL;
+      }
+    }
   }
   
+  button = (GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1));
   // Update state WRT button every task call
-  if(GPIOPinRead(GPIO_PORTF_BASE,GPIO_PIN_1))
+  if(button == 0 && state == ALARM)
   {
     state = ACK;
   }
@@ -155,19 +189,19 @@ void warningAlarm(void* taskDataPtr)
   {
     if(pulseOutOfRange)
     {
-      GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0), 0);
+      GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0), 0); // flash G led off
     }
     if(batteryOutOfRange && (state == ALARM))
     {
       //Turn on buzzer
-      GPIOPinWrite(GPIO_PORTG_BASE,GPIO_PIN_1, 255);
+      PWMGenEnable(PWM0_BASE, PWM_GEN_0);
     }
   }
   // Do half hz stuff stop
   if(globaltime % HALFHZCOUNT == HALFHZDELAY)
   {
-    GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0), 255);
-    GPIOPinWrite(GPIO_PORTG_BASE,GPIO_PIN_1, 0);
+    GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0), 255); // Flash G led on
+    PWMGenDisable(PWM0_BASE, PWM_GEN_0); // turn off buzzer
   }
   // Do 1 HZ stuff start
   if(globaltime % T1HZCOUNT == 0)
@@ -191,13 +225,13 @@ void warningAlarm(void* taskDataPtr)
     }
     if(state == ALARM)
     {
-     // GPIOPinWrite(GPIO_PORTG_BASE,GPIO_PIN_1, 255);
+     PWMGenEnable(PWM0_BASE, PWM_GEN_0);
     }
   }
   // Do 2 HZ stuff stop
   if(globaltime % T2HZCOUNT == T2HZDELAY)
   {
     GPIOPinWrite(GPIO_PORTE_BASE,( GPIO_PIN_1), 255);
-    //GPIOPinWrite(GPIO_PORTG_BASE,GPIO_PIN_1, 255);
+    PWMGenDisable(PWM0_BASE, PWM_GEN_0); // Turn off buzzer
   }
 }

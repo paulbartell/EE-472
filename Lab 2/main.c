@@ -14,10 +14,10 @@
 
 unsigned int globaltime = 0;
 
-unsigned int temperatureRaw = 42;
-unsigned int systolicPressRaw = 0;
-unsigned int diastolicPressRaw = 0;
-unsigned int pulseRateRaw = 20;
+unsigned int temperatureRaw = 75;
+unsigned int systolicPressRaw = 80;
+unsigned int diastolicPressRaw = 80;
+unsigned int pulseRateRaw = 50;
 unsigned short batteryState = 200;
 
 MeasureData measureData = {&temperatureRaw, &systolicPressRaw,
@@ -65,6 +65,7 @@ void init()
 // Main entry point
 void main()
 {
+  
   SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_8MHZ);
   // Use 8MHZ crystal directly

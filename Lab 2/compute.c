@@ -162,7 +162,8 @@ int findSize(int number)
 int getDigits(int magnitude)
 {
   int numDigits = 0;
-  while (magnitude > 1) {
+  while (magnitude > 1) 
+  {
     magnitude = magnitude / 10;
     numDigits++;
   }
