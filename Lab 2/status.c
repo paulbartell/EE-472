@@ -9,6 +9,8 @@ void status(void* taskDataPtr)
   {
     // Pointer re-cast as pointer to the Status task's data structure
     StatusData* statusDataPtr = (StatusData*) taskDataPtr;
+    
+    // Reset battery once it reaches zero to continue simulation
     if ((*(statusDataPtr->batteryState)) == 0) {
       (*(statusDataPtr->batteryState)) = INTBAT;
     } else {

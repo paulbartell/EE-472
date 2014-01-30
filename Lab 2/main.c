@@ -14,11 +14,22 @@
 
 unsigned int globaltime = 0;
 
+// Default values
 unsigned int temperatureRaw = 75;
 unsigned int systolicPressRaw = 80;
 unsigned int diastolicPressRaw = 80;
 unsigned int pulseRateRaw = 50;
 unsigned short batteryState = 200;
+
+/*
+// Good test values
+unsigned int temperatureRaw = 35;
+unsigned int systolicPressRaw = 40;
+unsigned int diastolicPressRaw = 40;
+unsigned int pulseRateRaw = 25;
+unsigned short batteryState = 200;
+//unsigned short batteryState = 42;
+*/
 
 MeasureData measureData = {&temperatureRaw, &systolicPressRaw,
   &diastolicPressRaw, &pulseRateRaw};
