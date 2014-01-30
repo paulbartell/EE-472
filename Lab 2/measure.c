@@ -1,13 +1,22 @@
+/****************************************** 
+* task name: measure
+* task inputs: a void* pointer to a MeasureData struct.
+* task outputs: measurement data in the MeasureData struct
+* task description: Simulates measurement of Temperature, Blood Pressure,
+    and Pulse Rate.
+* author: Alyanna Castillo
+******************************************/ 
+
 #include "tasks.h"
 #include "schedule.h"
 #define INTSYS 80
 #define INTDIAS 80
 
-extern unsigned long globaltime;
+extern unsigned long globalTime;
 
 void measure(void* taskDataPtr)
 {
-  if(globaltime % MAJORCYCLECOUNT == 0)
+  if(globalTime % MAJORCYCLECOUNT == 0)
   {
     // Variables to be measured
     int temp;
@@ -24,6 +33,7 @@ void measure(void* taskDataPtr)
     static int revPulse = 0;
     static int even = 1;
     
+    // Access the passed in MeasureData struct
     MeasureData* measureDataPtr = (MeasureData*) taskDataPtr;
     
     // Measure Temperature
@@ -149,9 +159,9 @@ void measure(void* taskDataPtr)
       }
     }
     
-    *(measureDataPtr->temperatureRaw)=temp;
-    *(measureDataPtr->systolicPressRaw)=syst;
-    *(measureDataPtr->diastolicPressRaw)=dias;
+    *(measureDataPtr->temperatureRaw) = temp;
+    *(measureDataPtr->systolicPressRaw) = syst;
+    *(measureDataPtr->diastolicPressRaw) = dias;
     *(measureDataPtr->pulseRateRaw) = pulse;
     
     even = !even;

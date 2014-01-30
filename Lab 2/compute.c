@@ -1,3 +1,11 @@
+/****************************************** 
+* task name: compute
+* task inputs: void* pointer to a ComputeData struct (see tasks.h)
+* task outputs: void
+* task description: Computes and corrects raw data to a displayable form.
+* author: Ryan McDaniel
+******************************************/ 
+
 #include "tasks.h"
 #include "schedule.h"
 
@@ -10,6 +18,17 @@
 // Make a fixed point for two decimals by multiplying by 100
 #define FPOINT 100
 
+// Correction factors (Addative and Multiplicative)
+#define TEMPCA 5
+#define TEMPCM 0.75
+#define SYSCA 9
+#define SYSCM 2
+#define DIACA 6
+#define DIACM 1.5
+#define PRCA 8
+#define PRCM 3
+#define BATTDIV 2.0
+
 /*
 1. Temperature in Celsius: tempCorrected = 5 + 0.75�tempRaw 
 2. Systolic Pressure in mm Hg: sysCorrected = 9 + 2�systolicRaw 
@@ -21,12 +40,12 @@ void toString(int number, char* convertedNumber);
 int findSize(int number);
 int getDigits(int magnitude);
 
-extern unsigned long globaltime;
+extern unsigned long globalTime;
 
 // 2 Decimal places
 void compute(void* taskDataPtr)
 {   
-  if(globaltime % MAJORCYCLECOUNT == 0)
+  if(globalTime % MAJORCYCLECOUNT == 0)
   {
     int storageSpace = 0;
     ComputeData* computeDataPtr = (ComputeData*) taskDataPtr;
@@ -39,35 +58,36 @@ void compute(void* taskDataPtr)
     // Problem: Numbers less than 0.1
     
     // Temperature correction
-    storageSpace = (int)(FPOINT*(5 + 0.75*(*(computeDataPtr->temperatureRaw)) + ROUND));
+    storageSpace = (int)(FPOINT*(TEMPCA + TEMPCM*(*(computeDataPtr->temperatureRaw)) + ROUND));
     
     // Store the corrected data
     toString(storageSpace, computeDataPtr->tempCorrected);
     
     // Systolic correction
-    storageSpace = (int)(FPOINT*(9 + 2*(*(computeDataPtr->systolicPressRaw)) + ROUND));
+    storageSpace = (int)(FPOINT*(SYSCA + SYSCM*(*(computeDataPtr->systolicPressRaw)) + ROUND));
     
     // Store the corrected data
     toString(storageSpace, computeDataPtr->sysCorrected);
     
     // Disastolic correction
-    storageSpace = (int)(FPOINT*(6 + 1.5*(*(computeDataPtr->diastolicPressRaw)) + ROUND));
+    storageSpace = (int)(FPOINT*(DIACA + DIACM*(*(computeDataPtr->diastolicPressRaw)) + ROUND));
     
     // Store the corrected data
     toString(storageSpace, computeDataPtr->diasCorrected);
     
     // Pulse correction
-    storageSpace = (int)(FPOINT*(8 + 3*(*(computeDataPtr->pulseRateRaw)) + ROUND));
+    storageSpace = (int)(FPOINT*(PRCA + PRCM*(*(computeDataPtr->pulseRateRaw)) + ROUND));
     
     // Store the corrected data
     toString(storageSpace, computeDataPtr->prCorrected);
     
     // Battery correction
-    storageSpace = (int)(FPOINT * ( (*(computeDataPtr->batteryState)) / 2.0 + ROUND));
+    storageSpace = (int)(FPOINT * ( (*(computeDataPtr->batteryState)) / BATTDIV + ROUND));
     
     // Store the corrected data
     toString(storageSpace, computeDataPtr->battCorrected);
   }
+  return;
 }
 
 
@@ -141,6 +161,7 @@ void toString(int number, char* convertedNumber)
   
   // Terminate the string
   convertedNumber[digit] = '\0';
+  return;
 }
 
 // Returns the magnitude of a number as 10^x

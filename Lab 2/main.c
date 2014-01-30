@@ -1,18 +1,27 @@
+/****************************************** 
+* function name: main
+* function inputs: void
+* function outputs: void
+* function description: The main entry point for the patient monitoring system.
+    Includes the task scheduler and system data structure initialization.
+* author: Paul Bartell, Ryan McDaniel
+******************************************/ 
+
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/gpio.h"
 #include "inc/hw_gpio.h"
 #include "inc/hw_memmap.h"
 
-#include "tasks.h"
-#include "main.h"
-#include "schedule.h"
+#include "tasks.h"      // For task data structs
+#include "main.h"       // For TCB struct and function prototypes
+#include "schedule.h"   // For scheduler constants/timing
 
 #define NUM_TASKS 5
 #define TASK_QUEUE_LEN 6
 #define STR_SIZE 16
 
-unsigned int globaltime = 0;
+unsigned long globalTime = 0;
 
 // Default values
 unsigned int temperatureRaw = 75;
@@ -41,11 +50,12 @@ unsigned char pulseRateCorrected[STR_SIZE];
 unsigned char battCorrected[STR_SIZE];
 
 ComputeData computeData = {&temperatureRaw, &systolicPressRaw,
-  &diastolicPressRaw, &pulseRateRaw, &batteryState, tempCorrected, systolicPressCorrected, diastolicPressCorrected,
-  pulseRateCorrected, battCorrected};
+  &diastolicPressRaw, &pulseRateRaw, &batteryState, tempCorrected,
+  systolicPressCorrected, diastolicPressCorrected, pulseRateCorrected,
+  battCorrected};
 
-DisplayData displayData = {tempCorrected, systolicPressCorrected, diastolicPressCorrected,
-  pulseRateCorrected, battCorrected};
+DisplayData displayData = {tempCorrected, systolicPressCorrected,
+  diastolicPressCorrected, pulseRateCorrected, battCorrected};
 
 StatusData statusData = {&batteryState};
 
@@ -65,6 +75,8 @@ void init()
   taskQueue[2] = (TCB) {&oledDisplay,&displayData};
   taskQueue[3] = (TCB) {&warningAlarm,&warningAlarmData};
   taskQueue[4] = (TCB) {&status,&statusData};
+  
+  // for future expansion
   taskQueue[5] = (TCB) {(void*)0,(void*)0};
   
   // Call any setup functions needed for each task.
@@ -76,11 +88,11 @@ void init()
 // Main entry point
 void main()
 {
-  
+  // Use 8MHZ crystal directly
   SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_8MHZ);
-  // Use 8MHZ crystal directly
   
+  // Initialize the task queue and tasks
   init();
   
   // Setup GPIO G3 as output for timing measurement
@@ -88,26 +100,31 @@ void main()
   
   while(1)
   {
+    // run major cycle tasks
+    runTasks();
     
-    runTasks(); // run major cycle tasks
-    delayMs(MAJORCYCLEDELAYMS); // Major cycle 
-    //SysCtlDelay(MAJORCYCLEDELAYMS*SysCtlClockGet()/3000);
-    globaltime++;
+    // Major cycle Delay
+    delayMs(MAJORCYCLEDELAYMS); 
+    globalTime++;
     
     for(int j = 1; j < MAJORCYCLECOUNT; j++)
     {
-      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3); //tick
+      // Write PE3 high for timing test
+      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
       
-      runTasks(); // run all minor cycle tasks
+      // run all minor cycle tasks
+      runTasks();
       
-      globaltime++;
+      globalTime++;
       
-      delayMs(MINORCYCLEDELAYMS); // Minor cycle delay
-      //sysCtlDelay(MINORCYCLEDELAYMS*SysCtlClockGet()/3000);
+      // Minor cycle delay
+      delayMs(MINORCYCLEDELAYMS); 
       
-      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);//tock
+      // Write PE3 low for timing test
+      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
     }
   }
+  return;
 }
 
 void runTasks()

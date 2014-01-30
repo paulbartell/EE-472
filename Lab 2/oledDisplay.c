@@ -1,3 +1,12 @@
+/****************************************** 
+* task name: oledDisplay
+* task inputs: void* pointer to a DisplayData struct (see tasks.h)
+* task outputs: Text to OLED display
+* task description: Takes strings from the displayData struct and outputs them
+    to an OLED display
+* author: Ryan McDaniel
+******************************************/ 
+
 #include "tasks.h"
 #include "schedule.h"
 #include "drivers/rit128x96x4.h"
@@ -16,7 +25,7 @@
 5. Battery: <charge remaining>
 */
 
-extern unsigned long globaltime;
+extern unsigned long globalTime;
 
 void oledDisplaySetup()
 {
@@ -27,7 +36,7 @@ void oledDisplaySetup()
 // print out the current readings
 void oledDisplay(void* taskDataPtr)
 {
-  if(globaltime % MAJORCYCLECOUNT == 0)
+  if(globalTime % MAJORCYCLECOUNT == 0)
   {
     
     DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
