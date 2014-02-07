@@ -17,8 +17,7 @@
 #include "main.h"       // For TCB struct and function prototypes
 #include "schedule.h"   // For scheduler constants/timing
 
-#define NUM_TASKS 5
-#define TASK_QUEUE_LEN 6
+
 #define STR_SIZE 16
 
 unsigned long globalTime = 0;
@@ -91,6 +90,7 @@ void main()
   // Use 8MHZ crystal directly
   SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_8MHZ);
+  
   
   // Initialize the task queue and tasks
   init();

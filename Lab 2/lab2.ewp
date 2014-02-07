@@ -1836,6 +1836,9 @@
     </settings>
   </configuration>
   <file>
+    <name>$PROJ_DIR$\circularbuffer.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\compute.c</name>
   </file>
   <file>
@@ -1852,6 +1855,9 @@
   </file>
   <file>
     <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\boards\ek-lm3s8962\drivers\rit128x96x4.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\schedule.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\schedule.h</name>

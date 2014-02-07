@@ -7,6 +7,7 @@
 enum _myBool { FALSE = 0, TRUE = 1 };
  typedef enum _myBool Bool;
 
+#define MEASURE_TASK 0
 typedef struct MeasureData
 {
   unsigned int* temperatureRaw;

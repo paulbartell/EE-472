@@ -16,3 +16,14 @@
 #define T1HZDELAY 25
 #define T2HZCOUNT 25
 #define T2HZDELAY 12
+
+#define NUM_TASKS 8
+
+struct TaskControlBlock
+{
+  void (*taskFtn)(void*);
+  void* taskDataPtr;
+  struct TaskControlBlock* next;
+  struct TaskControlBlock* previous;
+};
+typedef struct TaskControlBlock TCB;
