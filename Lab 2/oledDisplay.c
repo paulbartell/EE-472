@@ -36,10 +36,17 @@ void oledDisplaySetup()
 // print out the current readings
 void oledDisplay(void* taskDataPtr)
 {
+  
   if(globalTime % MAJORCYCLECOUNT == 0)
   {
-    
     DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
+    char* temperaturePtr = displayDataPtr->tempCorrectedBuf->headPtr;
+    char* pulseRatePtr = displayDataPtr->prCorrectedBuf->headPtr;
+    char* batteryPtr = displayDataPtr->battCorrected->headPtr;
+    
+    // Not right at the moment
+    char* systolicPressPtr = displayDataPtr->bloodPressCorrectedBuf->headPtr;
+    char* diatolicPressPtr = displayDataPtr->bloodPressCorrectedBuf->headPtr;
     
     // Print out each roughly like this
     //
@@ -55,15 +62,14 @@ void oledDisplay(void* taskDataPtr)
     // Blood pressures
     RIT128x96x4StringDraw("Systolic", L_ALLIGN, LINE*0, CNTRST);
     RIT128x96x4StringDraw("Diastolic", R_ALLIGN, LINE*0, CNTRST);
-    
     RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*1, CNTRST); 
     
     // Print Systolic pressure, and the units around 38 pixels after
-    RIT128x96x4StringDraw(displayDataPtr->sysCorrected, L_ALLIGN, LINE*1, CNTRST);
+    RIT128x96x4StringDraw(systolicPressPtr, L_ALLIGN, LINE*1, CNTRST);
     RIT128x96x4StringDraw("mmHg", L_ALLIGN + 38, LINE*1, CNTRST);
     
     // Print Diastolic pressure, and the units around 35 pixels after
-    RIT128x96x4StringDraw(displayDataPtr->diasCorrected, R_ALLIGN, LINE*1, CNTRST);
+    RIT128x96x4StringDraw(diatolicPressPtr, R_ALLIGN, LINE*1, CNTRST);
     RIT128x96x4StringDraw("mmHg", R_ALLIGN + 35, LINE*1, CNTRST); 
     
     // Print pulse and temperature
@@ -73,11 +79,11 @@ void oledDisplay(void* taskDataPtr)
     RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*3, CNTRST);  
     
     // Print Pulse rate, and the units around 38 pixels after
-    RIT128x96x4StringDraw(displayDataPtr->prCorrected, L_ALLIGN, LINE*3, CNTRST);
+    RIT128x96x4StringDraw(pulseRatePtr, L_ALLIGN, LINE*3, CNTRST);
     RIT128x96x4StringDraw("BPM", L_ALLIGN + 38, LINE*3, CNTRST);
 
     // Print the Temperature, and the units around 35 units after
-    RIT128x96x4StringDraw(displayDataPtr->tempCorrected, R_ALLIGN, LINE*3, CNTRST);
+    RIT128x96x4StringDraw(temperaturePtr, R_ALLIGN, LINE*3, CNTRST);
     RIT128x96x4StringDraw("C", R_ALLIGN + 35, LINE*3, CNTRST); 
     
     // Print the battery reading, centered a few lines further down
@@ -86,7 +92,7 @@ void oledDisplay(void* taskDataPtr)
     RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*10, CNTRST); 
     
     // Print battery percent, units around 40 pixels after the reading
-    RIT128x96x4StringDraw(displayDataPtr->battCorrected, C_ALLIGN, LINE*10, CNTRST);
+    RIT128x96x4StringDraw(batteryPtr, C_ALLIGN, LINE*10, CNTRST);
     RIT128x96x4StringDraw("%", C_ALLIGN + 40, LINE*10, CNTRST);
   }
 }

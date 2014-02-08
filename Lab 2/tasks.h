@@ -3,6 +3,7 @@
 * File description: Defines task data structures and task function prototypes.
 * author: Paul Bartell
 ******************************************/ 
+#include "circularbuffer.h"
 
 enum _myBool { FALSE = 0, TRUE = 1 };
  typedef enum _myBool Bool;
