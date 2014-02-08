@@ -19,15 +19,23 @@
 
 
 #define STR_SIZE 16
+#define BUF_CAPACITY 8
 
 unsigned long globalTime = 0;
 
 // Default values
-unsigned int temperatureRaw = 75;
-unsigned int systolicPressRaw = 80;
-unsigned int diastolicPressRaw = 80;
-unsigned int pulseRateRaw = 50;
-unsigned short batteryState = 200;
+unsigned int temperatureRaw[BUF_CAPACITY] = {75, 75, 75, 75, 75, 75, 75, 75};
+CircularBuffer temperatureRawBuf;
+
+unsigned int bloodPressRaw[BUF_CAPACITY * 2] = {80, 80, 80, 80, 80, 80, 80, 80,
+                                 80, 80, 80, 80, 80, 80, 80, 80};
+CircularBuffer bloodPressRawBuf;
+
+unsigned int pulseRateRaw[BUF_CAPACITY] =  {50, 50, 50, 50, 50, 50, 50, 50};
+CircularBuffer pulseRateRawBuf;
+
+unsigned short batteryState =   200;
+unsigned short measurementSelection = 0;
 
 /*
 // Good test values
@@ -39,34 +47,53 @@ unsigned short batteryState = 200;
 //unsigned short batteryState = 42;
 */
 
-MeasureData measureData = {&temperatureRaw, &systolicPressRaw,
-  &diastolicPressRaw, &pulseRateRaw};
+MeasureData measureData = {&temperatureRawBuf, &bloodPressRawBuf,
+  &pulseRateRawBuf, &measurementSelection};
 
-unsigned char tempCorrected[STR_SIZE];
-unsigned char systolicPressCorrected[STR_SIZE];
-unsigned char diastolicPressCorrected[STR_SIZE];
-unsigned char pulseRateCorrected[STR_SIZE];
+unsigned char tempCorrected[BUF_CAPACITY][STR_SIZE];
+CircularBuffer tempCorrectedBuf;
+
+unsigned char bloodPressCorrected[BUF_CAPACITY][STR_SIZE];
+CircularBuffer bloodPressCorrectedBuf;
+
+unsigned char pulseRateCorrected[BUF_CAPACITY][STR_SIZE];
+CircularBuffer pulseRateCorrectedBuf;
+
 unsigned char battCorrected[STR_SIZE];
 
-ComputeData computeData = {&temperatureRaw, &systolicPressRaw,
-  &diastolicPressRaw, &pulseRateRaw, &batteryState, tempCorrected,
-  systolicPressCorrected, diastolicPressCorrected, pulseRateCorrected,
+unsigned short mode = 0;
+
+ComputeData computeData = {&temperatureRawBuf,
+  &bloodPressRawBuf, &pulseRateRawBuf, &tempCorrectedBuf,
+  &bloodPressCorrectedBuf, &pulseRateCorrectedBuf,
   battCorrected};
 
-DisplayData displayData = {tempCorrected, systolicPressCorrected,
-  diastolicPressCorrected, pulseRateCorrected, battCorrected};
+DisplayData displayData = {&tempCorrectedBuf, &bloodPressCorrectedBuf,
+&pulseRateCorrectedBuf, battCorrected, &mode};
 
 StatusData statusData = {&batteryState};
 
 
-WarningAlarmData warningAlarmData = {&temperatureRaw, &systolicPressRaw,
-  &diastolicPressRaw, &pulseRateRaw, &batteryState};
+WarningAlarmData warningAlarmData = {&temperatureRawBuf, &bloodPressRawBuf,
+  &pulseRateRawBuf, &batteryState};
 
-TCB taskQueue[TASK_QUEUE_LEN];
+//TCB taskQueue[TASK_QUEUE_LEN];
 
 // Initialize the scheduler and some hardware
 void init()
 {
+  // Initialize circular buffers.
+  //void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
+  cBuffInit(&temperatureRawBuf, temperatureRaw, BUF_CAPACITY, sizeof(unsigned int));
+  cBuffInit(&bloodPressRawBuf, bloodPressRaw, BUF_CAPACITY, sizeof(unsigned int));
+  cBuffInit(&pulseRateRawBuf, pulseRateRaw, BUF_CAPACITY, sizeof(unsigned int));
+  
+  cBuffInit(&tempCorrectedBuf, tempCorrected, BUF_CAPACITY, sizeof(char*));
+  cBuffInit(&bloodPressCorrectedBuf, bloodPressCorrected, BUF_CAPACITY,
+            sizeof(char*));
+  cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY,
+            sizeof(char*));
+  
   
   // Initialize the task queue
   taskQueue[0] = (TCB) {&measure,&measureData};
