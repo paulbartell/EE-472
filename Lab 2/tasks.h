@@ -10,36 +10,40 @@ enum _myBool { FALSE = 0, TRUE = 1 };
 #define MEASURE_TASK 0
 typedef struct MeasureData
 {
-  unsigned int* temperatureRaw;
-  unsigned int* systolicPressRaw;
-  unsigned int* diastolicPressRaw;
-  unsigned int* pulseRateRaw;
+  CircularBuffer* temperatureRawBuf;
+  CircularBuffer* bloodPressRawBuf;
+  CircularBuffer* pulseRateRawBuf;
+  unsigned short* measurementSelection;
 } MeasureData;
 
 void measure(void* taskData);
 
 typedef struct ComputeData
 {
-  unsigned int* temperatureRaw;
-  unsigned int* systolicPressRaw;
-  unsigned int* diastolicPressRaw;
-  unsigned int* pulseRateRaw;
+  CircularBuffer* temperatureRawBuf;
+  CircularBuffer* bloodPressRawBuf;
+  CircularBuffer* pulseRateRawBuf;
+
+  CircularBuffer* tempCorrectedBuf;
+  CircularBuffer* bloodPressCorrectedBuf;
+  CircularBuffer* prCorrectedBuf;
+  CircularBuffer* battCorrected;
+  
+  unsigned short* measurementSelection;
   unsigned short* batteryState;
-  unsigned char* tempCorrected;
-  unsigned char* sysCorrected;
-  unsigned char* diasCorrected;
-  unsigned char* prCorrected;
-  unsigned char* battCorrected;
 } ComputeData;
+
 void compute(void* taskData);
 
 typedef struct DisplayData
 {
-  unsigned char* tempCorrected;
-  unsigned char* sysCorrected;
-  unsigned char* diasCorrected;
-  unsigned char* prCorrected;
-  unsigned char* battCorrected;
+  CircularBuffer* tempCorrectedBuf;
+  CircularBuffer* bloodPressCorrectedBuf;
+  CircularBuffer* prCorrectedBuf;
+  CircularBuffer* battCorrected;
+  
+  unsigned short* mode;
+  
 } DisplayData;
 
 void oledDisplay(void* taskData);
@@ -54,17 +58,31 @@ void status(void* taskData);
 
 typedef struct WarningAlarmData
 {
-  unsigned int* temperatureRaw;
-  unsigned int* systolicPressRaw;
-  unsigned int* diastolicPressRaw;
-  unsigned int* pulseRateRaw;
+  CircularBuffer* temperatureRawBuf;
+  CircularBuffer* bloodPressRawBuf;
+  CircularBuffer* pulseRateRawBuf;
   unsigned short* batteryState;
 } WarningAlarmData;
 
 void warningAlarm(void* taskData);
 void warningAlarmSetup();
 
+typedef struct KeypadData
+{
+  unsigned short* mode;
+  unsigned short* scroll;
+  unsigned short* measurementSelection;
+  unsigned short* alarmAcknowledge;
+  unsigned short* select;
+} KeypadData;
 
+void keypad(void* taskData);
 
+typedef struct CommunicationsData
+{
+  CircularBuffer* tempCorrectedBuf;
+  CircularBuffer* bloodPressCorrectedBuf;
+  CircularBuffer* prCorrectedBuf;
+} CommunicationsData;
 
-
+void communications(void* taskData);
