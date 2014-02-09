@@ -16,14 +16,15 @@
 */
 void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
 {
+  int bullshit = 0;
   cb->buffPtr = buffPtr;
   cb->capacity = capacity;
   cb->itemSize = itemSize;
   
   cb->headIndex = 0;
-  cb->tailIndex = cb->capacity;
+  cb->tailIndex = cb->capacity - 1;
   cb->headPtr = cb->buffPtr;
-  cb->tailPtr = cb->buffPtr + (cb->itemSize * cb->capacity);
+  cb->tailPtr = cb->buffPtr + (cb->itemSize * (cb->capacity - 1));
 }
 
 /**
@@ -34,7 +35,7 @@ void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
 void cBuffPut(CircularBuffer* cb, void* item)   //Add Item to the front (head)
 {
   // Adjust head index
-  if(cb->headIndex == cb->capacity)
+  if((cb->headIndex + 1) == cb->capacity)
   {
     cb->headIndex = 0;
   }
@@ -45,7 +46,7 @@ void cBuffPut(CircularBuffer* cb, void* item)   //Add Item to the front (head)
   cb->headPtr = cb->buffPtr + (cb->itemSize * cb->headIndex);
   
   // Adjust tail index
-  if(cb->tailIndex == cb->capacity)
+  if((cb->tailIndex + 1) == cb->capacity)
   {
     cb->tailIndex = 0;
   }

@@ -59,7 +59,8 @@ CircularBuffer bloodPressCorrectedBuf;
 unsigned char pulseRateCorrected[BUF_CAPACITY][STR_SIZE];
 CircularBuffer pulseRateCorrectedBuf;
 
-unsigned char battCorrected[STR_SIZE];
+unsigned char battCorrected[BUF_CAPACITY][STR_SIZE];
+CircularBuffer battCorrectedBuf;
 
 unsigned short mode = 0;
 
@@ -84,15 +85,15 @@ void init()
 {
   // Initialize circular buffers.
   //void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
-  cBuffInit(&temperatureRawBuf, temperatureRaw, BUF_CAPACITY, sizeof(unsigned int));
-  cBuffInit(&bloodPressRawBuf, bloodPressRaw, BUF_CAPACITY, sizeof(unsigned int));
-  cBuffInit(&pulseRateRawBuf, pulseRateRaw, BUF_CAPACITY, sizeof(unsigned int));
+  cBuffInit(&temperatureRawBuf, temperatureRaw, BUF_CAPACITY, sizeof(temperatureRaw) / BUF_CAPACITY);
+  cBuffInit(&bloodPressRawBuf, bloodPressRaw, BUF_CAPACITY*2, sizeof(bloodPressRaw) / (BUF_CAPACITY*2));
+  cBuffInit(&pulseRateRawBuf, pulseRateRaw, BUF_CAPACITY, sizeof(pulseRateRaw) / BUF_CAPACITY);
   
-  cBuffInit(&tempCorrectedBuf, tempCorrected, BUF_CAPACITY, sizeof(char*));
-  cBuffInit(&bloodPressCorrectedBuf, bloodPressCorrected, BUF_CAPACITY,
-            sizeof(char*));
-  cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY,
-            sizeof(char*));
+  
+  cBuffInit(&tempCorrectedBuf, tempCorrected, BUF_CAPACITY, sizeof(tempCorrected) / BUF_CAPACITY);
+  cBuffInit(&bloodPressCorrectedBuf, bloodPressCorrected, BUF_CAPACITY*2, sizeof(bloodPressCorrected) / (BUF_CAPACITY*2));
+  cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY, sizeof(pulseRateCorrected) / BUF_CAPACITY);
+  cBuffInit(&battCorrectedBuf, battCorrected, BUF_CAPACITY, sizeof(battCorrected) / BUF_CAPACITY);
   
   
   // Initialize the task queue
