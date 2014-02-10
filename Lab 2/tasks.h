@@ -43,9 +43,11 @@ typedef struct DisplayData
   CircularBuffer* prCorrectedBuf;
   CircularBuffer* battCorrected;
   
+  unsigned short* measurementSelection;
   unsigned short* mode;
   
 } DisplayData;
+
 
 void oledDisplay(void* taskData);
 void oledDisplaySetup();
