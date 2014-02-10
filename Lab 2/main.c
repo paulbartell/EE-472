@@ -67,10 +67,10 @@ unsigned short mode = 0;
 ComputeData computeData = {&temperatureRawBuf,
   &bloodPressRawBuf, &pulseRateRawBuf, &tempCorrectedBuf,
   &bloodPressCorrectedBuf, &pulseRateCorrectedBuf,
-  battCorrected};
+  &battCorrectedBuf};
 
 DisplayData displayData = {&tempCorrectedBuf, &bloodPressCorrectedBuf,
-&pulseRateCorrectedBuf, battCorrected, &mode};
+&pulseRateCorrectedBuf, &battCorrectedBuf, &mode};
 
 StatusData statusData = {&batteryState};
 

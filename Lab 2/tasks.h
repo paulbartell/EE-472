@@ -30,7 +30,6 @@ typedef struct ComputeData
   CircularBuffer* prCorrectedBuf;
   CircularBuffer* battCorrected;
   
-  unsigned short* measurementSelection;
   unsigned short* batteryState;
 } ComputeData;
 

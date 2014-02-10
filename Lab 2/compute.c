@@ -28,6 +28,7 @@
 #define PRCA 8
 #define PRCM 3
 #define BATTDIV 2.0
+#define STR_SIZE 15
 
 /*
 1. Temperature in Celsius: tempCorrected = 5 + 0.75�tempRaw 
@@ -48,51 +49,58 @@ void compute(void* taskDataPtr)
   if(globalTime % MAJORCYCLECOUNT == 0)
   {
     int storageSpace = 0;
+    char newData[STR_SIZE];
+
     ComputeData* computeDataPtr = (ComputeData*) taskDataPtr;
     int* temperatureRaw = (int*)(computeDataPtr->temperatureRawBuf->headPtr);
     int* prRaw = (int*)(computeDataPtr->pulseRateRawBuf->headPtr);
     unsigned short* battRaw = computeDataPtr->batteryState;
-    
+
     // Messed up right now
     int* systolicRaw = (int*)(computeDataPtr->bloodPressRawBuf->headPtr);
     int* diastolicRaw = (int*)(computeDataPtr->bloodPressRawBuf->headPtr);
-    
+
     // The most we want to deal with is two digits, so we round up the ten-thousandth's place
     // and multiply by 100 to move those decimals to the left side of the decimal point.
     // Casting to an integer will truncate everything after the decimal point, so we will have
     // an integer whose last two digits are actually decimal values.
     //
     // Problem: Numbers less than 0.1
-    
+
     // Temperature correction
     storageSpace = (int)(FPOINT*(TEMPCA + TEMPCM*(*(temperatureRaw)) + ROUND));
-    
+
     // Store the corrected data
-    toString(storageSpace, computeDataPtr->tempCorrectedBuf->headPtr);
-    
+    toString(storageSpace, newData);
+    cBuffPut(computeDataPtr->tempCorrectedBuf, newData);
+
     // Systolic correction
     storageSpace = (int)(FPOINT*(SYSCA + SYSCM*(*(systolicRaw)) + ROUND));
-    
+
     // Store the corrected data MESSED UP
-    toString(storageSpace, computeDataPtr->bloodPressCorrectedBuf->headPtr);
-    
+    toString(storageSpace, newData);
+    cBuffPut(computeDataPtr->bloodPressCorrectedBuf, newData);
+
     // Disastolic correction
     storageSpace = (int)(FPOINT*(DIACA + DIACM*(*(diastolicRaw)) + ROUND));
-    
+
     // Store the corrected data MESSED UP
-    toString(storageSpace, computeDataPtr->bloodPressCorrectedBuf->headPtr);
-    
+    toString(storageSpace, newData);
+    cBuffPut(computeDataPtr->bloodPressCorrectedBuf, newData);
+
     // Pulse correction
     storageSpace = (int)(FPOINT*(PRCA + PRCM*(*(prRaw)) + ROUND));
-    
+
     // Store the corrected data
-    toString(storageSpace, computeDataPtr->prCorrectedBuf->headPtr);
-    
+    toString(storageSpace, newData);
+    cBuffPut(computeDataPtr->prCorrectedBuf, newData);
+
     // Battery correction
     storageSpace = (int)(FPOINT * ( (*(battRaw)) / BATTDIV + ROUND));
-    
+
     // Store the corrected data
-    toString(storageSpace, computeDataPtr->battCorrected->headPtr);
+    toString(storageSpace, newData);
+    cBuffPut(computeDataPtr->battCorrected, newData);
   }
   return;
 }
