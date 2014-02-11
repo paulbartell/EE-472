@@ -7,7 +7,7 @@
 ******************************************/ 
 #include "schedule.h"
 
-TCB* taskListHead;
+TCB* taskListHead = NULL;
 TCB taskList[NUM_TASKS];
 
 #define TASK_STARTUP 0
@@ -39,10 +39,24 @@ void runScheduler()
 
 void removeTask(int taskID)
 {
-  
+  TCB* cur = &taskList[taskID];
+  if(taskListHead == cur)
+  {
+    taskListHead = taskListHead->next;
+  }
+  cur->next->previous = cur->previous;
+  cur->previous->next = cur->next;
 }
 
 void addTask(int taskID)
 {
-  
+  if(taskListHead == NULL)
+  {
+    taskListHead = taskList[taskID];
+  }else{
+    TCB* temp = taskListHead->next;
+    taskListHead->next = taskList[taskID];
+    taskList->next->previous = taskListHead;
+    taskListHead->next->next = temp;
+  }
 }
