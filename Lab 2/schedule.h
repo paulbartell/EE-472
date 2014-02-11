@@ -6,6 +6,7 @@
 ******************************************/ 
 
 #define MINORCYCLEPERSEC 50
+#define MINORCYCLESPERMIN 3000
 #define MINORCYCLELENGTHMS 20
 #define MAJORCYCLEDELAYMS 4
 #define MINORCYCLEDELAYMS 20
