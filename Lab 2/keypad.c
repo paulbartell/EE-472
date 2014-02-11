@@ -88,11 +88,11 @@ void keypad(void* taskDataPtr)
 		*(keypadDataPtr->mode) = !(*(keypadDataPtr->mode));
 	}
 	
-	// Scroll: Toggle Switch
+	// Scroll button
 	// Press 9
 	if(inputs[2][1] == 0) 
 	{
-		*(keypadDataPtr->scroll) = !(*(keypadDataPtr->scroll));
+		*(keypadDataPtr->scroll) = 1;
 	}
 
 	// Acknowledge

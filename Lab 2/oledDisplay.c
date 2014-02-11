@@ -16,9 +16,9 @@
 #define L_ALLIGN 0
 #define R_ALLIGN 65
 #define C_ALLIGN 40
-#define MAX_LINES 12
+#define MAX_LINES 11
 
-void clearOLED();
+void clearOLED(int numLines);
 
 typedef enum {BLOOD, TEMP, PULSE, BATT} measurement;
 typedef enum {NORMAL, ANNUNCIATE} displayMode;
@@ -51,10 +51,13 @@ void oledDisplay(void* taskDataPtr)
     
     // Clear everything if the mode changes
     if (currentMode != lastMode) {
-      clearOLED();
+      clearOLED(MAX_LINES);
     }
     if (currentMode == ANNUNCIATE) 
     {
+      // Ignore scroll changes
+      if (*(myScroll) == 1) *(myScroll) = 0;
+      
       // Blood pressures
       RIT128x96x4StringDraw("Systolic", L_ALLIGN, LINE*0, CNTRST);
       RIT128x96x4StringDraw("Diastolic", R_ALLIGN, LINE*0, CNTRST);
@@ -90,24 +93,33 @@ void oledDisplay(void* taskDataPtr)
       // Print battery percent, units around 40 pixels after the reading
       RIT128x96x4StringDraw(batteryPtr, C_ALLIGN, LINE*10, CNTRST);
       RIT128x96x4StringDraw("%", C_ALLIGN + 40, LINE*10, CNTRST);
-      
+        
       // Directions for changing views
-      RIT128x96x4StringDraw("'C' to change view", L_ALLIGN, LINE*12, CNTRST);
+      RIT128x96x4StringDraw("'D' to change Display", L_ALLIGN, LINE*11, CNTRST);
     } 
     else if (currentMode == NORMAL) 
     {
+
       // Display the normal menu
       RIT128x96x4StringDraw("0 Blood Pressure         ", L_ALLIGN, LINE*0, CNTRST);
       RIT128x96x4StringDraw("1 Temperature", L_ALLIGN, LINE*2, CNTRST);
       RIT128x96x4StringDraw("2 Pulse Rate", L_ALLIGN, LINE*4, CNTRST);
       RIT128x96x4StringDraw("3 Battery", L_ALLIGN, LINE*6, CNTRST);
-      RIT128x96x4StringDraw("'A' for all", L_ALLIGN, LINE*8, CNTRST);
+      RIT128x96x4StringDraw("'D' to change Display", L_ALLIGN, LINE*9, CNTRST);
+      RIT128x96x4StringDraw("'9' to scroll", L_ALLIGN, LINE*10, CNTRST);
     
       // Clear all measurement lines in case selected measurement changes
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*1, CNTRST);
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*3, CNTRST);
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*5, CNTRST);
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*7, CNTRST);
+      
+      // Handle scrolling
+      if (*(myScroll) == 1) 
+      {
+        myMeasurement = (measurement)(((int)myMeasurement + 1) % NUM_MEAS);
+        *(myScroll) = 0;
+      }
       
       // Display Blood pressure measurements
       if (myMeasurement == BLOOD)
@@ -147,10 +159,10 @@ void oledDisplay(void* taskDataPtr)
 }
 
 // Clears all the lines used by the program
-void clearOLED() 
+void clearOLED(int numLines) 
 {
   int i = 0;
-  for (i = 0; i < MAX_LINES; i++)
+  for (i = 0; i < numLines; i++)
   {
     RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*i, CNTRST);
   }
