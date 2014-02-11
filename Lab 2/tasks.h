@@ -44,6 +44,7 @@ typedef struct DisplayData
   
   unsigned short* measurementSelection;
   unsigned short* mode;
+  unsigned short* scroll;
   
 } DisplayData;
 
