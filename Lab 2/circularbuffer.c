@@ -5,7 +5,7 @@
 * author: Paul Bartell
 ******************************************/ 
 #include "circularbuffer.h"
-#include "string.h"
+#include <string.h>
 
 /**
 *  Function cBuffInit initializes a CircularBuffer struct
@@ -16,13 +16,12 @@
 */
 void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
 {
-  int bullshit = 0;
   cb->buffPtr = buffPtr;
   cb->capacity = capacity;
   cb->itemSize = itemSize;
   
   cb->headIndex = 0;
-  cb->tailIndex = cb->capacity - 1;
+  cb->tailIndex = (cb->capacity - 1);
   cb->headPtr = cb->buffPtr;
   cb->tailPtr = cb->buffPtr + (cb->itemSize * (cb->capacity - 1));
 }
