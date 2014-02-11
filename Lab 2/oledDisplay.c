@@ -155,6 +155,7 @@ void oledDisplay(void* taskDataPtr)
       }
     }
     lastMode = currentMode;
+    *(displayDataPtr->measurementSelection) = (unsigned short) myMeasurement;
   }
 }
 
