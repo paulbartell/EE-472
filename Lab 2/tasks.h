@@ -86,6 +86,7 @@ typedef struct CommunicationsData
   CircularBuffer* tempCorrectedBuf;
   CircularBuffer* bloodPressCorrectedBuf;
   CircularBuffer* prCorrectedBuf;
+  CircularBuffer* battCorrected;
 } CommunicationsData;
 
 void communications(void* taskData);

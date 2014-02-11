@@ -5,6 +5,10 @@
 * task description: Initializes hardware and data structs
 * author: Paul Bartell
 ******************************************/ 
+
+#define UART_BUFFERED
+#define PART_LM3S2110
+
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/gpio.h"
@@ -14,11 +18,16 @@
 #include "driverlib/interrupt.h"
 #include "interrupts.c"
 #include "inc/hw_ints.h"
+#include "driverlib/pin_map.h"
+#include "schedule.h"
+#include "utils/uartstdio.h"
 
 void startup(void* taskDataPtr)
 {
-  // Setup UART
+  // Setup UART for communications task
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
   GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+  UARTStdioInit(0);
   
   // Setup SysTick timer for global time base
   SysTickPeriodSet(SysCtlClockGet() / MINORCYCLEPERSEC);

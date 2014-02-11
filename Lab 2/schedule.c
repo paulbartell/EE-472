@@ -6,6 +6,7 @@
 * author: Paul Bartell, Ryan McDaniel
 ******************************************/ 
 #include "schedule.h"
+#include "tasks.h"
 
 TCB* taskListHead = NULL;
 TCB taskList[NUM_TASKS];
@@ -27,8 +28,8 @@ void schedulerInit()
   taskList[3] = (TCB) {&oledDisplay,&displayData,NULL,NULL};
   taskList[4] = (TCB) {&warningAlarm,&warningAlarmData,NULL,NULL};
   taskList[5] = (TCB) {&status,&statusData,NULL,NULL};
-  taskList[6] = (TCB) {&keypad,&keypadData,NULL,NULL);
-  taskList[7] = (TCB) {&communication,&communicationData,NULL,NULL);
+  taskList[6] = (TCB) {&keypad,&keypadData,NULL,NULL};
+  taskList[7] = (TCB) {&communication,&communicationData,NULL,NULL};
   taskList[8] = (TCB) {NULL,NULL,NULL,NULL};
 }
 
