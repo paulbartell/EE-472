@@ -168,7 +168,8 @@
         </option>
         <option>
           <name>CCDefines</name>
-          <state></state>
+          <state>ewarm</state>
+          <state>PART_LM3S2110</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1845,6 +1846,9 @@
     <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\interrupts.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\main.c</name>
   </file>
   <file>
@@ -1861,6 +1865,9 @@
   </file>
   <file>
     <name>$PROJ_DIR$\schedule.h</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\startup.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\startup_ewarm.c</name>

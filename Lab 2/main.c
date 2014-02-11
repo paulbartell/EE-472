@@ -21,7 +21,7 @@
 #define STR_SIZE 16
 #define BUF_CAPACITY 8
 
-unsigned long globalTime = 0;
+extern volatile unsigned long globalTime;
 
 // Default values
 unsigned int temperatureRaw[BUF_CAPACITY] = {75, 75, 75, 75, 75, 75, 75, 75};
@@ -95,16 +95,6 @@ void init()
   cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY, sizeof(pulseRateCorrected) / BUF_CAPACITY);
   cBuffInit(&battCorrectedBuf, battCorrected, BUF_CAPACITY, sizeof(battCorrected) / BUF_CAPACITY);
   
-  
-  // Initialize the task queue
-  taskQueue[0] = (TCB) {&measure,&measureData};
-  taskQueue[1] = (TCB) {&compute,&computeData};
-  taskQueue[2] = (TCB) {&oledDisplay,&displayData};
-  taskQueue[3] = (TCB) {&warningAlarm,&warningAlarmData};
-  taskQueue[4] = (TCB) {&status,&statusData};
-  
-  // for future expansion
-  taskQueue[5] = (TCB) {(void*)0,(void*)0};
   
   // Call any setup functions needed for each task.
   warningAlarmSetup();
