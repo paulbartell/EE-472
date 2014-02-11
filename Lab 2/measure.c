@@ -127,43 +127,21 @@ void measure(void* taskDataPtr)
     
     
     // Measure Pulse Rate
-    pulse = *(measureDataPtr->pulseRateRawBuf->headPtr);
-    if (revPulse == 0) 
-    {
-      if (pulse > 40)
-      {
-        revPulse = 1;
-      }  
-      if (even) 
-      {
-          pulse--;
-      }
-      else 
-      {
-          pulse += 3;
-      }
-    }
-    else 
-    {
-      if(pulse < 15)
-      {
-        revPulse = 0;
-      } 
-      if (even) 
-      {
-        pulse++;
-      } 
-      else 
-      {
-        pulse -= 3;
-      }
+    double min = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 0.85;
+    double max = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 1.15;
+    
+    // Upper Limit Frequency: 200 beats per minute
+    // Lower Limit Frequency: 100 beats per minute
+    // Reset when it goes outside of the range
+    
+    if((pulse < min) || (pulse > max)){
+      cBuffPut((measureDataPtr->pulseRawBuf), &pulse);
     }
     
     cBuffPut((measureDataPtr->temperatureRawBuf), &temp);
     cBuffPut((measureDataPtr->bloodPressRawBuf), &syst);
     cBuffPut((measureDataPtr->bloodPressRawBuf), &dias);
-    cBuffPut((measureDataPtr->pulseRawBuf), &pulse);
-    
+
     even = !even;
   }
 }
