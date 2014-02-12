@@ -138,7 +138,7 @@ void schedulerInit()
   // Initialize the task queue
   // taskList[0] = (TCB) {&startup, NULL, NULL, NULL};
   taskList[0] = (TCB) {&measure,&measureData,NULL,NULL};
-  taskList[1] = (TCB) {&compute,&computeData};
+  taskList[1] = (TCB) {&compute,&computeData,NULL,NULL};
   taskList[2] = (TCB) {&oledDisplay,&displayData,NULL,NULL};
   taskList[3] = (TCB) {&warningAlarm,&warningAlarmData,NULL,NULL};
   taskList[4] = (TCB) {&status,&statusData,NULL,NULL};

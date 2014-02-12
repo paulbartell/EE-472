@@ -38,7 +38,7 @@ void main()
   SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
                    SYSCTL_XTAL_8MHZ);
   
-  
+  startup();
   // Initialize the task queue and tasks
   init();
   
