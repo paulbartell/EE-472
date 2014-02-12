@@ -1,9 +1,11 @@
+#include "inc/hw_types.h"
+
 #include "utils/uartstdio.h"
 
 #include "tasks.h"
 
 extern unsigned long globalTime;
-void communications(void* taskDataPtr)
+void communication(void* taskDataPtr)
 {
   CommunicationsData* communicationsDataPtr = (CommunicationsData*) taskDataPtr;
   
