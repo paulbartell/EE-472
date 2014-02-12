@@ -17,6 +17,7 @@
 #define R_ALLIGN 65
 #define C_ALLIGN 40
 #define MAX_LINES 11
+#define NUM_MEAS 5 // CHECKME
 
 void clearOLED(int numLines);
 
@@ -41,8 +42,9 @@ void oledDisplay(void* taskDataPtr)
     char* temperaturePtr = displayDataPtr->tempCorrectedBuf->headPtr;
     char* pulseRatePtr = displayDataPtr->prCorrectedBuf->headPtr;
     char* batteryPtr = displayDataPtr->battCorrected->headPtr;
-    char* systolicPressPtr = displayDataPtr->bloodPressCorrectedBuf->headPtr;
-    char* diatolicPressPtr = displayDataPtr->bloodPressCorrectedBuf->headPtr;
+    char* systolicPressPtr = displayDataPtr->systolicPressCorrectedBuf->headPtr;
+    char* diatolicPressPtr = displayDataPtr->systolicPressCorrectedBuf->headPtr;
+    unsigned short* myScroll = displayDataPtr->scroll;
     
     // Controlling display modes
     static displayMode lastMode = NORMAL;

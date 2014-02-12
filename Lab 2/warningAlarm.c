@@ -94,12 +94,13 @@ void warningAlarmSetup(void)
   // Set PE0 (Green), PE1 (Yellow), PE2 (RED) as outputs
   GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2);
   
-  // Enable GPIO port F (Select Switch)
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-  // Set PF1 (select switch) as input with internal pull up resistor
-  GPIODirModeSet(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_DIR_MODE_IN);
-  GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_STRENGTH_2MA,
-                   GPIO_PIN_TYPE_STD_WPU);
+//  Deprecated  
+//  // Enable GPIO port F (Select Switch)
+//  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+//  // Set PF1 (select switch) as input with internal pull up resistor
+//  GPIODirModeSet(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_DIR_MODE_IN);
+//  GPIOPadConfigSet(GPIO_PORTF_BASE, GPIO_PIN_1, GPIO_STRENGTH_2MA,
+//                   GPIO_PIN_TYPE_STD_WPU);
   
   // Turn on GYR leds (default state)
   GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 ), 255);
@@ -125,39 +126,42 @@ void warningAlarm(void* taskDataPtr)
     pulseAlarm = FALSE;
     batteryAlarm = FALSE;
 
-
     // Pulse rate checks
-    if((*(warningAlarmData->pulseRateRaw) < PULSE_WARNING_LOW ) ||
-       (*(warningAlarmData->pulseRateRaw) > PULSE_WARNING_HIGH ))
+    int* pulseRateRaw = (int*) warningAlarmData->pulseRateRawBuf->headPtr;
+    if((*pulseRateRaw < PULSE_WARNING_LOW ) ||
+       (*pulseRateRaw > PULSE_WARNING_HIGH ))
     {
       pulseOutOfRange = TRUE;
       
-      if((*(warningAlarmData->pulseRateRaw) < PULSE_ALARM_LOW ) ||
-         (*(warningAlarmData->pulseRateRaw) > PULSE_ALARM_HIGH ))
+      if((*pulseRateRaw < PULSE_ALARM_LOW ) ||
+         (*pulseRateRaw > PULSE_ALARM_HIGH ))
       {
         pulseAlarm = TRUE;
       }
     }
-
+    
     // Temperature checks
-    if((*(warningAlarmData->temperatureRaw) < TEMP_WARNING_LOW )||
-       (*(warningAlarmData->temperatureRaw) > TEMP_WARNING_HIGH))
+    int* temperatureRaw = (int*) warningAlarmData->temperatureRawBuf->headPtr;
+    if((*temperatureRaw < TEMP_WARNING_LOW )||
+       (*temperatureRaw > TEMP_WARNING_HIGH))
     {
       tempOutOfRange = TRUE;
-      if( (*(warningAlarmData->temperatureRaw) < TEMP_ALARM_LOW) ||
-         (*(warningAlarmData->temperatureRaw) > TEMP_ALARM_HIGH))
+      if( (*temperatureRaw < TEMP_ALARM_LOW) ||
+         (*temperatureRaw > TEMP_ALARM_HIGH))
       {
         tempAlarm = TRUE;
       }
     }
 
     // Blood Pressure checks
-    if((*(warningAlarmData->systolicPressRaw) > BPS_WARNING) ||
-       (*(warningAlarmData->diastolicPressRaw) > BPD_WARNING))
+    int* systolicPressRaw = (int*) warningAlarmData->systolicPressRawBuf->headPtr;
+    int* diastolicPressRaw = (int*) warningAlarmData->diastolicPressRawBuf->headPtr;
+    if((*systolicPressRaw > BPS_WARNING) || //TODO FIXME
+       (*diastolicPressRaw > BPD_WARNING))
     {
       bpOutOfRange = TRUE;
-      if((*(warningAlarmData->systolicPressRaw) > BPS_ALARM) ||
-         (*(warningAlarmData->diastolicPressRaw) > BPD_ALARM))
+      if((*systolicPressRaw > BPS_ALARM) ||
+         (*diastolicPressRaw > BPD_ALARM))
       {
         bpAlarm = TRUE;
       }
@@ -204,7 +208,8 @@ void warningAlarm(void* taskDataPtr)
     }
   }
   
-  button = (GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1));
+  //button = (GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1)); // Deprecated
+  button = *(warningAlarmData->alarmAcknowledge);
   // Update state WRT button every task call
   if(button == 0 && state == ALARM)
   {

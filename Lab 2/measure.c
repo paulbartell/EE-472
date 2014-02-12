@@ -72,7 +72,7 @@ void measure(void* taskDataPtr)
 
 
     // Measure Systolic
-    syst = *(measureDataPtr->pulsePressRawBuf);
+    syst = *(measureDataPtr->systolicPressRawBuf->headPtr);
     if (syst > 100)
     {
       // Set complete to true
@@ -99,7 +99,7 @@ void measure(void* taskDataPtr)
 
 
     // Measure Diastolic
-    dias = *(measureDataPtr->pulsePressRawBuf);
+    dias = *(measureDataPtr->diastolicPressRawBuf->headPtr);
     if (dias < 40)
     {
       diaComplete = 1;
@@ -133,14 +133,14 @@ void measure(void* taskDataPtr)
 
     // Adds value to buffer if it goes +15% of -15% of previous value
     if((pulseRateCount < low) || (pulseRateCount > high)){
-      cBuffPut((measureDataPtr->pulseRawBuf), &pulseRateCount);
+      cBuffPut((measureDataPtr->pulseRateRawBuf), &pulseRateCount);
     }
     // Reset to zero for next count
     pulseRateCount = 0;
 
     cBuffPut((measureDataPtr->temperatureRawBuf), &temp);
-    cBuffPut((measureDataPtr->bloodPressRawBuf), &syst);
-    cBuffPut((measureDataPtr->bloodPressRawBuf), &dias);
+    cBuffPut((measureDataPtr->systolicPressRawBuf), &syst);
+    cBuffPut((measureDataPtr->diastolicPressRawBuf), &dias);
 
     even = !even;
   }

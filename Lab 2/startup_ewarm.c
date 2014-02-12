@@ -23,6 +23,7 @@
 //
 //*****************************************************************************
 
+
 //*****************************************************************************
 //
 // Enable the IAR extensions for this source file.
@@ -47,6 +48,7 @@ static void IntDefaultHandler(void);
 //*****************************************************************************
 extern void GPIOFIntHandler(void);
 extern void SysTickIntHandler(void);
+extern void UARTStdioIntHandler(void);
 
 //*****************************************************************************
 //
@@ -106,7 +108,7 @@ __root const uVectorEntry __vector_table[] @ ".intvec" =
     IntDefaultHandler,                      // GPIO Port C
     IntDefaultHandler,                      // GPIO Port D
     IntDefaultHandler,                      // GPIO Port E
-    IntDefaultHandler,                      // UART0 Rx and Tx
+    UARTStdioIntHandler,                    // UART0 Rx and Tx
     IntDefaultHandler,                      // UART1 Rx and Tx
     IntDefaultHandler,                      // SSI0 Rx and Tx
     IntDefaultHandler,                      // I2C0 Master and Slave

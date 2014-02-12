@@ -28,3 +28,8 @@ struct TaskControlBlock
   struct TaskControlBlock* previous;
 };
 typedef struct TaskControlBlock TCB;
+
+void majorCycleInitializeQueue();
+void runTasks();
+void removeTask(int taskID);
+void addTask(unsigned int taskID);

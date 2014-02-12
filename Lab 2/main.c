@@ -14,87 +14,16 @@
 #include "inc/hw_memmap.h"
 
 #include "tasks.h"      // For task data structs
-#include "main.h"       // For TCB struct and function prototypes
+#include "main.h"       // For function prototypes
 #include "schedule.h"   // For scheduler constants/timing
 
 
-#define STR_SIZE 16
-#define BUF_CAPACITY 8
 
 extern volatile unsigned long globalTime;
-
-// Default values
-unsigned int temperatureRaw[BUF_CAPACITY] = {75, 75, 75, 75, 75, 75, 75, 75};
-CircularBuffer temperatureRawBuf;
-
-unsigned int bloodPressRaw[BUF_CAPACITY * 2] = {80, 80, 80, 80, 80, 80, 80, 80,
-                                 80, 80, 80, 80, 80, 80, 80, 80};
-CircularBuffer bloodPressRawBuf;
-
-unsigned int pulseRateRaw[BUF_CAPACITY] =  {50, 50, 50, 50, 50, 50, 50, 50};
-CircularBuffer pulseRateRawBuf;
-
-unsigned short batteryState =   200;
-unsigned short measurementSelection = 0;
-
-/*
-// Good test values
-unsigned int temperatureRaw = 35;
-unsigned int systolicPressRaw = 40;
-unsigned int diastolicPressRaw = 40;
-unsigned int pulseRateRaw = 25;
-unsigned short batteryState = 200;
-//unsigned short batteryState = 42;
-*/
-
-MeasureData measureData = {&temperatureRawBuf, &bloodPressRawBuf,
-  &pulseRateRawBuf, &measurementSelection};
-
-unsigned char tempCorrected[BUF_CAPACITY][STR_SIZE];
-CircularBuffer tempCorrectedBuf;
-
-unsigned char bloodPressCorrected[BUF_CAPACITY][STR_SIZE];
-CircularBuffer bloodPressCorrectedBuf;
-
-unsigned char pulseRateCorrected[BUF_CAPACITY][STR_SIZE];
-CircularBuffer pulseRateCorrectedBuf;
-
-unsigned char battCorrected[BUF_CAPACITY][STR_SIZE];
-CircularBuffer battCorrectedBuf;
-
-unsigned short mode = 0;
-
-ComputeData computeData = {&temperatureRawBuf,
-  &bloodPressRawBuf, &pulseRateRawBuf, &tempCorrectedBuf,
-  &bloodPressCorrectedBuf, &pulseRateCorrectedBuf,
-  &battCorrectedBuf};
-
-DisplayData displayData = {&tempCorrectedBuf, &bloodPressCorrectedBuf,
-&pulseRateCorrectedBuf, &battCorrectedBuf, &mode};
-
-StatusData statusData = {&batteryState};
-
-
-WarningAlarmData warningAlarmData = {&temperatureRawBuf, &bloodPressRawBuf,
-  &pulseRateRawBuf, &batteryState};
-
-//TCB taskQueue[TASK_QUEUE_LEN];
 
 // Initialize the scheduler and some hardware
 void init()
 {
-  // Initialize circular buffers.
-  //void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
-  cBuffInit(&temperatureRawBuf, temperatureRaw, BUF_CAPACITY, sizeof(temperatureRaw) / BUF_CAPACITY);
-  cBuffInit(&bloodPressRawBuf, bloodPressRaw, BUF_CAPACITY*2, sizeof(bloodPressRaw) / (BUF_CAPACITY*2));
-  cBuffInit(&pulseRateRawBuf, pulseRateRaw, BUF_CAPACITY, sizeof(pulseRateRaw) / BUF_CAPACITY);
-  
-  
-  cBuffInit(&tempCorrectedBuf, tempCorrected, BUF_CAPACITY, sizeof(tempCorrected) / BUF_CAPACITY);
-  cBuffInit(&bloodPressCorrectedBuf, bloodPressCorrected, BUF_CAPACITY*2, sizeof(bloodPressCorrected) / (BUF_CAPACITY*2));
-  cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY, sizeof(pulseRateCorrected) / BUF_CAPACITY);
-  cBuffInit(&battCorrectedBuf, battCorrected, BUF_CAPACITY, sizeof(battCorrected) / BUF_CAPACITY);
-  
   
   // Call any setup functions needed for each task.
   warningAlarmSetup();
@@ -113,46 +42,40 @@ void main()
   // Initialize the task queue and tasks
   init();
   
-  // Setup GPIO G3 as output for timing measurement
-  GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_3);
+  majorCycleInitializeQueue();
+  runTasks();
   
-  while(1)
-  {
-    // run major cycle tasks
-    runTasks();
-    
-    // Major cycle Delay
-    delayMs(MAJORCYCLEDELAYMS); 
-    globalTime++;
-    
-    for(int j = 1; j < MAJORCYCLECOUNT; j++)
-    {
-      // Write PE3 high for timing test
-      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
-      
-      // run all minor cycle tasks
-      runTasks();
-      
-      globalTime++;
-      
-      // Minor cycle delay
-      delayMs(MINORCYCLEDELAYMS); 
-      
-      // Write PE3 low for timing test
-      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
-    }
-    // delayMs(1); // Enable for timing testing
-  }
+//  // Setup GPIO G3 as output for timing measurement
+//  GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_3);
+//  
+//  while(1)
+//  {
+//    // run major cycle tasks
+//    runTasks();
+//    
+//    // Major cycle Delay
+//    delayMs(MAJORCYCLEDELAYMS); 
+//    globalTime++;
+//    
+//    for(int j = 1; j < MAJORCYCLECOUNT; j++)
+//    {
+//      // Write PE3 high for timing test
+//      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
+//      
+//      // run all minor cycle tasks
+//      runTasks();
+//      
+//      globalTime++;
+//      
+//      // Minor cycle delay
+//      delayMs(MINORCYCLEDELAYMS); 
+//      
+//      // Write PE3 low for timing test
+//      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
+//    }
+//    // delayMs(1); // Enable for timing testing
+//  }
   return;
-}
-
-void runTasks()
-{
-  for(int i = 0; i < NUM_TASKS; i++)
-  {
-    // Run task
-    (*taskQueue[i].myTask)(taskQueue[i].taskDataPtr);
-  }
 }
 
 // Software delay function

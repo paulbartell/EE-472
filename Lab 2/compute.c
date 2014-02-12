@@ -8,6 +8,7 @@
 
 #include "tasks.h"
 #include "schedule.h"
+#include "string.h"
 
 // We are only working with two decimal points
 #define NUM_DEC 2
@@ -50,15 +51,16 @@ void compute(void* taskDataPtr)
   {
     int storageSpace = 0;
     char newData[STR_SIZE];
+    char* target;
 
     ComputeData* computeDataPtr = (ComputeData*) taskDataPtr;
     int* temperatureRaw = (int*)(computeDataPtr->temperatureRawBuf->headPtr);
     int* prRaw = (int*)(computeDataPtr->pulseRateRawBuf->headPtr);
     unsigned short* battRaw = computeDataPtr->batteryState;
 
-    // Messed up right now
-    int* systolicRaw = (int*)(computeDataPtr->bloodPressRawBuf->headPtr);
-    int* diastolicRaw = (int*)(computeDataPtr->bloodPressRawBuf->headPtr);
+    // Messed up right now // Paul fixed this
+    int* systolicRaw = (int*)(computeDataPtr->systolicPressRawBuf->headPtr);
+    int* diastolicRaw = (int*)(computeDataPtr->diastolicPressRawBuf->headPtr);
 
     // The most we want to deal with is two digits, so we round up the ten-thousandth's place
     // and multiply by 100 to move those decimals to the left side of the decimal point.
@@ -72,35 +74,40 @@ void compute(void* taskDataPtr)
 
     // Store the corrected data
     toString(storageSpace, newData);
-    cBuffPut(computeDataPtr->tempCorrectedBuf, newData);
+    target = cBuffPush(computeDataPtr->tempCorrectedBuf);
+    strcpy(target, newData);
 
     // Systolic correction
     storageSpace = (int)(FPOINT*(SYSCA + SYSCM*(*(systolicRaw)) + ROUND));
 
-    // Store the corrected data MESSED UP
+    // Store the corrected data MESSED UP // Paul fixed this dangling pointers
     toString(storageSpace, newData);
-    cBuffPut(computeDataPtr->bloodPressCorrectedBuf, newData);
+    target = cBuffPush(computeDataPtr->systolicPressCorrectedBuf);
+    strcpy(target, newData);
 
     // Disastolic correction
     storageSpace = (int)(FPOINT*(DIACA + DIACM*(*(diastolicRaw)) + ROUND));
 
     // Store the corrected data MESSED UP
     toString(storageSpace, newData);
-    cBuffPut(computeDataPtr->bloodPressCorrectedBuf, newData);
+    target = cBuffPush(computeDataPtr->systolicPressCorrectedBuf);
+    strcpy(target, newData);
 
     // Pulse correction
     storageSpace = (int)(FPOINT*(PRCA + PRCM*(*(prRaw)) + ROUND));
 
     // Store the corrected data
     toString(storageSpace, newData);
-    cBuffPut(computeDataPtr->prCorrectedBuf, newData);
+    target = cBuffPush(computeDataPtr->prCorrectedBuf);
+    strcpy(target, newData);
 
     // Battery correction
     storageSpace = (int)(FPOINT * ( (*(battRaw)) / BATTDIV + ROUND));
 
     // Store the corrected data
     toString(storageSpace, newData);
-    cBuffPut(computeDataPtr->battCorrected, newData);
+    target = cBuffPush(computeDataPtr->battCorrected);
+    strcpy(target, newData);
   }
   return;
 }

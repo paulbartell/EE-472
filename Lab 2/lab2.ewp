@@ -170,6 +170,7 @@
           <name>CCDefines</name>
           <state>ewarm</state>
           <state>PART_LM3S2110</state>
+          <state>UART_BUFFERED</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -1849,6 +1850,9 @@
     <name>$PROJ_DIR$\interrupts.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\keypad.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\main.c</name>
   </file>
   <file>
@@ -1874,6 +1878,9 @@
   </file>
   <file>
     <name>$PROJ_DIR$\status.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\warningAlarm.c</name>

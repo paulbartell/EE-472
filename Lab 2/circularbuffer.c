@@ -33,6 +33,17 @@ void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
 */
 void cBuffPut(CircularBuffer* cb, void* item)   //Add Item to the front (head)
 {
+  cBuffPush(cb);                                // push
+  memcpy(cb->headPtr, item, cb->itemSize);      // copy the item
+}
+
+/**
+*  Function cBuffPush increments the buffer one space and returns a pointer to 
+*    the head place in the buffer.
+*  @returns a char* pointer to the head of the buffer
+*/
+void* cBuffPush(CircularBuffer* cb)
+{
   // Adjust head index
   if((cb->headIndex + 1) == cb->capacity)
   {
@@ -54,9 +65,9 @@ void cBuffPut(CircularBuffer* cb, void* item)   //Add Item to the front (head)
     cb->tailIndex++;
   }
   cb->tailPtr = cb->buffPtr + (cb->itemSize * cb->tailIndex);
-  
-  memcpy(cb->headPtr, item, cb->itemSize);                      // copy the item
+  return cb->headPtr;
 }
+
 
 /**
 *  Function cBuffGetAt returns a pointer to the item at the given index

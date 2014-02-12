@@ -24,7 +24,7 @@
 
 void keypad(void* taskDataPtr)
 {
-	KeypadData* keypadData = (KeypadData*) taskDataPtr;  
+	KeypadData* keypadDataPtr = (KeypadData*) taskDataPtr;  
 	int inputs[4][4];
 	
 	// Row 1
@@ -63,22 +63,22 @@ void keypad(void* taskDataPtr)
 	// Press 0
 	if(inputs[0][0] == 0) 
 	{
-		(*(keypadDataPtr->measureSelection)) = BLOOD;
+		(*(keypadDataPtr->measurementSelection)) = BLOOD;
 	// Press 1
 	} 
 	else if (inputs[0][1] == 0) 
 	{
-		(*(keypadDataPtr->measureSelection)) = TEMP;
+		(*(keypadDataPtr->measurementSelection)) = TEMP;
 	// Press 2
 	} 
 	else if (inputs[0][2] == 0) 
 	{
-		(*(keypadDataPtr->measureSelection)) = PULSE;
+		(*(keypadDataPtr->measurementSelection)) = PULSE;
 	// Press 3
 	} 
 	else if (inputs[0][3])
 	{
-		(*(keypadDataPtr->measureSelection)) = BATT;
+		(*(keypadDataPtr->measurementSelection)) = BATT;
 	}
 
 	// Mode: Toggle Switch
@@ -122,5 +122,4 @@ void keypadSetUp(void)
     GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_3);
     //                                    Column 1  Column 3     Column 4     
     GPIOPinTypeGPIOOutput(GPIO_PORTD_BASE, GPIO_PIN_4 | GPIO_PIN_6 | GPIO_PIN_7);
-    RIT128x96x4Init(1000000);
 }

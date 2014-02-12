@@ -8,56 +8,56 @@
 #include "schedule.h"
 #include "tasks.h"
 
-TCB* taskListHead = NULL;
-TCB taskList[NUM_TASKS];
+TCB* taskQueueHead = NULL; // Head of task queue
+TCB* curTask = NULL;       // Current task
 
-#define TASK_STARTUP 0
-#define TASK_MEASURE 1
-#define TASK_COMPUTE 2
-#define TASK_DISPLAY 3
-#define TASK_WARNINGALARM 4
-#define TASK_STATUS 5
-#define TASK_COMMUNICATION 6
+extern TCB taskList[NUM_TASKS];
+extern volatile unsigned long globalTime;
 
-void schedulerInit()
+void majorCycleInitializeQueue()
 {
-  // Initialize the task queue
-  taskList[0] = (TCB) {&startup, NULL, NULL, NULL};
-  taskList[1] = (TCB) {&measure,&measureData,NULL,NULL};
-  taskList[2] = (TCB) {&compute,&computeData};
-  taskList[3] = (TCB) {&oledDisplay,&displayData,NULL,NULL};
-  taskList[4] = (TCB) {&warningAlarm,&warningAlarmData,NULL,NULL};
-  taskList[5] = (TCB) {&status,&statusData,NULL,NULL};
-  taskList[6] = (TCB) {&keypad,&keypadData,NULL,NULL};
-  taskList[7] = (TCB) {&communication,&communicationData,NULL,NULL};
-  taskList[8] = (TCB) {NULL,NULL,NULL,NULL};
+  taskQueueHead = NULL; // Reset the task queue
+  addTask(TASK_MEASURE);
+  addTask(TASK_KEYPAD);
+  addTask(TASK_DISPLAY);
+  addTask(TASK_WARNINGALARM);
+  addTask(TASK_STATUS);
 }
 
-void runScheduler()
+void runTasks()
 {
+  curTask = taskQueueHead;
   
+  while(curTask != NULL)
+  {
+   (*curTask->taskFtn)(curTask->taskDataPtr); // run task
+    curTask = curTask->next; // update next ptr
+  }
 }
 
 void removeTask(int taskID)
 {
   TCB* cur = &taskList[taskID];
-  if(taskListHead == cur)
+  if(taskQueueHead == cur)
   {
-    taskListHead = taskListHead->next;
+    taskQueueHead = taskQueueHead->next;
   }
   cur->next->previous = cur->previous;
   cur->previous->next = cur->next;
 }
 
-void addTask(int taskID)
+// Adds a task with the given ID to the queue after the current task.
+void addTask(unsigned int taskID)
 {
-  if(taskListHead == NULL)
+  if(taskQueueHead == NULL)
   {
-    taskListHead = taskList[taskID];
-  }else{
-    TCB* temp = taskListHead->next;
-    taskListHead->next = taskList[taskID];
-    taskList->next->previous = taskListHead;
-    taskListHead->next->next = temp;
+    taskQueueHead = &taskList[taskID];
+    taskQueueHead->next = taskQueueHead;
+    taskQueueHead->previous = NULL;
+  }else{        // alread have tasks scheduled
+    TCB* temp = curTask->next;
+    curTask->next = &taskList[taskID];
+    curTask->next->previous = curTask;
+    curTask->next->next = temp;
   }
 }
