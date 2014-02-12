@@ -6,84 +6,42 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\pwm.h</file>
-      <file>$PROJ_DIR$\compute.c</file>
-      <file>$PROJ_DIR$\circularbuffer.c</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_gpio.h</file>
-      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\compute.pbi</file>
-      <file>$PROJ_DIR$\circularbuffer.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\oledDisplay.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\interrupts.pbi</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_ints.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\debug.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\interrupts.o</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\systick.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$TOOLKIT_DIR$\config\linker\TexasInstruments\LM3S8962.icf</file>
-      <file>$PROJ_DIR$\Debug\Obj\schedule.pbi</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_ssi.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\uartstdio.o</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\pin_map.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\keypad.pbi</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_uart.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\rom.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\rom_map.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\uart.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\uartstdio.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\keypad.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\schedule.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup.o</file>
-      <file>$PROJ_DIR$\tasks.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_memmap.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\warningAlarm.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.pbi</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\interrupt.h</file>
-      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
-      <file>$PROJ_DIR$\Debug\Obj\status.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\warningAlarm.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\circularbuffer.o</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\gpio.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_types.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_sysctl.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\sysctl.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\boards\ek-lm3s8962\drivers\rit128x96x4.h</file>
       <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</file>
       <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\compute.c</file>
+      <file>$PROJ_DIR$\circularbuffer.c</file>
       <file>$PROJ_DIR$\keypad.c</file>
       <file>$PROJ_DIR$\interrupts.c</file>
       <file>$PROJ_DIR$\measure.c</file>
       <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\boards\ek-lm3s8962\drivers\rit128x96x4.c</file>
       <file>$PROJ_DIR$\startup.c</file>
       <file>$PROJ_DIR$\oledDisplay.c</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</file>
       <file>$PROJ_DIR$\schedule.c</file>
-      <file>$PROJ_DIR$\schedule.h</file>
-      <file>$PROJ_DIR$\status.c</file>
-      <file>$PROJ_DIR$\startup_ewarm.c</file>
-      <file>$PROJ_DIR$\Debug\Exe\c.out</file>
-      <file>$PROJ_DIR$\Debug\Obj\compute.o</file>
-      <file>$PROJ_DIR$\warningAlarm.c</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
       <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
-      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ssi.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_sysctl.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\gpio.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\sysctl.h</file>
       <file>$PROJ_DIR$\Debug\Obj\oledDisplay.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\boards\ek-lm3s8962\drivers\rit128x96x4.h</file>
       <file>$PROJ_DIR$\Debug\Obj\rit128x96x4.o</file>
       <file>$PROJ_DIR$\main.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ssi.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\interrupts.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_ssi.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\schedule.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\lab2.pbd</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_ints.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\debug.h</file>
       <file>$PROJ_DIR$\Debug\Obj\circularbuffer.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\systick.h</file>
       <file>$PROJ_DIR$\Debug\Obj\measure.o</file>
+      <file>$TOOLKIT_DIR$\config\linker\TexasInstruments\LM3S8962.icf</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.o</file>
       <file>$PROJ_DIR$\Debug\Obj\measure.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\rit128x96x4.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\startup.pbi</file>
@@ -91,27 +49,92 @@
       <file>$PROJ_DIR$\Debug\Obj\status.o</file>
       <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
       <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_gpio.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\pwm.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\uartstdio.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\uartstdio.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\keypad.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\compute.pbi</file>
+      <file>$PROJ_DIR$\circularbuffer.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\interrupts.o</file>
+      <file>$PROJ_DIR$\schedule.h</file>
+      <file>$PROJ_DIR$\status.c</file>
+      <file>$PROJ_DIR$\startup_ewarm.c</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\oledDisplay.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\keypad.o</file>
+      <file>$PROJ_DIR$\warningAlarm.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\schedule.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\rom.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\uart.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\rom_map.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_uart.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\pin_map.h</file>
+      <file>$PROJ_DIR$\tasks.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\warningAlarm.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\interrupt.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_types.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_memmap.h</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\status.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\compute.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$PROJ_DIR$\Debug\Exe\c.out</file>
+      <file>$PROJ_DIR$\Debug\Obj\circularbuffer.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\warningAlarm.o</file>
     </outputs>
     <file>
-      <name>$PROJ_DIR$\compute.c</name>
+      <name>$PROJ_DIR$\main.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 6</file>
+          <name>ICCARM</name>
+          <file> 75</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 66</file>
+          <name>BICOMP</name>
+          <file> 25</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 10 11 81 43 9 12 33 83 84 44 35 7 62</file>
+          <name>ICCARM</name>
+          <file> 74 15 14 69 46 76 70 53 19 55</file>
         </tool>
         <tool>
+          <name>BICOMP</name>
+          <file> 74 15 14 69 46 76 70 53 19 55</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\compute.c</name>
+      <outputs>
+        <tool>
           <name>ICCARM</name>
-          <file> 10 11 81 43 9 12 33 83 84 44 35 7 62</file>
+          <file> 79</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 52</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 21 20 39 80 43 23 68 41 42 11 70 53 55</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 20 39 80 43 23 68 41 42 11 70 53 55</file>
         </tool>
       </inputs>
     </file>
@@ -119,22 +142,179 @@
       <name>$PROJ_DIR$\circularbuffer.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 76</file>
+          <name>ICCARM</name>
+          <file> 83</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 46</file>
+          <name>BICOMP</name>
+          <file> 31</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 7 10 11 81 43 9 12 33 83 84 44</file>
+          <name>ICCARM</name>
+          <file> 53 21 20 39 80 43 23 68 41 42 11</file>
         </tool>
         <tool>
+          <name>BICOMP</name>
+          <file> 53 21 20 39 80 43 23 68 41 42 11</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\keypad.c</name>
+      <outputs>
+        <tool>
           <name>ICCARM</name>
-          <file> 7 10 11 81 43 9 12 33 83 84 44</file>
+          <file> 60</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 50</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 74 15 14 69 46 76 70 53 55</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74 15 14 69 46 76 70 53 55</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\interrupts.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 54</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 24</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 74 15 14 69 46 76 32 73</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74 15 14 69 46 76 32 73</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\measure.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 33</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 36</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 74 15 14 69 46 73 29 55 70 53</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\boards\ek-lm3s8962\drivers\rit128x96x4.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 18</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 37</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 26 76 13 74 30 14 69 22 15 17</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 26 76 13 74 30 14 69 22 15 17</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\startup.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 67</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 38</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 74 15 14 69 46 76 32 73 29 55 51 70 53</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 74 15 14 69 46 76 32 73 29 55 51 70 53</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\oledDisplay.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 16</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 59</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 70 53 55 17</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 70 53 55 17</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\schedule.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 62</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 27</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 55 70 53</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 55 70 53</file>
         </tool>
       </inputs>
     </file>
@@ -143,233 +323,30 @@
       <outputs>
         <tool>
           <name>ILINK</name>
-          <file> 65</file>
+          <file> 82</file>
         </tool>
       </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\main.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 18</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 37</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 48 50 47 24 3 36 35 7 73 62</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 48 50 47 24 3 36 35 7 73 62</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\keypad.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 25</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 31</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 48 50 47 24 3 36 35 7 62</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 48 50 47 24 3 36 35 7 62</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\interrupts.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 13</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 16</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 48 50 47 24 3 36 17 40</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 48 50 47 24 3 36 17 40</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\measure.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 78</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 77</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 35 7 62</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 35 7 62</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\boards\ek-lm3s8962\drivers\rit128x96x4.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 79</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 72</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 21 36 49 48 15 47 24 70 50 51</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 21 36 49 48 15 47 24 70 50 51</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\startup.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 80</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 34</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 48 50 47 24 3 36 17 40 14 62 5 35 7</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 48 50 47 24 3 36 17 40 14 62 5 35 7</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\oledDisplay.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 8</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 71</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 35 7 62 51</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 30</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 23</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 22 11 81 43 9 12 33 83 14 36 48 26 15 40 27 28 50 29 5</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 22 11 81 43 9 12 33 83 14 36 48 26 15 40 27 28 50 29 5</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\schedule.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 20</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 32</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 62 35 7</file>
-        </tool>
-        <tool>
-          <name>ICCARM</name>
-          <file> 62 35 7</file>
-        </tool>
-      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\status.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 42</file>
+          <name>ICCARM</name>
+          <file> 40</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 82</file>
+          <name>BICOMP</name>
+          <file> 78</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 35 7 62</file>
+          <name>ICCARM</name>
+          <file> 70 53 55</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 35 7 62</file>
+          <name>BICOMP</name>
+          <file> 70 53 55</file>
         </tool>
       </inputs>
     </file>
@@ -377,21 +354,35 @@
       <name>$PROJ_DIR$\startup_ewarm.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 39</file>
+          <name>ICCARM</name>
+          <file> 35</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 74</file>
+          <name>BICOMP</name>
+          <file> 72</file>
         </tool>
       </outputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\Debug\Exe\c.out</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 48</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49</file>
+        </tool>
+      </outputs>
       <inputs>
         <tool>
-          <name>ILINK</name>
-          <file> 19 52 46 66 16 31 37 77 71 72 32 34 74 82 23 45 41 68 69 4</file>
+          <name>ICCARM</name>
+          <file> 45 20 39 80 43 23 68 41 29 76 74 66 30 73 63 65 15 64 51</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 45 20 39 80 43 23 68 41 29 76 74 66 30 73 63 65 15 64 51</file>
         </tool>
       </inputs>
     </file>
@@ -399,22 +390,31 @@
       <name>$PROJ_DIR$\warningAlarm.c</name>
       <outputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 38</file>
+          <name>ICCARM</name>
+          <file> 84</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 45</file>
+          <name>BICOMP</name>
+          <file> 71</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>BICOMP</name>
-          <file> 48 50 47 24 3 36 0 35 7 62</file>
+          <name>ICCARM</name>
+          <file> 74 15 14 69 46 76 47 70 53 55</file>
         </tool>
         <tool>
-          <name>ICCARM</name>
-          <file> 48 50 47 24 3 36 0 35 7 62</file>
+          <name>BICOMP</name>
+          <file> 74 15 14 69 46 76 47 70 53 55</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\c.out</name>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 34 0 83 79 54 60 75 33 16 18 62 67 35 40 48 84 77 12 81 44</file>
         </tool>
       </inputs>
     </file>
