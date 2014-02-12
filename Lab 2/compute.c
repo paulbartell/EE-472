@@ -94,7 +94,7 @@ void compute(void* taskDataPtr)
     strcpy(target, newData);
 
     // Pulse correction
-    storageSpace = (int)(FPOINT*(PRCA + PRCM*(*(prRaw)) + ROUND));
+    storageSpace = (int)(FPOINT*(PRCM*(*(prRaw)) + ROUND));
 
     // Store the corrected data
     toString(storageSpace, newData);
