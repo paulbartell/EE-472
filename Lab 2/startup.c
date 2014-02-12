@@ -121,16 +121,16 @@ void startup(void* taskDataPtr)
   
   // setup circular buffers
   //void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
-  cBuffInit(&temperatureRawBuf, temperatureRaw, BUF_CAPACITY, sizeof(unsigned int));
-  cBuffInit(&systolicPressRawBuf, systolicPressRaw, BUF_CAPACITY, sizeof(unsigned int));
-  cBuffInit(&diastolicPressRawBuf, diastolicPressRaw, BUF_CAPACITY, sizeof(unsigned int));
-  cBuffInit(&pulseRateRawBuf, pulseRateRaw, BUF_CAPACITY, sizeof(unsigned int));
+  cBuffInit(&temperatureRawBuf, temperatureRaw, BUF_CAPACITY, sizeof(temperatureRaw)/BUF_CAPACITY);
+  cBuffInit(&systolicPressRawBuf, systolicPressRaw, BUF_CAPACITY, sizeof(systolicPressRaw)/BUF_CAPACITY);
+  cBuffInit(&diastolicPressRawBuf, diastolicPressRaw, BUF_CAPACITY, sizeof(diastolicPressRaw)/BUF_CAPACITY);
+  cBuffInit(&pulseRateRawBuf, pulseRateRaw, BUF_CAPACITY, sizeof(pulseRateRaw)/BUF_CAPACITY);
   
-  cBuffInit(&tempCorrectedBuf, tempCorrected, BUF_CAPACITY, sizeof(char*));
-  cBuffInit(&systolicPressCorrectedBuf, systolicPressCorrected, BUF_CAPACITY, sizeof(char*));
-  cBuffInit(&diastolicPressCorrectedBuf, diastolicPressCorrected, BUF_CAPACITY, sizeof(char*));
-  cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY, sizeof(char*));
-  cBuffInit(&battCorrectedBuf, battCorrected, BUF_CAPACITY, sizeof(char*));
+  cBuffInit(&tempCorrectedBuf, tempCorrected, BUF_CAPACITY, sizeof(tempCorrected)/BUF_CAPACITY);
+  cBuffInit(&systolicPressCorrectedBuf, systolicPressCorrected, BUF_CAPACITY, sizeof(systolicPressCorrected)/BUF_CAPACITY);
+  cBuffInit(&diastolicPressCorrectedBuf, diastolicPressCorrected, BUF_CAPACITY, sizeof(diastolicPressCorrected)/BUF_CAPACITY);
+  cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY, sizeof(pulseRateCorrected)/BUF_CAPACITY);
+  cBuffInit(&battCorrectedBuf, battCorrected, BUF_CAPACITY, sizeof(battCorrected)/BUF_CAPACITY);
 }
 
 void schedulerInit()
