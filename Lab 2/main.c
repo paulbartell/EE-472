@@ -21,8 +21,9 @@
 
 extern volatile unsigned long globalTime;
 extern void startup();
-
+extern void schedulerInit();
 // Initialize the scheduler and some hardware
+
 void init()
 {
   
@@ -40,6 +41,7 @@ void main()
                    SYSCTL_XTAL_8MHZ);
   
   startup();
+  schedulerInit();
   // Initialize the task queue and tasks
   init();
   
