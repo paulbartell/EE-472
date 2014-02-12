@@ -36,7 +36,7 @@ ActionState=1
 Enabled=0
 ShowSource=1
 [DebugChecksum]
-Checksum=-1422019755
+Checksum=1142429003
 [LMIFTDIDriver]
 LMI_ResetMode=0x00000000
 [Exceptions]
@@ -49,8 +49,7 @@ MixedMode=0
 [Disassemble mode]
 mode=0
 [Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\main.c}.38.3" 1 0 0 0 "" 0 ""
-Count=1
+Count=0
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""

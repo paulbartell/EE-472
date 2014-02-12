@@ -19,6 +19,7 @@ void majorCycleInitializeQueue()
   taskQueueHead = NULL; // Reset the task queue
   addTask(TASK_MEASURE);
   addTask(TASK_KEYPAD);
+  addTask(TASK_COMPUTE);
   addTask(TASK_DISPLAY);
   addTask(TASK_WARNINGALARM);
   addTask(TASK_STATUS);
@@ -31,6 +32,43 @@ void runTasks()
   while(curTask != NULL)
   {
    (*curTask->taskFtn)(curTask->taskDataPtr); // run task
+   /* Asked Peckol, he says to add flags because each task shouldn't know about the addTask() function
+   if(measureFlag) 
+   {
+     addTask(TASK_MEASURE);
+     measureFlag = 0;
+   }
+   if(computeFlag) 
+   {
+     addTask(TASK_COMPUTE);
+     computeFlag = 0;
+   }
+   if(keypadFlag) 
+   {
+     addTask(TASK_KEYPAD);
+     keypadFlag = 0;
+   }
+   if(displayFlag) 
+   {
+     addTask(TASK_DISPLAY);
+     displayFlag = 0;
+   }
+   if(warningFlag)
+   {
+     addTask(TASK_WARNINGALARM);
+     warningFlag = 0;
+   }
+   if(commFlag)
+   {
+     addTask(TASK_COMMUNICATION);
+     commFlag = 0;
+   }
+   if(statusFlag)
+   {
+     addTask(TASK_STATUS);
+     statusFlag = 0;
+   }
+   */
     curTask = curTask->next; // update next ptr
   }
 }
@@ -54,7 +92,7 @@ void addTask(unsigned int taskID)
     taskQueueHead = &taskList[taskID];
     taskQueueHead->next = taskQueueHead;
     taskQueueHead->previous = NULL;
-  }else{        // alread have tasks scheduled
+  } else {        // alread have tasks scheduled
     TCB* temp = curTask->next;
     curTask->next = &taskList[taskID];
     curTask->next->previous = curTask;

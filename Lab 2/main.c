@@ -20,6 +20,7 @@
 
 
 extern volatile unsigned long globalTime;
+extern void startup();
 
 // Initialize the scheduler and some hardware
 void init()

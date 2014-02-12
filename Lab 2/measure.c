@@ -23,7 +23,6 @@ void measure(void* taskDataPtr)
     int temp;
     int syst;
     int dias;
-    int pulse;
 
     // Variables to be initialized once
     // Change during every method call
@@ -31,7 +30,6 @@ void measure(void* taskDataPtr)
     static int sysComplete = 0;
 
     static int revTemp = 0;
-    static int revPulse = 0;
     static int even = 1;
 
     // Access the passed in MeasureData struct

@@ -6,9 +6,9 @@
 * author: Ryan McDaniel
 ******************************************/ 
 
+#include <string.h>
 #include "tasks.h"
 #include "schedule.h"
-#include "string.h"
 
 // We are only working with two decimal points
 #define NUM_DEC 2
@@ -80,7 +80,7 @@ void compute(void* taskDataPtr)
     // Systolic correction
     storageSpace = (int)(FPOINT*(SYSCA + SYSCM*(*(systolicRaw)) + ROUND));
 
-    // Store the corrected data MESSED UP // Paul fixed this dangling pointers
+    // Store the corrected data
     toString(storageSpace, newData);
     target = cBuffPush(computeDataPtr->systolicPressCorrectedBuf);
     strcpy(target, newData);
@@ -88,9 +88,9 @@ void compute(void* taskDataPtr)
     // Disastolic correction
     storageSpace = (int)(FPOINT*(DIACA + DIACM*(*(diastolicRaw)) + ROUND));
 
-    // Store the corrected data MESSED UP
+    // Store the corrected data
     toString(storageSpace, newData);
-    target = cBuffPush(computeDataPtr->systolicPressCorrectedBuf);
+    target = cBuffPush(computeDataPtr->diastolicPressCorrectedBuf);
     strcpy(target, newData);
 
     // Pulse correction
