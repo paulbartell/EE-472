@@ -30,6 +30,8 @@
 #define PRCM 3
 #define BATTDIV 2.0
 #define STR_SIZE 15
+#define PULSE_FMAX 20000
+#define PULSE_FMIN 1000
 
 /*
 1. Temperature in Celsius: tempCorrected = 5 + 0.75�tempRaw 
@@ -97,8 +99,19 @@ void compute(void* taskDataPtr)
     // Pulse correction
     storageSpace = (int)(FPOINT*(PRCM*(*(prRaw)) + ROUND));
 
-    // Store the corrected data
-    toString(storageSpace, newData);
+    // Store the corrected data or error message
+    if(storageSpace > PULSE_FMAX)
+    {
+      strcpy(newData, ">200");
+    }
+    else if(storageSpace < PULSE_FMIN)
+    {
+      strcpy(newData, "<10");
+    }
+    else
+    {
+      toString(storageSpace, newData);
+    }
     target = cBuffPush(computeDataPtr->prCorrectedBuf);
     strcpy(target, newData);
 

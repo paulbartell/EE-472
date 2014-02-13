@@ -45,7 +45,7 @@
 #define TONE 1200
 
 // defines a state variable for keeping track of Alarm state.
-enum _myState { NORMAL = 0, WARNING = 1, ALARM = 2, ACK = 3 };
+enum _myState { NORMAL = 0, WARNING = 1, ALARM = 2, ACK = 3, NEWWARNING = 4, NEWALARM = 5 };
  typedef enum _myState State;
 
 extern unsigned long globalTime;
@@ -71,7 +71,7 @@ void warningAlarmSetup(void)
   // Compute the period for 440Hz
   unsigned long ulPeriod = SysCtlClockGet() / TONE;
   // Set the PWM clock reference
-  SysCtlPWMClockSet(SYSCTL_PWMDIV_1);
+  SysCtlPWMClockSet(SYSCTL_PWMDIV_8);
   // Enable GPIOG for PWM output
   SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOG);
   // Enable PWM0 Peripherial
@@ -193,13 +193,29 @@ void warningAlarm(void* taskDataPtr)
     
     if(state != ACK)
     {
-      if (bpAlarm || tempAlarm || pulseAlarm || batteryAlarm)
+      if ((bpAlarm || tempAlarm || pulseAlarm || batteryAlarm))
       {
-        state = ALARM;
+        if(state == NEWALARM)
+        {
+          state = ALARM;
+        }
+        else
+        {
+          state = NEWALARM;
+          addFlags[TASK_COMMUNICATION] = 1;
+        }
       }
       else if(bpOutOfRange || tempOutOfRange || pulseOutOfRange || batteryOutOfRange)
       {
-        state = WARNING;
+        if(state == NEWWARNING)
+        {
+           state = WARNING;
+        }
+        else
+        {
+          state = NEWWARNING;
+          addFlags[TASK_COMMUNICATION] = 1;
+        }
       }
       else
       {
@@ -211,9 +227,11 @@ void warningAlarm(void* taskDataPtr)
   //button = (GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_1)); // Deprecated
   button = *(warningAlarmData->alarmAcknowledge);
   // Update state WRT button every task call
-  if(button == 0 && state == ALARM)
+  if(button == 1 && (state == ALARM || state == NEWALARM))
   {
     state = ACK;
+    *(warningAlarmData->alarmAcknowledge) = 0;
+    
   }
   
   // Half-hz operations begin
@@ -223,7 +241,7 @@ void warningAlarm(void* taskDataPtr)
     {
       GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_0), 0);    // flash G led off
     }
-    if(batteryOutOfRange && (state == ALARM))
+    if(batteryOutOfRange && (state == ALARM || state == NEWALARM))
     {
       PWMGenEnable(PWM0_BASE, PWM_GEN_0);               //Turn on buzzer
     }
@@ -258,7 +276,7 @@ void warningAlarm(void* taskDataPtr)
     {
       GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_1), 0);    // Yellow led off
     }
-    if(state == ALARM)
+    if(state == ALARM || state == NEWALARM)
     {
      PWMGenEnable(PWM0_BASE, PWM_GEN_0);                // Enable Alarm buzzer
     }

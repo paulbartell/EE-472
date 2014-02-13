@@ -38,7 +38,8 @@ void schedulerStart()
     }
     else if(globalTime % (HALFHZCOUNT) == 0)
     {
-      addTask(TASK_KEYPAD);
+      //addTask(TASK_KEYPAD);
+      addFlags[TASK_KEYPAD] = 1;
     }
     runTasks();
     unsigned long thisGTime = globalTime;
