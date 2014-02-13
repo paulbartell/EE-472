@@ -1,0 +1,13 @@
+Measure
+8.8 us
+
+Compute
+72us
+
+Keypad
+7us
+
+Display
+372 us
+
+WarningAlarm

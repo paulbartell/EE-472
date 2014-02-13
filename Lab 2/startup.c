@@ -120,7 +120,6 @@ void startup(void* taskDataPtr)
   IntEnable(INT_GPIOF);
   
   // setup circular buffers
-  //void cBuffInit(CircularBuffer* cb, void* buffPtr, int capacity, int itemSize)
   cBuffInit(&temperatureRawBuf, temperatureRaw, BUF_CAPACITY, sizeof(temperatureRaw)/BUF_CAPACITY);
   cBuffInit(&systolicPressRawBuf, systolicPressRaw, BUF_CAPACITY, sizeof(systolicPressRaw)/BUF_CAPACITY);
   cBuffInit(&diastolicPressRawBuf, diastolicPressRaw, BUF_CAPACITY, sizeof(diastolicPressRaw)/BUF_CAPACITY);

@@ -56,6 +56,7 @@ void schedulerStart()
     runTasks();
     unsigned long thisGTime = globalTime;
     while(thisGTime == globalTime);             // delay until the end of the minor cycle
+    //delayMs(100);                 // for timing tests
   }
 }
 
@@ -65,14 +66,16 @@ void schedulerStart()
 */
 void runTasks()
 {
-  GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 1 << 3); // Tick for timing test
+  
   curTask = taskQueueHead;
   
   while(curTask != NULL)
   {
+   //GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 1 << 3); // Tick for timing test
    (*curTask->taskFtn)(curTask->taskDataPtr); // run task
    
-   GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0);    // Tock for timing test
+   //GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0);    // Tock for timing test
+   //delayMs(1);                          // For timing
    
    for(int i = 0; i < NUM_TASKS; i++)
    {
