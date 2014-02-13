@@ -22,7 +22,10 @@
 #define PULSE 2
 #define BATT 3
 
-
+/**
+*       Main function for the keypad task
+*       @param taskDataPtr Pointer to the KeypadData struct
+*/
 void keypad(void* taskDataPtr)
 {
   KeypadData* keypadDataPtr = (KeypadData*) taskDataPtr;  
@@ -105,6 +108,9 @@ void keypad(void* taskDataPtr)
   removeFlags[TASK_KEYPAD] = 1;
 }
 
+/**
+*       Sets up hardware (GPIO port C,D, E) for the keypad task.
+*/
 void keypadSetUp(void)
 {
   // Enable GPIO port E

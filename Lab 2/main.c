@@ -20,65 +20,27 @@
 extern volatile unsigned long globalTime;
 extern void startup();
 extern void schedulerInit();
-// Initialize the scheduler and some hardware
 
-void init()
-{
-  
-  // Call any setup functions needed for each task.
-  warningAlarmSetup();
-  oledDisplaySetup();
-  keypadSetUp();
-  
-}
 
-// Main entry point
+/**
+*       Application Main entry point.
+*/
  void main()
 {
-  // Use 8MHZ crystal directly
+  // Use 8MHZ crystal, and the PLL to get to 50MHZ
   SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |   
                    SYSCTL_XTAL_8MHZ); 
-
   
   startup();
-  schedulerInit();
-  // Initialize the task queue and tasks
-  init();
-  schedulerStart();
-//  // Setup GPIO G3 as output for timing measurement
-//  GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_3);
-//  
-//  while(1)
-//  {
-//    // run major cycle tasks
-//    runTasks();
-//    
-//    // Major cycle Delay
-//    delayMs(MAJORCYCLEDELAYMS); 
-//    globalTime++;
-//    
-//    for(int j = 1; j < MAJORCYCLECOUNT; j++)
-//    {
-//      // Write PE3 high for timing test
-//      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 1 << 3);
-//      
-//      // run all minor cycle tasks
-//      runTasks();
-//      
-//      globalTime++;
-//      
-//      // Minor cycle delay
-//      delayMs(MINORCYCLEDELAYMS); 
-//      
-//      // Write PE3 low for timing test
-//      GPIOPinWrite(GPIO_PORTE_BASE, GPIO_PIN_3, 0);
-//    }
-//    // delayMs(1); // Enable for timing testing
-//  }
+  schedulerInit();  // Initialize the task queue and tasks
+  schedulerStart(); // Handoff to scheduler
   return;
 }
 
-// Software delay function
+/**
+*       Software delay. Deprecated
+*       @param delayTime delay in miliseconds.
+*/
 void delayMs(unsigned long delayTime)
 {
     volatile unsigned long i = 0; 

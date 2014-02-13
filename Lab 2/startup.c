@@ -132,7 +132,11 @@ void startup(void* taskDataPtr)
   cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY, sizeof(pulseRateCorrected)/BUF_CAPACITY);
   cBuffInit(&battCorrectedBuf, battCorrected, BUF_CAPACITY, sizeof(battCorrected)/BUF_CAPACITY);
   
-
+  
+  // Run task setup functions
+  warningAlarmSetup();
+  oledDisplaySetup();
+  keypadSetUp();
 }
 
 void schedulerInit()
