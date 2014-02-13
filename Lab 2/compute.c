@@ -38,6 +38,7 @@
 4. Pulse Rate in beats per minute: prCorrected = 8 + 3�bpRaw 
 */
 
+
 void toString(int number, char* convertedNumber);
 int findSize(int number);
 int getDigits(int magnitude);
@@ -109,6 +110,7 @@ void compute(void* taskDataPtr)
     target = cBuffPush(computeDataPtr->battCorrected);
     strcpy(target, newData);
   }
+  removeFlags[TASK_COMPUTE] = 1;
   return;
 }
 

@@ -22,12 +22,13 @@
 #define PULSE 2
 #define BATT 3
 
+
 void keypad(void* taskDataPtr)
 {
 	KeypadData* keypadDataPtr = (KeypadData*) taskDataPtr;  
 	int inputs[4][4];
 	
-	// Row 1
+	// Col 1
 	GPIOPinWrite(GPIO_PORTD_BASE,(GPIO_PIN_4), 0);
 	inputs[0][0] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4);
 	inputs[0][1] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5);
@@ -35,27 +36,27 @@ void keypad(void* taskDataPtr)
 	inputs[0][3] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_7);
 	GPIOPinWrite(GPIO_PORTD_BASE,(GPIO_PIN_4), 255);    
 
-	// Row 2
-	// GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_3), 0);
-	// inputs[1][0] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4);
-	// inputs[1][1] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5);
-	// inputs[1][2] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6);
-	// inputs[1][3] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_7);
-	// GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_3), 255);
+         //Col 2
+	 GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_3), 0);
+	 inputs[1][0] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4);
+	 inputs[1][1] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5);
+	 inputs[1][2] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6);
+	 inputs[1][3] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_7);
+	 GPIOPinWrite(GPIO_PORTE_BASE,(GPIO_PIN_3), 255);
 
-	// Row 3
+	// Col 3
 	GPIOPinWrite(GPIO_PORTD_BASE,(GPIO_PIN_6), 0);
-	// inputs[2][0] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4);
+	inputs[2][0] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4);
 	inputs[2][1] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5);
-	// inputs[2][2] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6);
-	// inputs[2][3] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_7);
+	inputs[2][2] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6);
+	inputs[2][3] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_7);
 	GPIOPinWrite(GPIO_PORTD_BASE,(GPIO_PIN_6), 255);
 
-	// Row 4
+	// Col 4
 	GPIOPinWrite(GPIO_PORTD_BASE,(GPIO_PIN_7), 0);
-	// inputs[3][0] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4);
+	inputs[3][0] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_4);
 	inputs[3][1] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_5);
-	// inputs[3][2] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6);
+	inputs[3][2] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_6);
 	inputs[3][3] = GPIOPinRead(GPIO_PORTC_BASE, GPIO_PIN_7);
 	GPIOPinWrite(GPIO_PORTD_BASE,(GPIO_PIN_7), 255);
 
@@ -66,31 +67,31 @@ void keypad(void* taskDataPtr)
 		(*(keypadDataPtr->measurementSelection)) = BLOOD;
 	// Press 1
 	} 
-	else if (inputs[0][1] == 0) 
+	else if (inputs[1][0] == 0) 
 	{
 		(*(keypadDataPtr->measurementSelection)) = TEMP;
 	// Press 2
 	} 
-	else if (inputs[0][2] == 0) 
+	else if (inputs[2][0] == 0) 
 	{
 		(*(keypadDataPtr->measurementSelection)) = PULSE;
 	// Press 3
 	} 
-	else if (inputs[0][3])
+	else if (inputs[3][0] == 0)
 	{
 		(*(keypadDataPtr->measurementSelection)) = BATT;
 	}
 
 	// Mode: Toggle Switch
 	// Press D
-	if(inputs[3][1] == 0) 
+	if(inputs[1][3] == 0) 
 	{
 		*(keypadDataPtr->mode) = !(*(keypadDataPtr->mode));
 	}
 	
 	// Scroll button
 	// Press 9
-	if(inputs[2][1] == 0) 
+	if(inputs[1][2] == 0) 
 	{
 		*(keypadDataPtr->scroll) = 1;
 	}
@@ -101,6 +102,7 @@ void keypad(void* taskDataPtr)
 	{
 		(*(keypadDataPtr->alarmAcknowledge)) = 1;
 	}
+        addFlags[TASK_KEYPAD] = 1;
 }
 
 void keypadSetUp(void)

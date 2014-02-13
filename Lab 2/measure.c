@@ -21,7 +21,7 @@
   
 extern unsigned long globalTime; 
 extern unsigned long pulseRateCount; 
-  
+
 void measure(void* taskDataPtr) 
 { 
   if(globalTime % MAJORCYCLECOUNT == 0) 
@@ -132,7 +132,7 @@ void measure(void* taskDataPtr)
     } 
   
     // Measure Pulse Rate every minute (5 major cycles) 
-    if(globalTime % MINORCYCLESPERMIN == 0) { 
+    if((globalTime % MINORCYCLESPERMIN == 0) && (globalTime != 0)) { 
         // Disable interrupt and determine range of previous pulse rate 
         IntDisable(INT_GPIOF); 
         float low = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 0.85; 
@@ -154,5 +154,7 @@ void measure(void* taskDataPtr)
     cBuffPut((measureDataPtr->diastolicPressRawBuf), &dias); 
   
     even = !even; 
+    addFlags[TASK_COMPUTE] = 1;
+    removeFlags[TASK_MEASURE] = 1;
   } 
 } 

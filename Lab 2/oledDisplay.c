@@ -16,7 +16,7 @@
 #define L_ALLIGN 0
 #define R_ALLIGN 65
 #define C_ALLIGN 40
-#define MAX_LINES 11
+#define MAX_LINES 12
 #define NUM_OPTS 4
 
 void clearOLED(int numLines);
@@ -24,12 +24,13 @@ void clearOLED(int numLines);
 typedef enum {BLOOD, TEMP, PULSE, BATT} measurement;
 typedef enum {NORMAL, ANNUNCIATE} displayMode;
 
+
 extern unsigned long globalTime;
 
 void oledDisplaySetup()
 {
   // Initialize the OLED Display
-  RIT128x96x4Init(1000000);
+  RIT128x96x4Init(10000000);
 }
 
 // print out the current readings
@@ -158,6 +159,7 @@ void oledDisplay(void* taskDataPtr)
     }
     lastMode = currentMode;
     *(displayDataPtr->measurementSelection) = (unsigned short) myMeasurement;
+    removeFlags[TASK_DISPLAY] = 1;
   }
 }
 

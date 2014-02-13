@@ -76,7 +76,7 @@ unsigned short displayScroll = 0;
 ComputeData computeData = {&temperatureRawBuf,
   &systolicPressRawBuf, &diastolicPressRawBuf, &pulseRateRawBuf, &tempCorrectedBuf,
   &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf, &pulseRateCorrectedBuf,
-  &battCorrectedBuf};
+  &battCorrectedBuf, &batteryState};
 
 
 DisplayData displayData = {&tempCorrectedBuf, &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf,
@@ -105,7 +105,7 @@ void startup(void* taskDataPtr)
   UARTStdioInit(0);
   
   // Setup SysTick timer for global time base
-  SysTickPeriodSet(SysCtlClockGet() / MINORCYCLEPERSEC);
+  SysTickPeriodSet(SysCtlClockGet() / 50);
   SysTickIntRegister(SysTickIntHandler);
   IntMasterEnable();
   SysTickIntEnable();
@@ -131,6 +131,8 @@ void startup(void* taskDataPtr)
   cBuffInit(&diastolicPressCorrectedBuf, diastolicPressCorrected, BUF_CAPACITY, sizeof(diastolicPressCorrected)/BUF_CAPACITY);
   cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY, sizeof(pulseRateCorrected)/BUF_CAPACITY);
   cBuffInit(&battCorrectedBuf, battCorrected, BUF_CAPACITY, sizeof(battCorrected)/BUF_CAPACITY);
+  
+
 }
 
 void schedulerInit()

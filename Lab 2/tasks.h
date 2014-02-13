@@ -96,6 +96,7 @@ typedef struct KeypadData
 } KeypadData;
 
 void keypad(void* taskData);
+void keypadSetUp();
 
 typedef struct CommunicationsData
 {

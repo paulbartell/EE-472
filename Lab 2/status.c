@@ -19,11 +19,15 @@ void status(void* taskDataPtr)
     StatusData* statusDataPtr = (StatusData*) taskDataPtr;
     
     // Reset battery once it reaches zero to continue simulation
-    if ((*(statusDataPtr->batteryState)) == 0) {
+    if ((*(statusDataPtr->batteryState)) == 0) 
+    {
       (*(statusDataPtr->batteryState)) = INTBAT;
-    } else {
+    } 
+    else 
+    {
       (*(statusDataPtr->batteryState))--;
     }
+    removeFlags[TASK_STATUS] = 1;
   }
   return;
 }

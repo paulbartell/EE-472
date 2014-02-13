@@ -10,6 +10,7 @@
 #include "inc/hw_memmap.h"
 #include "driverlib/systick.h"
 #include "driverlib/interrupt.h"
+#include "utils/uartstdio.h"
 
 volatile unsigned long globalTime = 0;
 volatile unsigned long pulseRateCount = 0;
@@ -17,6 +18,7 @@ volatile unsigned long pulseRateCount = 0;
 void SysTickIntHandler(void)
 {
   globalTime++;
+  
 }
 
 

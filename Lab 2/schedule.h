@@ -27,9 +27,14 @@ struct TaskControlBlock
   struct TaskControlBlock* next;
   struct TaskControlBlock* previous;
 };
-typedef struct TaskControlBlock TCB;
+typedef struct TaskControlBlock TCB; 
 
 void majorCycleInitializeQueue();
 void runTasks();
 void removeTask(int taskID);
 void addTask(unsigned int taskID);
+void schedulerStart(void);
+
+
+extern unsigned short addFlags[NUM_TASKS];
+extern unsigned short removeFlags[NUM_TASKS];

@@ -15,9 +15,7 @@
 
 #include "tasks.h"      // For task data structs
 #include "main.h"       // For function prototypes
-#include "schedule.h"   // For scheduler constants/timing
-
-
+#include "schedule.h"   // For scheduler constants/timing  
 
 extern volatile unsigned long globalTime;
 extern void startup();
@@ -30,24 +28,23 @@ void init()
   // Call any setup functions needed for each task.
   warningAlarmSetup();
   oledDisplaySetup();
+  keypadSetUp();
   
 }
 
 // Main entry point
-void main()
+ void main()
 {
   // Use 8MHZ crystal directly
-  SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN |
-                   SYSCTL_XTAL_8MHZ);
+  SysCtlClockSet(SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN |   
+                   SYSCTL_XTAL_8MHZ); 
+
   
   startup();
   schedulerInit();
   // Initialize the task queue and tasks
   init();
-  
-  majorCycleInitializeQueue();
-  runTasks();
-  
+  schedulerStart();
 //  // Setup GPIO G3 as output for timing measurement
 //  GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, GPIO_PIN_3);
 //  
