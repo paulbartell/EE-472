@@ -1,3 +1,10 @@
+/****************************************** 
+* task name: communication
+* task inputs: void* pointer to a CommunicationData struct (see tasks.h)
+* task outputs: void
+* task description: Outputs data to serial console when called.
+* author: Paul Bartell
+******************************************/ 
 #include "inc/hw_types.h"
 #include "utils/uartstdio.h"
 #include "tasks.h"

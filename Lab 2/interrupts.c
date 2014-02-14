@@ -18,19 +18,21 @@ volatile unsigned long pulseRateCount = 0;
 volatile unsigned short pulseRateFlag = 0;
 volatile unsigned long pulseRateSample = 0;
 
+// System time tick ISR for incrementing globalTime
 void SysTickIntHandler(void)
 {
   globalTime++;
   
 }
 
-
+// Interrupt handler for the pulse rate counter.
 void GPIOFIntHandler(void)
 {
   pulseRateCount++;
   GPIOPinIntClear(GPIO_PORTF_BASE, GPIO_PIN_0);
 }
 
+// Interrupt handler for the pulse rate sampler. Provides hard realtime sampling.
 void prTimerIntHandler(void)
 {
   TimerIntClear(TIMER2_BASE, TIMER_TIMA_TIMEOUT); // clear the timer interrupt
