@@ -49,6 +49,7 @@ static void IntDefaultHandler(void);
 extern void GPIOFIntHandler(void);
 extern void SysTickIntHandler(void);
 extern void UARTStdioIntHandler(void);
+extern void prTimerIntHandler(void);
 
 //*****************************************************************************
 //
@@ -126,7 +127,7 @@ __root const uVectorEntry __vector_table[] @ ".intvec" =
     IntDefaultHandler,                      // Timer 0 subtimer B
     IntDefaultHandler,                      // Timer 1 subtimer A
     IntDefaultHandler,                      // Timer 1 subtimer B
-    IntDefaultHandler,                      // Timer 2 subtimer A
+    prTimerIntHandler,                      // Timer 2 subtimer A
     IntDefaultHandler,                      // Timer 2 subtimer B
     IntDefaultHandler,                      // Analog Comparator 0
     IntDefaultHandler,                      // Analog Comparator 1

@@ -10,10 +10,13 @@
 #include "inc/hw_memmap.h"
 #include "driverlib/systick.h"
 #include "driverlib/interrupt.h"
-#include "utils/uartstdio.h"
+#include "driverlib/timer.h"
+#include "inc/hw_ints.h"
 
 volatile unsigned long globalTime = 0;
 volatile unsigned long pulseRateCount = 0;
+volatile unsigned short pulseRateFlag = 0;
+volatile unsigned long pulseRateSample = 0;
 
 void SysTickIntHandler(void)
 {
@@ -28,3 +31,12 @@ void GPIOFIntHandler(void)
   GPIOPinIntClear(GPIO_PORTF_BASE, GPIO_PIN_0);
 }
 
+void prTimerIntHandler(void)
+{
+  TimerIntClear(TIMER2_BASE, TIMER_TIMA_TIMEOUT); // clear the timer interrupt
+  IntDisable(INT_GPIOF);
+  pulseRateSample = pulseRateCount;
+  pulseRateCount = 0;
+  pulseRateFlag = 1;
+  IntEnable(INT_GPIOF);
+}

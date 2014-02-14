@@ -20,7 +20,8 @@
 #define INTDIAS 80 
   
 extern unsigned long globalTime; 
-extern unsigned long pulseRateCount; 
+extern unsigned long pulseRateSample;
+extern unsigned short pulseRateFlag;
 
 void measure(void* taskDataPtr) 
 { 
@@ -132,21 +133,16 @@ void measure(void* taskDataPtr)
     } 
   
     // Measure Pulse Rate every minute (5 major cycles) 
-    if((globalTime % MINORCYCLESPERMIN == 0) && (globalTime != 0)) { 
-        // Disable interrupt and determine range of previous pulse rate 
-        IntDisable(INT_GPIOF); 
+    if(pulseRateFlag)
+    { 
         float low = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 0.85; 
         float high = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 1.15; 
   
         // Adds value to buffer if it goes +15% of -15% of previous value 
-        if((pulseRateCount < low) || (pulseRateCount > high)){ 
-          cBuffPut((measureDataPtr->pulseRateRawBuf), &pulseRateCount); 
+        if((pulseRateSample < low) || (pulseRateSample > high))
+        { 
+          cBuffPut((measureDataPtr->pulseRateRawBuf), &pulseRateSample); 
         } 
-        // Reset to zero for next count 
-        pulseRateCount = 0; 
-          
-        // (Re-enable Interrupt) 
-        IntEnable(INT_GPIOF); 
     } 
       
     cBuffPut((measureDataPtr->temperatureRawBuf), &temp); 
