@@ -22,6 +22,7 @@
 
 #define STR_SIZE 16
 #define BUF_CAPACITY 8
+#define PRSAMPLETIME 2
 
 extern void SysTickIntHandler(void);
 
@@ -113,7 +114,7 @@ void startup(void* taskDataPtr)
   
   // Setup Timer2 for pulse rate sampling
   SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER2);
-  TimerLoadSet(TIMER2_BASE, TIMER_A, ( MINORCYCLESPERMIN * SysCtlClockGet() / MINORCYCLEPERSEC) );
+  TimerLoadSet(TIMER2_BASE, TIMER_A, ( PRSAMPLETIME * SysCtlClockGet() ) );
   IntEnable(INT_TIMER2A);
   IntPrioritySet(INT_TIMER2A, 0x00); // Set highest priority
   TimerEnable(TIMER2_BASE, TIMER_A);
