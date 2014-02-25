@@ -6,6 +6,13 @@
 * author: Paul Bartell
 ******************************************/ 
 
+/* Scheduler includes. */
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+
+/* Hardware Includes */
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/gpio.h"
@@ -26,7 +33,7 @@
 
 extern void SysTickIntHandler(void);
 
-TCB taskList[NUM_TASKS];
+xTaskHandle taskList[NUM_TASKS];
 
 // Default values
 unsigned int temperatureRaw[BUF_CAPACITY] = {75, 75, 75, 75, 75, 75, 75, 75};
@@ -143,22 +150,31 @@ void startup(void* taskDataPtr)
   IntMasterEnable(); // enable all interrupts
 
   
-  // Run task setup functions
-  warningAlarmSetup();
-  oledDisplaySetup();
-  keypadSetUp();
+//  // Run task setup functions Deprecated. tasks call own init functions
+//  warningAlarmSetup();
+//  oledDisplaySetup();
+//  keypadSetUp();
 }
 
 void schedulerInit()
 {
-  // Initialize the task queue
+  // Initialize the task queue DEPRECATED
   // taskList[0] = (TCB) {&startup, NULL, NULL, NULL};
-  taskList[0] = (TCB) {&measure,&measureData,NULL,NULL};
-  taskList[1] = (TCB) {&compute,&computeData,NULL,NULL};
-  taskList[2] = (TCB) {&oledDisplay,&displayData,NULL,NULL};
-  taskList[3] = (TCB) {&warningAlarm,&warningAlarmData,NULL,NULL};
-  taskList[4] = (TCB) {&status,&statusData,NULL,NULL};
-  taskList[5] = (TCB) {&keypad,&keypadData,NULL,NULL};
-  taskList[6] = (TCB) {&communication,&communicationsData,NULL,NULL};
-  taskList[7] = (TCB) {NULL,NULL,NULL,NULL};
+//  taskList[0] = (TCB) {&measure,&measureData,NULL,NULL};
+//  taskList[1] = (TCB) {&compute,&computeData,NULL,NULL};
+//  taskList[2] = (TCB) {&oledDisplay,&displayData,NULL,NULL};
+//  taskList[3] = (TCB) {&warningAlarm,&warningAlarmData,NULL,NULL};
+//  taskList[4] = (TCB) {&status,&statusData,NULL,NULL};
+//  taskList[5] = (TCB) {&keypad,&keypadData,NULL,NULL};
+//  taskList[6] = (TCB) {&communication,&communicationsData,NULL,NULL};
+//  taskList[7] = (TCB) {NULL,NULL,NULL,NULL};
+  //         TaskFtn,           "Name",      Stack sz,params,         priority, handle ptr location 
+  xTaskCreate(measure,          "Measure",       100, &measureData,      1,     &taskList[0]);
+  xTaskCreate(compute,          "Compute",       100, &computeData,      2,     &taskList[1]);
+  xTaskCreate(oledDisplay,      "Display",       100, &displayData,      3,     &taskList[2]);
+  xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 4,     &taskList[3]);
+  xTaskCreate(status,           "Status",        100, &statusData,       5,     &taskList[4]);
+  xTaskCreate(keypad,           "Keypad",        100, &keypadData,       6,     &taskList[5]);
+  xTaskCreate(communication,    "Communication", 100, &communicationsData,7,    &taskList[6]);
+  
 }

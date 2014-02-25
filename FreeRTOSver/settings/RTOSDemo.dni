@@ -16,19 +16,12 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=1669760861
+Checksum=1837736037
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
 [InstructionProfiling]
 Enabled=_ 0
-[CallStackLog]
-Enabled=0
-[DriverProfiling]
-Enabled=0
-Mode=207035704
-Graph=0
-Symbiont=0
 [Stack]
 FillEnabled=0
 OverflowWarningsEnabled=1
@@ -41,6 +34,10 @@ LimitSize=0
 ByteLimit=50
 [LMIFTDIDriver]
 LMI_ResetMode=0x00000000
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -48,10 +45,14 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-[CallStack]
-ShowArgs=0
-[Disassembly]
-MixedMode=1
+[CallStackLog]
+Enabled=0
+[DriverProfiling]
+Enabled=0
+Mode=0
+Graph=0
+Symbiont=0
+Exclusions=
 [Disassemble mode]
 mode=1
 [Breakpoints]

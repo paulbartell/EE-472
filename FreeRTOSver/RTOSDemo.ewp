@@ -302,6 +302,8 @@
           <state>$PROJ_DIR$\FreeRTOS\Source\include</state>
           <state>$PROJ_DIR$\webserver</state>
           <state>$PROJ_DIR$\FreeRTOS\Common\ethernet\uIP\uip-1.0\uip</state>
+          <state>c:\StellarisWare\</state>
+          <state>C:\StellarisWare\boards\ek-lm3s8962</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -551,6 +553,7 @@
         <option>
           <name>AUserIncludes</name>
           <state>$PROJ_DIR$\</state>
+          <state>c:\StellarisWare\</state>
         </option>
         <option>
           <name>AExtraOptionsCheckV2</name>
@@ -580,7 +583,7 @@
         </option>
         <option>
           <name>OOCOutputFile</name>
-          <state></state>
+          <state>RTOSDemo.srec</state>
         </option>
         <option>
           <name>OOCCommandLineProducer</name>
@@ -930,7 +933,40 @@
   <group>
     <name>AMedicalMonitor files</name>
     <file>
+      <name>$PROJ_DIR$\circularbuffer.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\communication.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\compute.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\interrupts.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\keypad.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\main.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\measure.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\oledDisplay.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\startup.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\startup_ewarm.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\status.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\tasks\warningAlarm.c</name>
     </file>
   </group>
   <group>
@@ -986,9 +1022,6 @@
   </group>
   <group>
     <name>System files</name>
-    <file>
-      <name>$PROJ_DIR$\startup_ewarm.c</name>
-    </file>
   </group>
   <group>
     <name>uIP files</name>
