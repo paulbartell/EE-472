@@ -31,6 +31,16 @@ typedef struct MeasureData
 
 void measure(void* taskData);
 
+
+/*
+typedef struct EKGData
+{
+	EKGRawBuf;
+	EKGRawTempBuf;
+	EKGFreqBuf;
+} EKGData;
+*/
+
 typedef struct ComputeData
 {
   CircularBuffer* temperatureRawBuf;
