@@ -35,10 +35,13 @@ void measure(void* taskData);
 /*
 typedef struct EKGData
 {
-	EKGRawBuf;
-	EKGRawTempBuf;
-	EKGFreqBuf;
+	unsigned int* EKGRawBuf;
+	unsigned int* EKGRawTempBuf;
+	unsigned int* EKGFreqBuf;
 } EKGData;
+
+void EKGCapture (void* taskData);
+void EKGProcess (void* taskData);
 */
 
 typedef struct ComputeData
@@ -55,6 +58,7 @@ typedef struct ComputeData
   CircularBuffer* battCorrected;
   
   unsigned short* batteryState;
+  unsigned short measurementSelection;
 } ComputeData;
 
 void compute(void* taskData);
@@ -115,6 +119,8 @@ typedef struct CommunicationsData
   CircularBuffer* diastolicPressCorrectedBuf;
   CircularBuffer* prCorrectedBuf;
   CircularBuffer* battCorrected;
+  
+  unsigned short measurementSelection;
 } CommunicationsData;
 
 void communication(void* taskData);

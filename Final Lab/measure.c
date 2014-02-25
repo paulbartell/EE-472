@@ -84,7 +84,6 @@ void measureTemp(MeasureData* measureDataPtr) {
                           ADC_CTL_IE | ADC_CTL_END | ADC_CTL_TS);
     ADCSequenceEnable(ADC0_BASE, TEMP);
 	
-	
     ADCIntClear(ADC0_BASE, TEMP);
     
     // Trigger the sample sequence.
@@ -107,8 +106,7 @@ void measureTemp(MeasureData* measureDataPtr) {
 
 void measurePulseRate(MeasureData* measureDataPtr) {
 	// Measure Pulse Rate every minute (5 major cycles) 
-    if(pulseRateFlag)
-    { 
+    if(pulseRateFlag) 
     { 
         float low = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 0.85; 
         float high = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 1.15; 
@@ -148,7 +146,6 @@ void measureBloodPressure(MeasureData* measureDataPtr, int sysComplete, int diaC
       } 
       sysComplete = 0; 
     } 
-  
   
     // Measure Diastolic 
     if (dias < 40) 
