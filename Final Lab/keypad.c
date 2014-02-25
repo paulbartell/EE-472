@@ -17,10 +17,11 @@
 #include "tasks.h"
 #include "schedule.h"
 
-#define BLOOD 0
+#define SCANALL 0
 #define TEMP 1
-#define PULSE 2
-#define BATT 3
+#define BLOOD 2
+#define PULSE 3
+#define EKG 4
 
 /**
 *       Main function for the keypad task
@@ -64,28 +65,35 @@ void keypad(void* taskDataPtr)
   GPIOPinWrite(GPIO_PORTD_BASE,(GPIO_PIN_7), 255);
   
   // Measurement Selection
-  // Press 0
+
   if(inputs[0][0] == 0) 
   {
-    (*(keypadDataPtr->measurementSelection)) = BLOOD;
-    // Press 1
+    (*(keypadDataPtr->measurementSelection)) = SCANALL;
+    // Press 0: Scan all
   } 
-  else if (inputs[1][0] == 0) 
+  if (inputs[1][0] == 0) 
   {
     (*(keypadDataPtr->measurementSelection)) = TEMP;
-    // Press 2
+    // Press 1: Temperature
   } 
-  else if (inputs[2][0] == 0) 
+  if (inputs[2][0] == 0) 
   {
     (*(keypadDataPtr->measurementSelection)) = PULSE;
-    // Press 3
+    // Press 2: Pulse Rate
   } 
-  else if (inputs[3][0] == 0)
+  if (inputs[3][0] == 0)
   {
-    (*(keypadDataPtr->measurementSelection)) = BATT;
+	(*(keypadDataPtr->measurementSelection)) = PULSE;
+  // Press 3: Pulse Rate
   }
+  if (inputs[0][1] == 0)
+  {
+    (*(keypadDataPtr->measurementSelection)) = EKG;
+  // Press 4: EKG 
+  }
+
   
-  // Mode: Toggle Switch
+  // Mode Selection
   // Press D
   if(inputs[1][3] == 0) 
   {

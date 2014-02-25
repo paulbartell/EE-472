@@ -13,6 +13,13 @@
 #include "inc/hw_gpio.h"
 #include "driverlib/interrupt.h"
 #include "inc/hw_ints.h"
+
+#include "inc/hw_types.h"
+#include "inc/hw_memmap.h"
+#include "driverlib/timer.h"
+#include "driverlib/adc.h"
+#include "driverlib/pin_map.h"
+
 #include "schedule.h"
 #include "tasks.h"
 
@@ -23,62 +30,91 @@ extern unsigned long globalTime;
 extern unsigned long pulseRateSample;
 extern unsigned short pulseRateFlag;
 
-void measure(void* taskDataPtr) 
+void measureTemp(MeasureData* measureDataPtr)
+void measurePulseRate(MeasureData* measureDataPtr)
+void measureBloodPressure(MeasureData* measureDataPtr, int sysComplete, int diaComplete)
+
+void measure(void* taskDataPtr)
 { 
-  if(globalTime % MAJORCYCLECOUNT == 0) 
-  { 
-    // Variables to be measured 
-    int temp; 
-    int syst; 
-    int dias; 
-  
     // Variables to be initialized once 
     // Change during every method call 
-    static int diaComplete = 0; 
-    static int sysComplete = 0; 
-  
-    static int revTemp = 0; 
-    static int even = 1; 
+    int diaComplete = 0; 
+    int sysComplete = 0; 
+    int even = 1; 
   
     // Access the passed in MeasureData struct 
     MeasureData* measureDataPtr = (MeasureData*) taskDataPtr; 
   
-    // Measure Temperature 
-    temp = *(measureDataPtr->temperatureRawBuf->headPtr); 
-    if (revTemp == 0) 
+	while( 1 )
+    {
+		switch() 
+		{
+		case 0:
+			measureTemp(measureDataPtr);
+			measureBloodPressure(measureDataPtr, sysComplete, diaComplete);
+			measurePulse(measureDataPtr);
+			break;
+		case 1: 
+			measureTemp(measureDataPtr);
+			break;
+		case 2: 
+			measureBloodPressure(measureDataPtr, sysComplete, diaComplete);
+			break;
+		case 3: 
+			measurePulse(measureDataPtr);
+			break;
+		}
+		
+		even = !even; 
+		addFlags[TASK_COMPUTE] = 1;
+		removeFlags[TASK_MEASURE] = 1;
+		vTaskDelay(2000);
+	}
+} 
+
+void measureTemp(MeasureData* measureDataPtr) {
+	unsigned int temp;
+	
+	// Enable the first sample sequencer to capture the value of channel 0 when
+	// the processor trigger occurs.
+	ADCSequenceConfigure(ADC0_BASE, 3, ADC_TRIGGER_PROCESSOR, 0);
+	ADCSequenceStepConfigure(ADC0_BASE, 3, 0,
+	ADC_CTL_IE | ADC_CTL_END | ADC_CTL_TS);
+	ADCSequenceEnable(ADC0_BASE, 3);
+	
+	// Trigger the sample sequence.
+	ADCProcessorTrigger(ADC0_BASE, 3);
+	
+	// Wait until the sample sequence has completed.
+	while(!ADCIntStatus(ADC0_BASE, 3, false))
+	{
+	}
+	
+	// Read the value from the ADC.
+	ADCSequenceDataGet(ADC0_BASE, 3, &temp);
+
+	cBuffPut((measureDataPtr->temperatureRawBuf), &temp); 
+}
+
+void measurePulseRate(MeasureData* measureDataPtr) {
+	// Measure Pulse Rate every minute (5 major cycles) 
+    if(pulseRateFlag)
     { 
-      if (temp > 50) 
-      { 
-        revTemp = 1; 
-      } 
-      if (even) 
-      { 
-        temp += 2; 
-      } 
-      else
-      { 
-        temp--; 
-      } 
-    } 
-    else
-    { 
-      if (temp < 15) 
-      { 
-        revTemp = 0; 
-      } 
-      if (even) 
-      { 
-        temp -= 2; 
-      } 
-      else
-      { 
-        temp++; 
-      } 
-    } 
+        float low = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 0.85; 
+        float high = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 1.15; 
   
-  
-    // Measure Systolic 
-    syst = *(measureDataPtr->systolicPressRawBuf->headPtr); 
+        // Adds value to buffer if it goes +15% of -15% of previous value 
+        if((pulseRateSample < low) || (pulseRateSample > high))
+        { 
+          cBuffPut((measureDataPtr->pulseRateRawBuf), &pulseRateSample); 
+        } 
+    } 
+}
+
+void measureBloodPressure(MeasureData* measureDataPtr, int sysComplete, int diaComplete) {
+    int syst = *(measureDataPtr->systolicPressRawBuf->headPtr); 
+	int dias = *(measureDataPtr->diastolicPressRawBuf->headPtr); 
+	
     if (syst > 100) 
     { 
       // Set complete to true 
@@ -105,7 +141,6 @@ void measure(void* taskDataPtr)
   
   
     // Measure Diastolic 
-    dias = *(measureDataPtr->diastolicPressRawBuf->headPtr); 
     if (dias < 40) 
     { 
       diaComplete = 1; 
@@ -131,26 +166,6 @@ void measure(void* taskDataPtr)
       } 
       diaComplete = 0; 
     } 
-  
-    // Measure Pulse Rate every minute (5 major cycles) 
-    if(pulseRateFlag)
-    { 
-        float low = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 0.85; 
-        float high = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 1.15; 
-  
-        // Adds value to buffer if it goes +15% of -15% of previous value 
-        if((pulseRateSample < low) || (pulseRateSample > high))
-        { 
-          cBuffPut((measureDataPtr->pulseRateRawBuf), &pulseRateSample); 
-        } 
-    } 
-      
-    cBuffPut((measureDataPtr->temperatureRawBuf), &temp); 
-    cBuffPut((measureDataPtr->systolicPressRawBuf), &syst); 
+	cBuffPut((measureDataPtr->systolicPressRawBuf), &syst); 
     cBuffPut((measureDataPtr->diastolicPressRawBuf), &dias); 
-  
-    even = !even; 
-    addFlags[TASK_COMPUTE] = 1;
-    removeFlags[TASK_MEASURE] = 1;
-  } 
-} 
+}
