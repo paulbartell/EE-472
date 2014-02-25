@@ -1,0 +1,41 @@
+Measure time
+21.751us
+
+Compute Time
+410.14 us
+
+Display
+15.522ms
+
+Warning Alarm (major cycle)
+23.501us
+
+Warning Alarm (minor Cycle)
+unknown O(us)
+
+Status
+8.004us
+
+Total For Major cycle tasks:
+15.951941 ms ~= 16ms
+
+Major cycle length = 5 s
+
+5000 - 16 = 4984
+
+
+Minor cycle length = 1 ms
+5 us
+
+				---
+Major Cycle execution Time (16ms)  |
+Major cycle delay 4ms		   | 20 ms
+				----
+
+					-------
+Minor cycle execution Time (5 us - negligable) |
+Minor cycle delay 20 ms			       | 20ms
+					--------
+
+1 major cycle (5s) = 250 minor cycles (20ms)
+
