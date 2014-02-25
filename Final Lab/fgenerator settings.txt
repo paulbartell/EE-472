@@ -1,0 +1,6 @@
+
+highz everything
+
+3v pk to pk
+offset 1.85vDC
+freq 1Hz

@@ -1,0 +1,10 @@
+1. Scheduler (modify)
+2. Startup (modify) -> move init out of main
+	Initialize system timer and task queue
+3. Measure (Pulse Rate driver), buffers -> Alyanna
+3.5. Compute (modify to use buffers) -> Ryan
+4. Serial Communication (implement) -> Paul
+5. Keypad (implementation(s)?) -> Alyanna
+6. Display (modify for use with Keypad) -> Ryan
+7. Data Logging (circular buffer) -> Paul
+8. Status (minimal change due to scheduler)
