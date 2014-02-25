@@ -23,6 +23,8 @@
 #define STR_SIZE 16
 #define BUF_CAPACITY 8
 #define PRSAMPLETIME 2
+#define EKG_CAPACITY 256
+#define EKG_FREQ 16
 
 extern void SysTickIntHandler(void);
 
@@ -40,6 +42,10 @@ CircularBuffer diastolicPressRawBuf;
 
 unsigned int pulseRateRaw[BUF_CAPACITY] =  {50, 50, 50, 50, 50, 50, 50, 50};
 CircularBuffer pulseRateRawBuf;
+
+unsigned int EKGRawBuf[EKG_CAPACITY];
+unsigned int EKGRawTempBuf[EKG_CAPACITY] = { 0 };
+unsigned int EKGRawFreqBuf[EKG_FREQ]; 
 
 unsigned short batteryState =   200;
 unsigned short measurementSelection = 0;

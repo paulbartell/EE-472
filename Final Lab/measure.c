@@ -25,7 +25,7 @@
 
 #define INTSYS 80 
 #define INTDIAS 80 
-#define TEMP 3
+#define TEMP 2
   
 extern unsigned long globalTime; 
 extern unsigned long pulseRateSample;
@@ -48,7 +48,7 @@ void measure(void* taskDataPtr)
   
 	while( 1 )
     {
-		switch() 
+		switch(*(measureDataPtr->measurementSelection)) 
 		{
 		case 0:
 			measureTemp(measureDataPtr);

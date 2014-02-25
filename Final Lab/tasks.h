@@ -58,7 +58,7 @@ typedef struct ComputeData
   CircularBuffer* battCorrected;
   
   unsigned short* batteryState;
-  unsigned short measurementSelection;
+  unsigned short* measurementSelection;
 } ComputeData;
 
 void compute(void* taskData);

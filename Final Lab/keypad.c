@@ -78,7 +78,7 @@ void keypad(void* taskDataPtr)
   } 
   if (inputs[2][0] == 0) 
   {
-    (*(keypadDataPtr->measurementSelection)) = PULSE;
+    (*(keypadDataPtr->measurementSelection)) = BLOOD;
     // Press 2: Pulse Rate
   } 
   if (inputs[3][0] == 0)

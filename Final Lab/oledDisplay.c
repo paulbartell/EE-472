@@ -21,7 +21,7 @@
 
 void clearOLED(int numLines);
 
-typedef enum {BLOOD, TEMP, PULSE, BATT} measurement;
+typedef enum {SCANALL, TEMP, BLOOD, PULSE, EKG, BATT} measurement;
 typedef enum {NORMAL, ANNUNCIATE} displayMode;
 
 
