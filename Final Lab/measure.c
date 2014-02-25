@@ -25,14 +25,15 @@
 
 #define INTSYS 80 
 #define INTDIAS 80 
+#define TEMP 3
   
 extern unsigned long globalTime; 
 extern unsigned long pulseRateSample;
 extern unsigned short pulseRateFlag;
 
-void measureTemp(MeasureData* measureDataPtr)
-void measurePulseRate(MeasureData* measureDataPtr)
-void measureBloodPressure(MeasureData* measureDataPtr, int sysComplete, int diaComplete)
+void measureTemp(MeasureData* measureDataPtr);
+void measurePulseRate(MeasureData* measureDataPtr);
+void measureBloodPressure(MeasureData* measureDataPtr, int sysComplete, int diaComplete);
 
 void measure(void* taskDataPtr)
 { 
@@ -41,7 +42,7 @@ void measure(void* taskDataPtr)
     int diaComplete = 0; 
     int sysComplete = 0; 
     int even = 1; 
-  
+	
     // Access the passed in MeasureData struct 
     MeasureData* measureDataPtr = (MeasureData*) taskDataPtr; 
   
@@ -77,28 +78,37 @@ void measureTemp(MeasureData* measureDataPtr) {
 	
 	// Enable the first sample sequencer to capture the value of channel 0 when
 	// the processor trigger occurs.
-	ADCSequenceConfigure(ADC0_BASE, 3, ADC_TRIGGER_PROCESSOR, 0);
-	ADCSequenceStepConfigure(ADC0_BASE, 3, 0,
-	ADC_CTL_IE | ADC_CTL_END | ADC_CTL_TS);
-	ADCSequenceEnable(ADC0_BASE, 3);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);
+    ADCSequenceConfigure(ADC0_BASE, TEMP, ADC_TRIGGER_PROCESSOR, 0);
+    ADCSequenceStepConfigure(ADC0_BASE, TEMP, 0,
+                          ADC_CTL_IE | ADC_CTL_END | ADC_CTL_TS);
+    ADCSequenceEnable(ADC0_BASE, TEMP);
 	
-	// Trigger the sample sequence.
-	ADCProcessorTrigger(ADC0_BASE, 3);
 	
-	// Wait until the sample sequence has completed.
-	while(!ADCIntStatus(ADC0_BASE, 3, false))
-	{
-	}
-	
-	// Read the value from the ADC.
-	ADCSequenceDataGet(ADC0_BASE, 3, &temp);
+    ADCIntClear(ADC0_BASE, TEMP);
+    
+    // Trigger the sample sequence.
+    ADCProcessorTrigger(ADC0_BASE, TEMP);
+    
+    // Wait until the sample sequence has completed.
+    while(!ADCIntStatus(ADC0_BASE, TEMP, false))
+    {
+    }
+    
+    ADCIntClear(ADC0_BASE, TEMP);
+    
+    // Read the value from the ADC.
+    ADCSequenceDataGet(ADC0_BASE, TEMP, &temp);
 
+	//  temp = ((1475 * 1023) - (2250 * temp)) / 10230;
+	
 	cBuffPut((measureDataPtr->temperatureRawBuf), &temp); 
 }
 
 void measurePulseRate(MeasureData* measureDataPtr) {
 	// Measure Pulse Rate every minute (5 major cycles) 
     if(pulseRateFlag)
+    { 
     { 
         float low = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 0.85; 
         float high = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 1.15; 
