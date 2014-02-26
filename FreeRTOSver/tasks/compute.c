@@ -20,8 +20,8 @@
 #define FPOINT 100
 
 // Correction factors (Addative and Multiplicative)
-#define TEMPCA 5
-#define TEMPCM 0.75
+#define TEMPCA 147.5
+#define TEMPCM (2250.0 / 10230.0)
 #define SYSCA 9
 #define SYSCM 2
 #define DIACA 6
@@ -50,7 +50,7 @@ extern unsigned long globalTime;
 // 2 Decimal places
 void compute(void* taskDataPtr)
 {   
-  if(globalTime % MAJORCYCLECOUNT == 0)
+  while(1)
   {
     int storageSpace = 0;
     char newData[STR_SIZE];
@@ -71,9 +71,10 @@ void compute(void* taskDataPtr)
     // an integer whose last two digits are actually decimal values.
     //
     // Problem: Numbers less than 0.1
-
+    
+     //temp = ((1475 * 1023) - (2250 * temp)) / 10230;
     // Temperature correction
-    storageSpace = (int)(FPOINT*(TEMPCA + TEMPCM*(*(temperatureRaw)) + ROUND));
+    storageSpace = (int)(FPOINT*(147.5 - (2250/10230)*(*(temperatureRaw)) + ROUND));
 
     // Store the corrected data
     toString(storageSpace, newData);
@@ -124,6 +125,7 @@ void compute(void* taskDataPtr)
     strcpy(target, newData);
   }
   removeFlags[TASK_COMPUTE] = 1;
+  vTaskDelay(1000);
   return;
 }
 

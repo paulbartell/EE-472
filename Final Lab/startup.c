@@ -5,6 +5,12 @@
 * task description: Initializes hardware and data structs
 * author: Paul Bartell
 ******************************************/ 
+/* Scheduler includes. */
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+
 
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
@@ -112,11 +118,11 @@ void startup(void* taskDataPtr)
   GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
   UARTStdioInit(0);
   
-  // Setup SysTick timer for global time base
-  SysTickPeriodSet(SysCtlClockGet() / MINORCYCLEPERSEC);
-  SysTickIntRegister(SysTickIntHandler);
-  SysTickIntEnable();
-  SysTickEnable();
+//  // Setup SysTick timer for global time base
+//  SysTickPeriodSet(SysCtlClockGet() / MINORCYCLEPERSEC);
+//  SysTickIntRegister(SysTickIntHandler);
+//  SysTickIntEnable();
+//  SysTickEnable();
   
   // Setup Timer2 for pulse rate sampling
   SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER2);
@@ -134,6 +140,9 @@ void startup(void* taskDataPtr)
   GPIOPinIntEnable(GPIO_PORTF_BASE, GPIO_PIN_0);
   IntEnable(INT_GPIOF);
   
+  // ADC0 for analog measurements
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);
+  
   // setup circular buffers
   cBuffInit(&temperatureRawBuf, temperatureRaw, BUF_CAPACITY, sizeof(temperatureRaw)/BUF_CAPACITY);
   cBuffInit(&systolicPressRawBuf, systolicPressRaw, BUF_CAPACITY, sizeof(systolicPressRaw)/BUF_CAPACITY);
@@ -150,21 +159,29 @@ void startup(void* taskDataPtr)
 
   
   // Run task setup functions
-  warningAlarmSetup();
-  oledDisplaySetup();
-  keypadSetUp();
+//  warningAlarmSetup();
+//  oledDisplaySetup();
+//  keypadSetUp();
 }
 
 void schedulerInit()
 {
   // Initialize the task queue
   // taskList[0] = (TCB) {&startup, NULL, NULL, NULL};
-  taskList[0] = (TCB) {&measure,&measureData,NULL,NULL};
-  taskList[1] = (TCB) {&compute,&computeData,NULL,NULL};
-  taskList[2] = (TCB) {&oledDisplay,&displayData,NULL,NULL};
-  taskList[3] = (TCB) {&warningAlarm,&warningAlarmData,NULL,NULL};
-  taskList[4] = (TCB) {&status,&statusData,NULL,NULL};
-  taskList[5] = (TCB) {&keypad,&keypadData,NULL,NULL};
-  taskList[6] = (TCB) {&communication,&communicationsData,NULL,NULL};
-  taskList[7] = (TCB) {NULL,NULL,NULL,NULL};
+//  taskList[0] = (TCB) {&measure,&measureData,NULL,NULL};
+//  taskList[1] = (TCB) {&compute,&computeData,NULL,NULL};
+//  taskList[2] = (TCB) {&oledDisplay,&displayData,NULL,NULL};
+//  taskList[3] = (TCB) {&warningAlarm,&warningAlarmData,NULL,NULL};
+//  taskList[4] = (TCB) {&status,&statusData,NULL,NULL};
+//  taskList[5] = (TCB) {&keypad,&keypadData,NULL,NULL};
+//  taskList[6] = (TCB) {&communication,&communicationsData,NULL,NULL};
+//  taskList[7] = (TCB) {NULL,NULL,NULL,NULL};
+    //         TaskFtn,           "Name",      Stack sz,params,         priority, handle ptr location 
+  xTaskCreate(measure,          "Measure",       100, &measureData,      1,     &taskList[0]);
+  xTaskCreate(compute,          "Compute",       100, &computeData,      2,     &taskList[1]);
+  xTaskCreate(oledDisplay,      "Display",       100, &displayData,      3,     &taskList[2]);
+//  xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 4,     &taskList[3]);
+//  xTaskCreate(status,           "Status",        100, &statusData,       4,     &taskList[4]);
+  xTaskCreate(keypad,           "Keypad",        100, &keypadData,       3,     &taskList[5]);
+  xTaskCreate(communication,    "Communication", 100, &communicationsData,3,    &taskList[6]);
 }

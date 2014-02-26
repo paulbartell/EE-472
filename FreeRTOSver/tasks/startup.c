@@ -103,7 +103,7 @@ CommunicationsData communicationsData = {&tempCorrectedBuf,
   &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf, &pulseRateCorrectedBuf, &battCorrectedBuf};
 
 KeypadData keypadData = {&displayMode, &displayScroll, &measurementSelection, 
-  &alarmAcknowledge}; // WHAT ABOUT SELECT.. IS THAT DIFFERENT? USED?
+  &alarmAcknowledge};
 
 
 void startup(void* taskDataPtr)
@@ -169,12 +169,12 @@ void schedulerInit()
 //  taskList[6] = (TCB) {&communication,&communicationsData,NULL,NULL};
 //  taskList[7] = (TCB) {NULL,NULL,NULL,NULL};
   //         TaskFtn,           "Name",      Stack sz,params,         priority, handle ptr location 
-  xTaskCreate(measure,          "Measure",       100, &measureData,      1,     &taskList[0]);
-  xTaskCreate(compute,          "Compute",       100, &computeData,      2,     &taskList[1]);
+//  xTaskCreate(measure,          "Measure",       100, &measureData,      1,     &taskList[0]);
+//  xTaskCreate(compute,          "Compute",       100, &computeData,      2,     &taskList[1]);
   xTaskCreate(oledDisplay,      "Display",       100, &displayData,      3,     &taskList[2]);
-  xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 4,     &taskList[3]);
-  xTaskCreate(status,           "Status",        100, &statusData,       5,     &taskList[4]);
-  xTaskCreate(keypad,           "Keypad",        100, &keypadData,       6,     &taskList[5]);
-  xTaskCreate(communication,    "Communication", 100, &communicationsData,7,    &taskList[6]);
+//  xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 4,     &taskList[3]);
+//  xTaskCreate(status,           "Status",        100, &statusData,       4,     &taskList[4]);
+//  xTaskCreate(keypad,           "Keypad",        100, &keypadData,       4,     &taskList[5]);
+//  xTaskCreate(communication,    "Communication", 100, &communicationsData,4,    &taskList[6]);
   
 }

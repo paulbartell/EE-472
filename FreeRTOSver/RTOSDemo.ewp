@@ -164,6 +164,8 @@
         <debug>1</debug>
         <option>
           <name>CCDefines</name>
+          <state>PART_LM3S2110</state>
+          <state>UART_BUFFERED</state>
           <state>IAR_ARMCM3_LM</state>
           <state>PACK_STRUCT_END=</state>
         </option>
@@ -749,8 +751,7 @@
         </option>
         <option>
           <name>IlinkAdditionalLibs</name>
-          <state>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\IAR\driverlib.a</state>
-          <state>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\IAR\grlib.a</state>
+          <state></state>
         </option>
         <option>
           <name>IlinkOverrideProgramEntryLabel</name>
@@ -933,40 +934,58 @@
   <group>
     <name>AMedicalMonitor files</name>
     <file>
-      <name>$PROJ_DIR$\circularbuffer.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\circularbuffer.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\communication.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\circularbuffer.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\compute.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\communication.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\interrupts.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\compute.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\keypad.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\ekgCapture.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\main.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\globals.h</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\measure.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\interrupts.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\oledDisplay.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\keypad.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\startup.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\measure.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\startup_ewarm.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\oledDisplay.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\status.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\schedule.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\tasks\warningAlarm.c</name>
+      <name>$PROJ_DIR$\..\Final Lab\schedule.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\startup.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\startup.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\startup_ewarm.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\status.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\tasks.h</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\warningAlarm.c</name>
     </file>
   </group>
   <group>
@@ -978,9 +997,6 @@
       <name>$PROJ_DIR$\IntQueueTimer.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\main.orig.c</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\ParTest\ParTest.c</name>
     </file>
     <file>
@@ -990,13 +1006,13 @@
   <group>
     <name>Library files</name>
     <file>
-      <name>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\IAR\driverlib.a</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\IAR\grlib.a</name>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</name>
     </file>
     <file>
       <name>$PROJ_DIR$\rit128x96x4.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</name>
     </file>
   </group>
   <group>
@@ -1023,39 +1039,9 @@
   <group>
     <name>System files</name>
   </group>
-  <group>
-    <name>uIP files</name>
-    <file>
-      <name>$PROJ_DIR$\webserver\emac.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\webserver\http-strings.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\webserver\httpd-cgi.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\webserver\httpd-fs.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\webserver\httpd.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Common\ethernet\uIP\uip-1.0\uip\psock.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Common\ethernet\uIP\uip-1.0\uip\timer.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Common\ethernet\uIP\uip-1.0\uip\uip.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Common\ethernet\uIP\uip-1.0\uip\uip_arp.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\webserver\uIP_Task.c</name>
-    </file>
-  </group>
+  <file>
+    <name>$PROJ_DIR$\main.c</name>
+  </file>
 </project>
 
 

@@ -18,14 +18,16 @@
 
 #include "inc/hw_memmap.h"
 
+#include "tasks.h"
+
 #include <stdio.h>
 #include <string.h>
 #define EKG 3
 
-void ekgCapture(void* taskData)
+unsigned short index = 0;
+
+void ekgCapture(void* taskDataPtr)
 {
-	extern unsigned short index = 0;
-	
 	// Access the passed in EKGData struct 
     EKGData* ekgDataPtr = (EKGData*) taskDataPtr; 
 	

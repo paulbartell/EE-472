@@ -49,21 +49,22 @@ extern unsigned long globalTime;
 
 // 2 Decimal places
 void compute(void* taskDataPtr)
-{   
-  if(globalTime % MAJORCYCLECOUNT == 0)
+{
+  int storageSpace = 0;
+  char newData[STR_SIZE];
+  char* target;
+  ComputeData* computeDataPtr = (ComputeData*) taskDataPtr;
+  int* temperatureRaw = (int*)(computeDataPtr->temperatureRawBuf->headPtr);
+  int* prRaw = (int*)(computeDataPtr->pulseRateRawBuf->headPtr);
+  unsigned short* battRaw = computeDataPtr->batteryState;
+
+  // Messed up right now // Paul fixed this
+  int* systolicRaw = (int*)(computeDataPtr->systolicPressRawBuf->headPtr);
+  int* diastolicRaw = (int*)(computeDataPtr->diastolicPressRawBuf->headPtr);
+  
+  while(1)
   {
-    int storageSpace = 0;
-    char newData[STR_SIZE];
-    char* target;
 
-    ComputeData* computeDataPtr = (ComputeData*) taskDataPtr;
-    int* temperatureRaw = (int*)(computeDataPtr->temperatureRawBuf->headPtr);
-    int* prRaw = (int*)(computeDataPtr->pulseRateRawBuf->headPtr);
-    unsigned short* battRaw = computeDataPtr->batteryState;
-
-    // Messed up right now // Paul fixed this
-    int* systolicRaw = (int*)(computeDataPtr->systolicPressRawBuf->headPtr);
-    int* diastolicRaw = (int*)(computeDataPtr->diastolicPressRawBuf->headPtr);
 
     // The most we want to deal with is two digits, so we round up the ten-thousandth's place
     // and multiply by 100 to move those decimals to the left side of the decimal point.
@@ -73,7 +74,7 @@ void compute(void* taskDataPtr)
     // Problem: Numbers less than 0.1
 
     // Temperature correction
-    storageSpace = (int)(FPOINT*(TEMPCA + TEMPCM*(*(temperatureRaw)) + ROUND));
+    storageSpace = (int)(FPOINT*(147.5 - (2250.0/10230.0)*(*(temperatureRaw)) + ROUND));
 
     // Store the corrected data
     toString(storageSpace, newData);
@@ -122,8 +123,8 @@ void compute(void* taskDataPtr)
     toString(storageSpace, newData);
     target = cBuffPush(computeDataPtr->battCorrected);
     strcpy(target, newData);
+    vTaskDelay(1000);
   }
-  removeFlags[TASK_COMPUTE] = 1;
   return;
 }
 

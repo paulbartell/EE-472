@@ -32,7 +32,7 @@ typedef struct MeasureData
 void measure(void* taskData);
 
 
-/*
+
 typedef struct EKGData
 {
 	unsigned int* EKGRawBuf;
@@ -42,7 +42,7 @@ typedef struct EKGData
 
 void EKGCapture (void* taskData);
 void EKGProcess (void* taskData);
-*/
+
 
 typedef struct ComputeData
 {

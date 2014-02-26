@@ -68,7 +68,8 @@ extern void startup();
 
 int main(void)
 {
-
+      // Set the clocking to run from the PLL at 50 MHz
+  SysCtlClockSet( SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ );
   startup();
   
   schedulerInit();
@@ -79,4 +80,29 @@ int main(void)
   
   while(true);
   return 0;
+}
+
+void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTaskName )
+{
+    ( void ) pxTask;
+    ( void ) pcTaskName;
+  
+    while( 1 );
+}
+void vApplicationTickHook( void )
+{
+    static unsigned portLONG ulTicksSinceLastDisplay = 0;
+    portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
+
+    /* 
+      Called from every tick interrupt.  Have enough ticks passed to make it
+      time to perform our health status check again? 
+    */
+    
+    ulTicksSinceLastDisplay++;
+    if( ulTicksSinceLastDisplay >= mainCHECK_DELAY )
+    {
+       ulTicksSinceLastDisplay = 0;
+            
+    }
 }

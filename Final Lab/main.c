@@ -52,3 +52,12 @@ void delayMs(unsigned long delayTime)
     } 
 }
 
+void vApplicationStackOverflowHook( xTaskHandle *pxTask, signed portCHAR *pcTaskName )
+{
+    ( void ) pxTask;
+    ( void ) pcTaskName;
+  
+    while( 1 );
+}
+
+

@@ -14,14 +14,17 @@ extern volatile unsigned long globalTime;
 
 void communication(void* taskDataPtr)
 {
-  CommunicationsData* communicationsDataPtr = (CommunicationsData*) taskDataPtr;
-  UARTprintf("%c",'\x0C');// Clear the terminal
-  UARTprintf("A Warning has occured\n");
-  UARTprintf("Temperature:         %s C\n", communicationsDataPtr->tempCorrectedBuf->headPtr);
-  UARTprintf("Systolic pressure:   %s mmHg\n", communicationsDataPtr->systolicPressCorrectedBuf->headPtr); 
-  UARTprintf("Diastolic pressure:  %s mmHg\n", communicationsDataPtr->diastolicPressCorrectedBuf->headPtr);
-  UARTprintf("Pulse rate:          %s BPM\n", communicationsDataPtr->prCorrectedBuf->headPtr); 
-  UARTprintf("Battery:             %s %%\n", communicationsDataPtr->battCorrected->headPtr);
-  // UARTprintf("Time: %d\n",globalTime); // For timing debugging
-  removeFlags[TASK_COMMUNICATION] = 1;
+  while(1)
+  {
+    CommunicationsData* communicationsDataPtr = (CommunicationsData*) taskDataPtr;
+    UARTprintf("%c",'\x0C');// Clear the terminal
+    UARTprintf("A Warning has occured\n");
+    UARTprintf("Temperature:         %s C\n", communicationsDataPtr->tempCorrectedBuf->headPtr);
+    UARTprintf("Systolic pressure:   %s mmHg\n", communicationsDataPtr->systolicPressCorrectedBuf->headPtr); 
+    UARTprintf("Diastolic pressure:  %s mmHg\n", communicationsDataPtr->diastolicPressCorrectedBuf->headPtr);
+    UARTprintf("Pulse rate:          %s BPM\n", communicationsDataPtr->prCorrectedBuf->headPtr); 
+    UARTprintf("Battery:             %s %%\n", communicationsDataPtr->battCorrected->headPtr);
+    // UARTprintf("Time: %d\n",globalTime); // For timing debugging
+    vTaskDelay(1000);
+  }
 }

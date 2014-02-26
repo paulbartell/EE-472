@@ -36,16 +36,20 @@ void oledDisplaySetup()
 // print out the current readings
 void oledDisplay(void* taskDataPtr)
 {
-  if(globalTime % MAJORCYCLECOUNT == 0)
+  // Grab all the data from the structure
+  DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
+  char* temperaturePtr = displayDataPtr->tempCorrectedBuf->headPtr;
+  char* pulseRatePtr = displayDataPtr->prCorrectedBuf->headPtr;
+  char* batteryPtr = displayDataPtr->battCorrected->headPtr;
+  char* systolicPressPtr = displayDataPtr->systolicPressCorrectedBuf->headPtr;
+  char* diatolicPressPtr = displayDataPtr->diastolicPressCorrectedBuf->headPtr;
+  unsigned short* myScroll = displayDataPtr->scroll;
+  
+  RIT128x96x4Init(10000000);
+  
+  while(1)
   {
-    // Grab all the data from the structure
-    DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
-    char* temperaturePtr = displayDataPtr->tempCorrectedBuf->headPtr;
-    char* pulseRatePtr = displayDataPtr->prCorrectedBuf->headPtr;
-    char* batteryPtr = displayDataPtr->battCorrected->headPtr;
-    char* systolicPressPtr = displayDataPtr->systolicPressCorrectedBuf->headPtr;
-    char* diatolicPressPtr = displayDataPtr->diastolicPressCorrectedBuf->headPtr;
-    unsigned short* myScroll = displayDataPtr->scroll;
+
     
     // Controlling display modes
     static displayMode lastMode = NORMAL;
@@ -160,6 +164,8 @@ void oledDisplay(void* taskDataPtr)
     lastMode = currentMode;
     *(displayDataPtr->measurementSelection) = (unsigned short) myMeasurement;
     removeFlags[TASK_DISPLAY] = 1;
+    
+    vTaskDelay(1000);
   }
 }
 
