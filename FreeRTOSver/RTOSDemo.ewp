@@ -949,9 +949,6 @@
       <name>$PROJ_DIR$\..\Final Lab\ekgCapture.c</name>
     </file>
     <file>
-      <name>$PROJ_DIR$\..\Final Lab\globals.h</name>
-    </file>
-    <file>
       <name>$PROJ_DIR$\..\Final Lab\interrupts.c</name>
     </file>
     <file>

@@ -7,6 +7,8 @@
 * device to display data on OLED using 4x4 keypad
 * author: Alyanna Castillo
 ******************************************/ 
+#include "FreeRTOS.h"
+#include "task.h"
 
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
@@ -32,6 +34,9 @@ void keypad(void* taskDataPtr)
   KeypadData* keypadDataPtr = (KeypadData*) taskDataPtr;  
   int inputs[4][4];
   keypadSetUp();
+  portTickType xLastWakeTime;
+  const portTickType xFrequency = 2000; // for 1Hz operation
+  xLastWakeTime = xTaskGetTickCount();
   
   while(1)
   {
@@ -111,13 +116,12 @@ void keypad(void* taskDataPtr)
     }
     
     // Acknowledge
-    // Press F
+    // Press A
     if(inputs[2][2] == 0)
     {
       (*(keypadDataPtr->alarmAcknowledge)) = 1;
     }
-    removeFlags[TASK_KEYPAD] = 1;
-    vTaskDelay(2000);
+    vTaskDelayUntil( &xLastWakeTime, xFrequency );
   }
 }
 

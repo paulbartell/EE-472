@@ -13,17 +13,10 @@
 #include "driverlib/timer.h"
 #include "inc/hw_ints.h"
 
-volatile unsigned long globalTime = 0;
 volatile unsigned long pulseRateCount = 0;
 volatile unsigned short pulseRateFlag = 0;
 volatile unsigned long pulseRateSample = 0;
 
-// System time tick ISR for incrementing globalTime
-void SysTickIntHandler(void)
-{
-  globalTime++;
-  
-}
 
 // Interrupt handler for the pulse rate counter.
 void GPIOFIntHandler(void)

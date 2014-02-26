@@ -6,6 +6,7 @@
 * author: Paul Bartell
 ******************************************/ 
 /* Scheduler includes. */
+#include "FreeRTOSConfig.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
@@ -21,20 +22,20 @@
 #include "driverlib/interrupt.h"
 #include "inc/hw_ints.h"
 #include "driverlib/pin_map.h"
-#include "schedule.h"
 #include "utils/uartstdio.h"
 #include "tasks.h"
 #include "driverlib/timer.h"
 
 #define STR_SIZE 16
 #define BUF_CAPACITY 8
-#define PRSAMPLETIME 2
+#define PRSAMPLETIME 20
 #define EKG_CAPACITY 256
 #define EKG_FREQ 16
+#define NUM_TASKS 9
 
 extern void SysTickIntHandler(void);
 
-TCB taskList[NUM_TASKS];
+xTaskHandle taskList[NUM_TASKS];
 
 // Default values
 unsigned int temperatureRaw[BUF_CAPACITY] = {75, 75, 75, 75, 75, 75, 75, 75};
@@ -113,16 +114,6 @@ KeypadData keypadData = {&displayMode, &displayScroll, &measurementSelection,
 
 void startup(void* taskDataPtr)
 {
-  // Setup UART for communications task
-  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
-  GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
-  UARTStdioInit(0);
-  
-//  // Setup SysTick timer for global time base
-//  SysTickPeriodSet(SysCtlClockGet() / MINORCYCLEPERSEC);
-//  SysTickIntRegister(SysTickIntHandler);
-//  SysTickIntEnable();
-//  SysTickEnable();
   
   // Setup Timer2 for pulse rate sampling
   SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER2);
@@ -167,21 +158,14 @@ void startup(void* taskDataPtr)
 void schedulerInit()
 {
   // Initialize the task queue
-  // taskList[0] = (TCB) {&startup, NULL, NULL, NULL};
-//  taskList[0] = (TCB) {&measure,&measureData,NULL,NULL};
-//  taskList[1] = (TCB) {&compute,&computeData,NULL,NULL};
-//  taskList[2] = (TCB) {&oledDisplay,&displayData,NULL,NULL};
-//  taskList[3] = (TCB) {&warningAlarm,&warningAlarmData,NULL,NULL};
-//  taskList[4] = (TCB) {&status,&statusData,NULL,NULL};
-//  taskList[5] = (TCB) {&keypad,&keypadData,NULL,NULL};
-//  taskList[6] = (TCB) {&communication,&communicationsData,NULL,NULL};
-//  taskList[7] = (TCB) {NULL,NULL,NULL,NULL};
     //         TaskFtn,           "Name",      Stack sz,params,         priority, handle ptr location 
-  xTaskCreate(measure,          "Measure",       100, &measureData,      1,     &taskList[0]);
+  xTaskCreate(measure,          "Measure",       100, &measureData,      3,     &taskList[0]);
   xTaskCreate(compute,          "Compute",       100, &computeData,      2,     &taskList[1]);
-  xTaskCreate(oledDisplay,      "Display",       100, &displayData,      3,     &taskList[2]);
-//  xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 4,     &taskList[3]);
-//  xTaskCreate(status,           "Status",        100, &statusData,       4,     &taskList[4]);
-  xTaskCreate(keypad,           "Keypad",        100, &keypadData,       3,     &taskList[5]);
-  xTaskCreate(communication,    "Communication", 100, &communicationsData,3,    &taskList[6]);
+  xTaskCreate(oledDisplay,      "Display",       150, &displayData,      1,     &taskList[2]);
+  xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 1,     &taskList[3]);
+  xTaskCreate(status,           "Status",        100, &statusData,       1,     &taskList[4]);
+  xTaskCreate(keypad,           "Keypad",        100, &keypadData,       1,     &taskList[5]);
+xTaskCreate(communication,    "Communication", 100, &communicationsData,1,     &taskList[6]);
+//xTaskCreate(ekgCapture,       "EKG Capture",   100, &ekgData,           4,     &taskList[7]);
+  //xTaskCreate(ekgProcess,       "EKG Processing",100, &ekgData,           2,    &taskList[8]);
 }

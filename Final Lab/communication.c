@@ -6,14 +6,25 @@
 * author: Paul Bartell
 ******************************************/ 
 #include "inc/hw_types.h"
+#include "driverlib/gpio.h"
+#include "inc/hw_gpio.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/sysctl.h"
+#include "inc/hw_memmap.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #include "utils/uartstdio.h"
 #include "tasks.h"
-#include "schedule.h"
 
 extern volatile unsigned long globalTime;
 
 void communication(void* taskDataPtr)
 {
+  // Setup UART
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+  GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+  UARTStdioInit(0);
+  
   while(1)
   {
     CommunicationsData* communicationsDataPtr = (CommunicationsData*) taskDataPtr;
@@ -25,8 +36,7 @@ void communication(void* taskDataPtr)
     UARTprintf("Pulse rate:          %s BPM\n", communicationsDataPtr->prCorrectedBuf->headPtr); 
     UARTprintf("Battery:             %s %%\n", communicationsDataPtr->battCorrected->headPtr);
     // UARTprintf("Time: %d\n",globalTime); // For timing debugging
-    removeFlags[TASK_COMMUNICATION] = 1;
-    vTaskDelay(1000);
+    vTaskSuspend(NULL); // Wait until resumed by warningAlarm or Display
   }
   
 }

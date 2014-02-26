@@ -19,6 +19,8 @@ enum _myBool { FALSE = 0, TRUE = 1 };
 #define TASK_STATUS 4
 #define TASK_KEYPAD 5
 #define TASK_COMMUNICATION 6
+#define TASK_EKGCAPTURE 7
+#define TASK_EKGPROCESS 8
 
 typedef struct MeasureData
 {
@@ -30,8 +32,6 @@ typedef struct MeasureData
 } MeasureData;
 
 void measure(void* taskData);
-
-
 
 typedef struct EKGData
 {
@@ -124,3 +124,4 @@ typedef struct CommunicationsData
 } CommunicationsData;
 
 void communication(void* taskData);
+

@@ -6,6 +6,8 @@
 and Pulse Rate. 
 * author: Alyanna Castillo 
 ******************************************/
+#include "FreeRTOS.h"
+#include "task.h"
 
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
@@ -27,9 +29,9 @@ and Pulse Rate.
 #define INTDIAS 80 
 #define TEMPSEQ 2
 
-extern unsigned long globalTime; 
 extern unsigned long pulseRateSample;
 extern unsigned short pulseRateFlag;
+extern xTaskHandle taskList[];
 
 void measureTemp(MeasureData* measureDataPtr);
 void measurePulseRate(MeasureData* measureDataPtr);
@@ -42,7 +44,7 @@ int even = 1;
 void measureSetup()
 {
   // Setup ADC Sequencer 2 for temperature measurement
-  ADCSequenceConfigure(ADC0_BASE, TEMPSEQ, ADC_TRIGGER_PROCESSOR, 2);
+  ADCSequenceConfigure(ADC0_BASE, TEMPSEQ, ADC_TRIGGER_PROCESSOR, 0);
   ADCSequenceStepConfigure(ADC0_BASE, TEMPSEQ, 0,
                            ADC_CTL_IE | ADC_CTL_END | ADC_CTL_TS);
   ADCSequenceEnable(ADC0_BASE, TEMPSEQ);
@@ -52,6 +54,9 @@ void measureSetup()
 void measure(void* taskDataPtr)
 { 
   measureSetup();
+  portTickType xLastWakeTime;
+   xLastWakeTime = xTaskGetTickCount();
+  const portTickType xFrequency = 5000; // for 1Hz operation
   
   // Access the passed in MeasureData struct 
   MeasureData* measureDataPtr = (MeasureData*) taskDataPtr; 
@@ -76,9 +81,9 @@ void measure(void* taskDataPtr)
     }
     
     even = !even; 
-    addFlags[TASK_COMPUTE] = 1;
-    removeFlags[TASK_MEASURE] = 1;
-    vTaskDelay(2000);
+    vTaskResume(taskList[TASK_COMPUTE]); // Resume compute task
+    vTaskDelayUntil( &xLastWakeTime, xFrequency );
+    //vTaskDelay(5000);
   }
 } 
 

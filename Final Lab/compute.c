@@ -5,10 +5,12 @@
 * task description: Computes and corrects raw data to a displayable form.
 * author: Ryan McDaniel
 ******************************************/ 
-
+#include "FreeRTOS.h"
+#include "task.h"
 #include <string.h>
 #include "tasks.h"
 #include "schedule.h"
+
 
 // We are only working with two decimal points
 #define NUM_DEC 2
@@ -57,6 +59,7 @@ void compute(void* taskDataPtr)
   int* temperatureRaw = (int*)(computeDataPtr->temperatureRawBuf->headPtr);
   int* prRaw = (int*)(computeDataPtr->pulseRateRawBuf->headPtr);
   unsigned short* battRaw = computeDataPtr->batteryState;
+  
 
   // Messed up right now // Paul fixed this
   int* systolicRaw = (int*)(computeDataPtr->systolicPressRawBuf->headPtr);
@@ -64,7 +67,6 @@ void compute(void* taskDataPtr)
   
   while(1)
   {
-
 
     // The most we want to deal with is two digits, so we round up the ten-thousandth's place
     // and multiply by 100 to move those decimals to the left side of the decimal point.
@@ -123,9 +125,8 @@ void compute(void* taskDataPtr)
     toString(storageSpace, newData);
     target = cBuffPush(computeDataPtr->battCorrected);
     strcpy(target, newData);
-    vTaskDelay(1000);
+    vTaskSuspend(NULL);
   }
-  return;
 }
 
 

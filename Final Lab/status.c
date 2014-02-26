@@ -5,19 +5,22 @@
 * task description: Updates the battery status every major cycle.
 * author: Alyanna Castillo
 ******************************************/ 
+#include "FreeRTOS.h"
+#include "task.h"
 
 #include "tasks.h"
-#include "schedule.h"
 #define INTBAT 200
-extern unsigned long globalTime;
 
 void status(void* taskDataPtr)
 {
-  if(globalTime % MAJORCYCLECOUNT == 0)
+  // Pointer re-cast as pointer to the Status task's data structure
+  StatusData* statusDataPtr = (StatusData*) taskDataPtr;
+  portTickType xLastWakeTime;
+  const portTickType xFrequency = 5000; // for 1/5Hz operation
+  
+  while(1)
   {
-    // Pointer re-cast as pointer to the Status task's data structure
-    StatusData* statusDataPtr = (StatusData*) taskDataPtr;
-    
+     xLastWakeTime = xTaskGetTickCount();
     // Reset battery once it reaches zero to continue simulation
     if ((*(statusDataPtr->batteryState)) == 0) 
     {
@@ -27,7 +30,6 @@ void status(void* taskDataPtr)
     {
       (*(statusDataPtr->batteryState))--;
     }
-    removeFlags[TASK_STATUS] = 1;
+    vTaskDelayUntil( &xLastWakeTime, xFrequency );
   }
-  return;
 }

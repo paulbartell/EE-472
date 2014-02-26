@@ -6,6 +6,8 @@
     to an OLED display
 * author: Ryan McDaniel
 ******************************************/ 
+#include "FreeRTOS.h"
+#include "task.h"
 
 #include "tasks.h"
 #include "schedule.h"
@@ -25,17 +27,15 @@ typedef enum {SCANALL, TEMP, BLOOD, PULSE, EKG, BATT} measurement;
 typedef enum {NORMAL, ANNUNCIATE} displayMode;
 
 
-extern unsigned long globalTime;
-
-void oledDisplaySetup()
-{
-  // Initialize the OLED Display
-  RIT128x96x4Init(10000000);
-}
+extern xTaskHandle taskList[];
 
 // print out the current readings
 void oledDisplay(void* taskDataPtr)
 {
+  portTickType xLastWakeTime;
+   xLastWakeTime = xTaskGetTickCount();
+  const portTickType xFrequency = 5000; // for 1Hz operation
+  
   // Grab all the data from the structure
   DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
   char* temperaturePtr = displayDataPtr->tempCorrectedBuf->headPtr;
@@ -47,10 +47,9 @@ void oledDisplay(void* taskDataPtr)
   
   RIT128x96x4Init(10000000);
   
+  
   while(1)
   {
-
-    
     // Controlling display modes
     static displayMode lastMode = NORMAL;
     measurement myMeasurement = (measurement) *(displayDataPtr->measurementSelection);
@@ -103,6 +102,8 @@ void oledDisplay(void* taskDataPtr)
         
       // Directions for changing views
       RIT128x96x4StringDraw("'D' to change Display", L_ALLIGN, LINE*11, CNTRST);
+      
+      vTaskResume(taskList[TASK_COMMUNICATION]); // Resume communication task
     } 
     else if (currentMode == NORMAL) 
     {
@@ -163,9 +164,9 @@ void oledDisplay(void* taskDataPtr)
     }
     lastMode = currentMode;
     *(displayDataPtr->measurementSelection) = (unsigned short) myMeasurement;
-    removeFlags[TASK_DISPLAY] = 1;
     
-    vTaskDelay(1000);
+    vTaskDelayUntil( &xLastWakeTime, xFrequency );
+    //vTaskDelay(5000);
   }
 }
 
