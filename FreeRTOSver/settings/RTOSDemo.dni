@@ -16,7 +16,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-434318160
+Checksum=325917380
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -57,7 +57,7 @@ Exclusions=
 mode=1
 [Breakpoints]
 Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\..\..\E\Dev\FreeRTOS\WorkingCopy2\Demo\Common\Minimal\IntQueue.c}.363.2@1" 0 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.207.5" 1 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.208.5" 1 0 0 0 "" 0 ""
 Count=2
 [Aliases]
 Count=0

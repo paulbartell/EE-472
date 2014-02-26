@@ -20,107 +20,6 @@
       <file>$PROJ_DIR$\..\Final Lab\startup.c</file>
       <file>$PROJ_DIR$\..\Final Lab\startup.h</file>
       <file>$PROJ_DIR$\..\Final Lab\startup_ewarm.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\warningAlarm.pbi</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\timer.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_types.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\systick.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\measure.pbi</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\interrupt.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\gpio.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\oledDisplay.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\communication.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\warningAlarm.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\circularbuffer.pbi</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_ints.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\sysctl.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\compute.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\interrupts.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\keypad.pbi</file>
-      <file>$PROJ_DIR$\circularbuffer.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\portable.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\queue.h</file>
-      <file>$PROJ_DIR$\FreeRTOSConfig.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\FreeRTOS.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\projdefs.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\boards\ek-lm3s8962\drivers\rit128x96x4.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\pwm.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\task.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\mpu_wrappers.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\include\IntQueue.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\list.h</file>
-      <file>$PROJ_DIR$\tasks.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\croutine.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\timers.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\portable\IAR\ARM_CM3\portmacro.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\uartstdio.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\uartstdio.o</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\StackMacros.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\ekgBeta.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\schedule.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\ekgBeta.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\schedule.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\ekgCapture.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\ekgCapture.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\keypad.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\measure.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\compute.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\circularbuffer.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\interrupts.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\oledDisplay.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\communication.o</file>
-      <file>$PROJ_DIR$\LM3Sxxxx.icf</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\ssi.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Source\include\semphr.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\interrupt.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\gpio.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\include\partest.h</file>
-      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
-      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_memmap.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\debug.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_sysctl.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_timer.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_ssi.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\rit128x96x4.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\grlib.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\lmi_timer.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\debug.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_uart.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\rom.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\rom_map.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\uart.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\adc.h</file>
-      <file>$PROJ_DIR$\Debug\List\RTOSDemo.map</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\portasm.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\list.o</file>
-      <file>$PROJ_DIR$\main.orig.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\queue.o</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\sysctl.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\tasks.o</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_ints.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
-      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_types.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\IntQueueTimer.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\RTOSDemo.pbd</file>
-      <file>$PROJ_DIR$\Debug\Obj\list.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
-      <file>$PROJ_DIR$\..\Final Lab\ekgBeta.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\queue.pbi</file>
-      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\tasks.pbi</file>
       <file>$PROJ_DIR$\..\Final Lab\tasks.h</file>
       <file>$PROJ_DIR$\..\Final Lab\status.c</file>
       <file>$PROJ_DIR$\..\Final Lab\warningAlarm.c</file>
@@ -138,24 +37,41 @@
       <file>$PROJ_DIR$\FreeRTOS\Source\queue.c</file>
       <file>$PROJ_DIR$\FreeRTOS\Source\tasks.c</file>
       <file>$PROJ_DIR$\main.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\ParTest.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\heap_2.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\port.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\port.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\pwm.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\task.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\mpu_wrappers.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\croutine.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\portable\IAR\ARM_CM3\portmacro.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\schedule.pbi</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\timers.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\list.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\include\IntQueue.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+      <file>$PROJ_DIR$\tasks.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\ekgBeta.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\uartstdio.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\uartstdio.o</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\StackMacros.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\ekgBeta.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\schedule.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\ekgCapture.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\ekgCapture.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\keypad.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\measure.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\compute.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\circularbuffer.o</file>
       <file>$PROJ_DIR$\Debug\Obj\ParTest.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\IntQueueTimer.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\rit128x96x4.o</file>
       <file>$PROJ_DIR$\Debug\Obj\main.o</file>
-      <file>$PROJ_DIR$\IntQueueTimer.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\IntQueue.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\rit128x96x4.o</file>
       <file>$PROJ_DIR$\Debug\Obj\IntQueue.o</file>
       <file>$PROJ_DIR$\Debug\Obj\heap_2.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.o</file>
+      <file>$PROJ_DIR$\IntQueueTimer.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\IntQueue.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\timertest.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\rit128x96x4.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.o</file>
       <file>$PROJ_DIR$\Debug\Obj\timertest.o</file>
       <file>$PROJ_DIR$\Debug\Exe\RTOSDemo.out</file>
       <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_memmap.h</file>
@@ -163,38 +79,112 @@
       <file>$PROJ_DIR$\Debug\Obj\status.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\status.o</file>
       <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_gpio.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\timer.h</file>
       <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\pin_map.h</file>
       <file>$PROJ_DIR$\Debug\Obj\startup.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\gpio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\communication.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\warningAlarm.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\interrupt.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\oledDisplay.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\measure.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\circularbuffer.pbi</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\systick.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_types.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\warningAlarm.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_ints.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\sysctl.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\interrupts.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\compute.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\keypad.pbi</file>
+      <file>$PROJ_DIR$\circularbuffer.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\portable.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\queue.h</file>
+      <file>$PROJ_DIR$\FreeRTOSConfig.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\FreeRTOS.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\projdefs.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\boards\ek-lm3s8962\drivers\rit128x96x4.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\interrupts.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\communication.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\oledDisplay.o</file>
+      <file>$PROJ_DIR$\LM3Sxxxx.icf</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\ssi.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Source\include\semphr.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\gpio.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\include\partest.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\interrupt.h</file>
+      <file>$TOOLKIT_DIR$\lib\m7M_tl.a</file>
+      <file>$TOOLKIT_DIR$\lib\dl7M_tln.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\debug.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_memmap.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\debug.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_sysctl.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_timer.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_ssi.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\rit128x96x4.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\grlib.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\lmi_timer.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\list.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\queue.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\inc\hw_uart.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\rom.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\rom_map.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\uart.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\adc.h</file>
+      <file>$PROJ_DIR$\Debug\List\RTOSDemo.map</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdarg.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\portasm.o</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\sysctl.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_ewarm.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\tasks.o</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_ints.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$PROJ_DIR$\FreeRTOS\Common\drivers\LuminaryMicro\hw_types.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\IntQueueTimer.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\RTOSDemo.pbd</file>
+      <file>$PROJ_DIR$\Debug\Obj\list.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$PROJ_DIR$\..\Final Lab\ekgBeta.c</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\tasks.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\queue.pbi</file>
+      <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+      <file>$PROJ_DIR$\Debug\Obj\ParTest.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\port.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\heap_2.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\port.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\IntQueueTimer.o</file>
     </outputs>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>ILINK</name>
-          <file> 151 89</file>
-        </tool>
-      </outputs>
-    </file>
     <file>
       <name>$PROJ_DIR$\..\Final Lab\circularbuffer.c</name>
       <outputs>
         <tool>
           <name>ICCARM</name>
-          <file> 62</file>
+          <file> 54</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 25</file>
+          <file> 83</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 3 82 153 104 113 101 103 146 108 137 136</file>
+          <file> 3 111 69 139 147 137 138 64 144 156 155</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 3 82 153 104 113 101 103 146 108 137 136</file>
+          <file> 3 111 69 139 147 137 138 64 144 156 155</file>
         </tool>
       </inputs>
     </file>
@@ -203,407 +193,7 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
-          <file> 58</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 57</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 16 83 27 38 88 157 21 152 115 3 109 96 82 136</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\compute.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 61</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 28</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 82 136 115 3 10</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 82 136 115 3 10</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\communication.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 65</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 23</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 16 21 157 156 27 152 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 18 115 3</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 16 21 157 156 27 152 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 18 115 3</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\interrupts.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 63</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 29</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 16 27 21 157 156 152 17 20 15 26</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 16 27 21 157 156 152 17 20 15 26</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\keypad.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 59</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 31</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 16 27 21 157 156 152 115 3 10</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 16 27 21 157 156 152 115 3 10</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\measure.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 60</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 19</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 16 27 21 157 156 20 26 152 15 88 10 115 3</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 16 27 21 157 156 20 26 152 15 88 10 115 3</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\schedule.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 56</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 54</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 10 115 3 16 27 21 157 156 152</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 10 115 3 16 27 21 157 156 152</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\oledDisplay.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 64</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 22</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 115 3 10 38</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 115 3 10 38</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\startup.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 158</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 30</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 35 36 42 153 104 113 101 103 146 108 137 37 33 48 41 40 44 34 68 16 27 21 157 156 152 17 20 26 18 115 3 15</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 35 36 42 153 104 113 101 103 146 108 137 37 33 48 41 40 44 34 68 16 27 21 157 156 152 17 20 26 18 115 3 15</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\startup_ewarm.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 147</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 98</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\ekgBeta.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 53</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 55</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 16 83 27 38 88 157 21 152 109 153 104 113 101 103 146 108 137 96 82 136</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 16 83 27 38 88 157 21 152 109 153 104 113 101 103 146 108 137 96 82 136</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\status.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 155</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 154</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 115 3</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 115 3</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Final Lab\warningAlarm.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 24</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 14</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 34 68 16 27 21 157 156 152 39 115 3 10</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 34 68 16 27 21 157 156 152 39 115 3 10</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\IntQueueTimer.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 139</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 105</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 142 43 100 74 102 69 95 81</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 142 43 100 74 102 69 95 81</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Common\Minimal\IntQueue.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 144</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 143</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 82 153 104 113 101 103 146 108 137 136 36 42 37 35 33 48 41 34 40 44 43 142</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 82 153 104 113 101 103 146 108 137 136 36 42 37 35 33 48 41 34 40 44 43 142</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\rit128x96x4.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 140</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 149</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 78 74 76 102 75 70 67 95 79</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 78 74 76 102 75 70 67 95 79</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\ParTest\ParTest.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 132</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 138</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 71 102 70 74</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 71 102 70 74</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\timertest.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 150</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 148</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 100 74 102 69 95 81 77</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 100 74 102 69 95 81 77</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 51</file>
+          <file> 50</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -613,11 +203,401 @@
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 90 153 104 113 101 103 146 108 26 152 16 84 83 20 85 86 27 87 18</file>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 85 112 88 99 127 74 76 79 87 73 68 14 3 145 132 111 155</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 90 153 104 113 101 103 146 108 26 152 16 84 83 20 85 86 27 87 18</file>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 85 112 88 99 127 74 76 79 87 73 68 14 3 145 132 111 155</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\compute.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 53</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 91</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 111 155 14 3 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 111 155 14 3 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\communication.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 101</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 77</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 85 76 74 72 88 68 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 81 14 3</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 85 76 74 72 88 68 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 81 14 3</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\interrupts.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 100</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 89</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 85 88 76 74 72 68 84 79 73 87</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 85 88 76 74 72 68 84 79 73 87</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\keypad.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 51</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 92</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 85 88 76 74 72 68 14 3 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 85 88 76 74 72 68 14 3 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\measure.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 52</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 82</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 85 88 76 74 72 79 87 68 73 127 10 14 3</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 85 88 76 74 72 79 87 68 73 127 10 14 3</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\schedule.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 48</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 36</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 10 14 3 85 88 76 74 72 68</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 10 14 3 85 88 76 74 72 68</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\oledDisplay.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 102</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 80</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 14 3 10 99</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 14 3 10 99</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\startup.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 75</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 90</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 96 97 40 69 139 147 137 138 64 144 156 98 94 35 33 32 38 95 105 85 88 76 74 72 68 84 79 87 81 14 3 73</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 96 97 40 69 139 147 137 138 64 144 156 98 94 35 33 32 38 95 105 85 88 76 74 72 68 84 79 87 81 14 3 73</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 67 128</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\startup_ewarm.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 65</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 134</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\status.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 71</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 70</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 14 3</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 14 3</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\warningAlarm.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 86</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 78</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 95 105 85 88 76 74 72 68 31 14 3 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 95 105 85 88 76 74 72 68 31 14 3 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\IntQueueTimer.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 157</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 141</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 60 39 136 113 140 108 131 120</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 60 39 136 113 140 108 131 120</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FreeRTOS\Common\Minimal\IntQueue.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 58</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 61</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 111 69 139 147 137 138 64 144 156 155 97 40 98 96 94 35 33 95 32 38 39 60</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 111 69 139 147 137 138 64 144 156 155 97 40 98 96 94 35 33 95 32 38 39 60</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\rit128x96x4.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 57</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 63</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 117 113 115 140 114 106 104 131 118</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 117 113 115 140 114 106 104 131 118</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\ParTest\ParTest.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 151</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 55</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 107 140 106 113</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 107 140 106 113</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\timertest.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 66</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 62</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 136 113 140 108 131 120 116</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 136 113 140 108 131 120 116</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 45</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 43</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 129 69 139 147 137 138 64 144 87 68 85 123 112 79 124 125 88 126 81</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 129 69 139 147 137 138 64 144 87 68 85 123 112 79 124 125 88 126 81</file>
         </tool>
       </inputs>
     </file>
@@ -626,7 +606,137 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
-          <file> 145</file>
+          <file> 59</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 153</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 44 69 139 147 137 138 64 144 156 97 40 98 96 94 35 33 32 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 69 139 147 137 138 64 144 156 97 40 98 96 94 35 33 32 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FreeRTOS\Source\list.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 121</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 143</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 44 69 139 147 137 138 64 144 156 97 40 98 96 94 35 33 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 69 139 147 137 138 64 144 156 97 40 98 96 94 35 33 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FreeRTOS\Source\portable\IAR\ARM_CM3\port.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 154</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 152</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FreeRTOS\Source\portable\IAR\ARM_CM3\portasm.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 130</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>AARM</name>
+          <file> 96</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FreeRTOS\Source\queue.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 122</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 149</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 44 69 139 147 137 138 64 144 156 111 155 97 40 98 96 94 35 33 32 38 34</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 44 69 139 147 137 138 64 144 156 111 155 97 40 98 96 94 35 33 32 38 34</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\FreeRTOS\Source\tasks.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 135</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 148</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 145 69 139 147 137 138 64 144 156 132 44 111 155 97 40 98 96 94 35 33 32 38 37 46</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 145 69 139 147 137 138 64 144 156 132 44 111 155 97 40 98 96 94 35 33 32 38 37 46</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 56</file>
         </tool>
         <tool>
           <name>BICOMP</name>
@@ -636,141 +746,11 @@
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 50 153 104 113 101 103 146 108 137 36 42 37 35 33 48 41 40 44</file>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 95 105 113 140 115 131 106 119 118 41 93</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 50 153 104 113 101 103 146 108 137 36 42 37 35 33 48 41 40 44</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Source\list.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 92</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 107</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 50 153 104 113 101 103 146 108 137 36 42 37 35 33 48 41 44</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 50 153 104 113 101 103 146 108 137 36 42 37 35 33 48 41 44</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Source\portable\IAR\ARM_CM3\port.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 135</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 134</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Source\portable\IAR\ARM_CM3\portasm.s</name>
-      <outputs>
-        <tool>
-          <name>AARM</name>
-          <file> 91</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>AARM</name>
-          <file> 35</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Source\queue.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 94</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 111</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 50 153 104 113 101 103 146 108 137 82 136 36 42 37 35 33 48 41 40 44 46</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 50 153 104 113 101 103 146 108 137 82 136 36 42 37 35 33 48 41 40 44 46</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Source\tasks.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 99</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 114</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 109 153 104 113 101 103 146 108 137 96 50 82 136 36 42 37 35 33 48 41 40 44 47 52</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 109 153 104 113 101 103 146 108 137 96 50 82 136 36 42 37 35 33 48 41 40 44 47 52</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\main.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 141</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 97</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 34 68 74 102 76 95 70 80 79 45 32</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 42 153 104 113 101 103 146 108 137 37 35 33 48 41 40 44 34 68 74 102 76 95 70 80 79 45 32</file>
+          <file> 97 40 69 139 147 137 138 64 144 156 98 96 94 35 33 32 38 95 105 113 140 115 131 106 119 118 41 93</file>
         </tool>
       </inputs>
     </file>
@@ -779,13 +759,36 @@
       <outputs>
         <tool>
           <name>ILINK</name>
-          <file> 89</file>
+          <file> 128</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ILINK</name>
-          <file> 66 122 144 139 132 62 65 61 58 145 63 59 92 141 60 64 135 91 94 140 56 158 147 155 99 150 51 24 112 72 73</file>
+          <file> 103 21 58 157 151 54 101 53 50 59 100 51 121 56 52 102 154 130 122 57 48 75 65 71 135 66 45 86 150 109 110</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\ekgBeta.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 47</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 42</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 85 112 88 99 127 74 76 68 145 69 139 147 137 138 64 144 156 132 111 155</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 85 112 88 99 127 74 76 68 145 69 139 147 137 138 64 144 156 132 111 155</file>
         </tool>
       </inputs>
     </file>

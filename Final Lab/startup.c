@@ -30,7 +30,7 @@
 #define BUF_CAPACITY 8
 #define PRSAMPLETIME 20
 #define EKG_CAPACITY 256
-#define EKG_FREQ 16
+#define EKG_FREQ 10000
 #define NUM_TASKS 9
 
 extern void SysTickIntHandler(void);
@@ -115,13 +115,19 @@ KeypadData keypadData = {&displayMode, &displayScroll, &measurementSelection,
 void startup(void* taskDataPtr)
 {
   
-  // Setup Timer2 for pulse rate sampling
+  // Setup Timer2A for pulse rate sampling
   SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER2);
   TimerLoadSet(TIMER2_BASE, TIMER_A, ( PRSAMPLETIME * SysCtlClockGet() ) );
   IntEnable(INT_TIMER2A);
   IntPrioritySet(INT_TIMER2A, 0x00); // Set highest priority
   TimerEnable(TIMER2_BASE, TIMER_A);
   TimerIntEnable(TIMER2_BASE, TIMER_TIMA_TIMEOUT);
+  
+  // Setup Timer 2B for ekg sampling
+  
+  TimerLoadSet(TIMER2_BASE, TIMER_B, ( SysCtlClockGet() / EKG_FREQ) );
+  //TimerEnable(TIMER2_BASE, TIMER_B);
+  //TimerIntEnable(TIMER2_BASE, TIMER_TIMB_TIMEOUT);
   
   // PF0 for pulse counting
   SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
@@ -166,6 +172,6 @@ void schedulerInit()
   xTaskCreate(status,           "Status",        100, &statusData,       1,     &taskList[4]);
   xTaskCreate(keypad,           "Keypad",        100, &keypadData,       1,     &taskList[5]);
 xTaskCreate(communication,    "Communication", 100, &communicationsData,1,     &taskList[6]);
-//xTaskCreate(ekgCapture,       "EKG Capture",   100, &ekgData,           4,     &taskList[7]);
+xTaskCreate(ekgCapture,       "EKG Capture",   100, NULL,           4,     &taskList[7]);
   //xTaskCreate(ekgProcess,       "EKG Processing",100, &ekgData,           2,    &taskList[8]);
 }

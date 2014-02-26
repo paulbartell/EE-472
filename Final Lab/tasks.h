@@ -40,7 +40,7 @@ typedef struct EKGData
 	unsigned int* EKGFreqBuf;
 } EKGData;
 
-void EKGCapture (void* taskData);
+void ekgCapture (void* taskData);
 void EKGProcess (void* taskData);
 
 
