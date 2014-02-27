@@ -24,6 +24,7 @@
 #define BLOOD 2
 #define PULSE 3
 #define EKG 4
+#define BATT 5
 
 /**
 *       Main function for the keypad task
@@ -99,7 +100,11 @@ void keypad(void* taskDataPtr)
       (*(keypadDataPtr->measurementSelection)) = EKG;
     // Press 4: EKG 
     }
-
+    if (inputs[1][1] == 0)
+    {
+      (*(keypadDataPtr->measurementSelection)) = BATT;
+    // Press 4: EKG 
+    }
     
     // Mode Selection
     // Press D

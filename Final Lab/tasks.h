@@ -37,7 +37,7 @@ typedef struct EKGData
 {
 	unsigned int* EKGRawBuf;
 	unsigned int* EKGRawTempBuf;
-	unsigned int* EKGFreqBuf;
+	CircularBuffer* EKGFreqBuf;
 } EKGData;
 
 void ekgCapture (void* taskData);
@@ -70,6 +70,7 @@ typedef struct DisplayData
   CircularBuffer* diastolicPressCorrectedBuf;
   CircularBuffer* prCorrectedBuf;
   CircularBuffer* battCorrected;
+  CircularBuffer* EKGFreqBuf;
   
   unsigned short* measurementSelection;
   unsigned short* mode;
