@@ -111,6 +111,10 @@ void keypad(void* taskDataPtr)
     if(inputs[1][3] == 0) 
     {
       *(keypadDataPtr->mode) = !(*(keypadDataPtr->mode));
+      if(*(keypadDataPtr->mode) == 1)
+      {
+        (*(keypadDataPtr->measurementSelection)) = SCANALL;
+      }
     }
     
     // Scroll button

@@ -30,7 +30,6 @@ void communication(void* taskDataPtr)
     
     CommunicationsData* communicationsDataPtr = (CommunicationsData*) taskDataPtr;
     UARTprintf("%c",'\x0C');// Clear the terminal
-    UARTprintf("A Warning has occured\n");
     UARTprintf("Temperature:         %s C\n", communicationsDataPtr->tempCorrectedBuf->headPtr);
     UARTprintf("Systolic pressure:   %s mmHg\n", communicationsDataPtr->systolicPressCorrectedBuf->headPtr); 
     UARTprintf("Diastolic pressure:  %s mmHg\n", communicationsDataPtr->diastolicPressCorrectedBuf->headPtr);

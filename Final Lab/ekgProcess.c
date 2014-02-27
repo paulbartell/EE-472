@@ -57,7 +57,7 @@ void ekgProcess(void* taskDataPtr) {
     
     freq = Fs*freq / N;
     
-    UARTprintf("Freq: %d\n",freq);
+    //UARTprintf("Freq: %d\n",freq);
     
     cBuffPut(ekgDataPtr->EKGFreqBuf,&freq);
     // Returns index of peak frequency

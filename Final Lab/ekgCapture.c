@@ -93,7 +93,8 @@ void ekgCapture(void* taskDataPtr)
     //ADCSequenceDataGet(ADC0_BASE, EKGSEQ, &(ekgDataPtr->EKGRawBuf[index]));
     index = 0;
     vTaskResume(taskList[TASK_EKGPROCESS]); // Resume EKGPROCESS task
-    vTaskDelayUntil( &xLastWakeTime, xFrequency );
+    vTaskSuspend(NULL);
+    //vTaskDelayUntil( &xLastWakeTime, xFrequency );
     
   }
   

@@ -67,6 +67,7 @@ void measure(void* taskDataPtr)
       measureTemp(measureDataPtr);
       measureBloodPressure(measureDataPtr);
       measurePulseRate(measureDataPtr);
+      vTaskResume(taskList[TASK_EKGCAPTURE]);
       break;
     case 1: 
       measureTemp(measureDataPtr);
@@ -76,6 +77,9 @@ void measure(void* taskDataPtr)
       break;
     case 3: 
       measurePulseRate(measureDataPtr);
+      break;
+    case 4:
+      vTaskResume(taskList[TASK_EKGCAPTURE]);
       break;
     }
 
@@ -110,7 +114,7 @@ void measureTemp(MeasureData* measureDataPtr) {
 }
 
 void measurePulseRate(MeasureData* measureDataPtr) {
-  // Measure Pulse Rate every minute (5 major cycles) 
+  // Measure Pulse Rate every 20 s
   if(pulseRateFlag) 
   { 
     float low = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 0.85; 

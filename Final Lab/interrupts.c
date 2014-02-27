@@ -23,7 +23,7 @@ void GPIOFIntHandler(void)
 {
   pulseRateCount++;
   GPIOPinIntClear(GPIO_PORTF_BASE, GPIO_PIN_0);
-  UARTprintf("called\n");
+  //UARTprintf("called\n");
 }
 
 // Interrupt handler for the pulse rate sampler. Provides hard realtime sampling.
