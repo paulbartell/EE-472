@@ -96,6 +96,7 @@ void oledDisplay(void* taskDataPtr)
       RIT128x96x4StringDraw("BPM", L_ALLIGN + 38, LINE*3, CNTRST);
       
       // Print EKG
+      RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*5, CNTRST); 
       RIT128x96x4StringDraw("EKG:", L_ALLIGN, LINE*4, CNTRST);
       RIT128x96x4StringDraw(EKGPtr, L_ALLIGN, LINE*5, CNTRST);
       RIT128x96x4StringDraw("Hz", L_ALLIGN + 38, LINE*5, CNTRST);
@@ -127,7 +128,6 @@ void oledDisplay(void* taskDataPtr)
       RIT128x96x4StringDraw("2 Blood Pressure            ", L_ALLIGN, LINE*5, CNTRST);
       RIT128x96x4StringDraw("3 Pulse Rate", L_ALLIGN, LINE*7, CNTRST);
       RIT128x96x4StringDraw("4 EKG", L_ALLIGN, LINE*9, CNTRST);
-      RIT128x96x4StringDraw("5 Battery", L_ALLIGN, LINE*11, CNTRST);
       
       
       // Clear all measurement lines in case selected measurement changes
@@ -135,7 +135,9 @@ void oledDisplay(void* taskDataPtr)
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*6, CNTRST);
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*8, CNTRST);
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*10, CNTRST);
-      RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*12, CNTRST);
+      RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*11, CNTRST);
+      
+      RIT128x96x4StringDraw("5 Battery", L_ALLIGN, LINE*11, CNTRST);
       
       // Handle scrolling
       if (*(myScroll) == 1) 

@@ -60,8 +60,6 @@ void ekgProcess(void* taskDataPtr) {
     //UARTprintf("Freq: %d\n",freq);
     
     cBuffPut(ekgDataPtr->EKGFreqBuf,&freq);
-    // Returns index of peak frequency
-    //ekgDataPtr->EKGFreqBuf[] = optfft(*(ekgDataPtr->EKGRawBuf), *(ekgDataPtr->EKGTempBuf)) / 256 ;
     
     vTaskSuspend(NULL);
   }

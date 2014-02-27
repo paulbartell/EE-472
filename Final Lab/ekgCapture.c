@@ -29,6 +29,8 @@ function generator
 #include <stdio.h>
 #include <string.h>
 #define EKGSEQ 3
+#define EKGSFREQ 7500
+#define EKGCORFACTOR 500
 
 volatile unsigned long index = 0;
 extern xTaskHandle taskList[];
@@ -82,7 +84,7 @@ void ekgCapture(void* taskDataPtr)
     for(int i = 0; i < 256; i++)
     {
       ADCProcessorTrigger(ADC0_BASE, EKGSEQ);
-      SysCtlDelay(SysCtlClockGet()/8000/3);
+      SysCtlDelay(SysCtlClockGet()/(EKGSFREQ + EKGCORFACTOR )/3);
     }
     taskEXIT_CRITICAL();
 //        for(int i = 0; i < 256; i++)

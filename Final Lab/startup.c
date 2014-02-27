@@ -28,7 +28,7 @@
 
 #define STR_SIZE 16
 #define BUF_CAPACITY 8
-#define PRSAMPLETIME 20
+#define PRSAMPLETIME 10
 #define EKG_CAPACITY 256
 #define EKG_FREQ 10000
 #define NUM_TASKS 9
@@ -163,11 +163,6 @@ void startup(void* taskDataPtr)
   
   IntMasterEnable(); // enable all interrupts
 
-  
-  // Run task setup functions
-//  warningAlarmSetup();
-//  oledDisplaySetup();
-//  keypadSetUp();
 }
 
 void schedulerInit()
@@ -175,11 +170,11 @@ void schedulerInit()
   // Initialize the task queue
     //         TaskFtn,           "Name",      Stack sz,params,         priority, handle ptr location 
   xTaskCreate(measure,          "Measure",       200, &measureData,      3,     &taskList[0]);
-  xTaskCreate(compute,          "Compute",       100, &computeData,      2,     &taskList[1]);
+  xTaskCreate(compute,          "Compute",       200, &computeData,      2,     &taskList[1]);
   xTaskCreate(oledDisplay,      "Display",       300, &displayData,      1,     &taskList[2]);
-  xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 1,     &taskList[3]);
+  xTaskCreate(warningAlarm,     "Warning Alarm", 200, &warningAlarmData, 1,     &taskList[3]);
   xTaskCreate(status,           "Status",        100, &statusData,       1,     &taskList[4]);
-  xTaskCreate(keypad,           "Keypad",        100, &keypadData,       1,     &taskList[5]);
+  xTaskCreate(keypad,           "Keypad",        200, &keypadData,       1,     &taskList[5]);
   xTaskCreate(communication,    "Communication", 100, &communicationsData,1,    &taskList[6]);
   xTaskCreate(ekgCapture,       "EKG Capture",   100, &ekgData,           4,    &taskList[7]);
   xTaskCreate(ekgProcess,       "EKG Processing",500, &ekgData,           2,    &taskList[8]);

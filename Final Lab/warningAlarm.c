@@ -46,7 +46,7 @@ and 10% respectively.
 // Number of major cycles an alarm acknowledgement should last
 #define ACK_MAX_TIME 5
 
-#define TONE 0
+#define TONE 1200
 
 // defines a state variable for keeping track of Alarm state.
 enum _myState { NORMAL = 0, WARNING = 1, ALARM = 2, ACK = 3, NEWWARNING = 4, NEWALARM = 5 };

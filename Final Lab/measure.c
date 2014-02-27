@@ -31,14 +31,12 @@ and Pulse Rate.
 
 extern unsigned long pulseRateSample;
 extern unsigned short pulseRateFlag;
+extern short ready;
 extern xTaskHandle taskList[];
 
 void measureTemp(MeasureData* measureDataPtr);
 void measurePulseRate(MeasureData* measureDataPtr);
 void measureBloodPressure(MeasureData* measureDataPtr);
-
-
-
 
 void measureSetup()
 {
@@ -109,6 +107,7 @@ void measureTemp(MeasureData* measureDataPtr) {
   ADCSequenceDataGet(ADC0_BASE, TEMPSEQ, &temp);
   
   //  temp = ((1475 * 1023) - (2250 * temp)) / 10230;
+  // Change to human range (next lab)
   
   cBuffPut((measureDataPtr->temperatureRawBuf), &temp); 
 }
@@ -121,10 +120,12 @@ void measurePulseRate(MeasureData* measureDataPtr) {
     float high = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 1.15; 
     
     // Adds value to buffer if it goes +15% of -15% of previous value 
-    if(1)//(pulseRateSample < low) || (pulseRateSample > high))
+    if((pulseRateSample < low) || (pulseRateSample > high))
     { 
       cBuffPut((measureDataPtr->pulseRateRawBuf), &pulseRateSample); 
     } 
+    ready = 0;
+    //IntMasterEnable();
     TimerEnable(TIMER2_BASE, TIMER_A);
   } 
 }
@@ -141,7 +142,7 @@ void measureBloodPressure(MeasureData* measureDataPtr) {
     // Set complete to true 
     sysComplete = 1; 
     // Reset systolicPressRaw to initial value 
-    if (diaComplete == 1) 
+    if (1 == diaComplete) 
     { 
       diaComplete = 0; 
       sysComplete = 0; 
@@ -166,7 +167,7 @@ void measureBloodPressure(MeasureData* measureDataPtr) {
     diaComplete = 1; 
     // Set diaComplete to 0 
     // Reset diastolicPressRaw to initial value 
-    if (sysComplete == 1) 
+    if (1 == sysComplete) 
     { 
       diaComplete = 0; 
       sysComplete = 0; 
