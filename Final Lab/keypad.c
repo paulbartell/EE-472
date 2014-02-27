@@ -25,7 +25,7 @@
 #define PULSE 3
 #define EKG 4
 #define BATT 5
-
+extern xTaskHandle taskList[];
 /**
 *       Main function for the keypad task
 *       @param taskDataPtr Pointer to the KeypadData struct
@@ -36,7 +36,7 @@ void keypad(void* taskDataPtr)
   int inputs[4][4];
   keypadSetUp();
   portTickType xLastWakeTime;
-  const portTickType xFrequency = 2000; // for 1Hz operation
+  const portTickType xFrequency = 1000; // for 1Hz operation
   xLastWakeTime = xTaskGetTickCount();
   
   while(1)
@@ -118,6 +118,8 @@ void keypad(void* taskDataPtr)
     if(inputs[1][2] == 0) 
     {
       *(keypadDataPtr->scroll) = 1;
+      (*(keypadDataPtr->measurementSelection)) =  ((*(keypadDataPtr->measurementSelection)) + 1) % 6;
+      if((*(keypadDataPtr->measurementSelection)) == 0) (*(keypadDataPtr->measurementSelection)) = 1;
     }
     
     // Acknowledge
@@ -126,6 +128,7 @@ void keypad(void* taskDataPtr)
     {
       (*(keypadDataPtr->alarmAcknowledge)) = 1;
     }
+    vTaskResume(taskList[TASK_DISPLAY]);
     vTaskDelayUntil( &xLastWakeTime, xFrequency );
   }
 }

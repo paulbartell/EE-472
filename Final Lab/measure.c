@@ -35,11 +35,10 @@ extern xTaskHandle taskList[];
 
 void measureTemp(MeasureData* measureDataPtr);
 void measurePulseRate(MeasureData* measureDataPtr);
-void measureBloodPressure(MeasureData* measureDataPtr, int sysComplete, int diaComplete);
+void measureBloodPressure(MeasureData* measureDataPtr);
 
-int diaComplete = 0; 
-int sysComplete = 0; 
-int even = 1; 
+
+
 
 void measureSetup()
 {
@@ -66,21 +65,20 @@ void measure(void* taskDataPtr)
     {
     case 0:
       measureTemp(measureDataPtr);
-      measureBloodPressure(measureDataPtr, sysComplete, diaComplete);
+      measureBloodPressure(measureDataPtr);
       measurePulseRate(measureDataPtr);
       break;
     case 1: 
       measureTemp(measureDataPtr);
       break;
     case 2: 
-      measureBloodPressure(measureDataPtr, sysComplete, diaComplete);
+      measureBloodPressure(measureDataPtr);
       break;
     case 3: 
       measurePulseRate(measureDataPtr);
       break;
     }
-    
-    even = !even; 
+
     vTaskResume(taskList[TASK_COMPUTE]); // Resume compute task
     vTaskDelayUntil( &xLastWakeTime, xFrequency );
     //vTaskDelay(5000);
@@ -119,14 +117,18 @@ void measurePulseRate(MeasureData* measureDataPtr) {
     float high = (*(measureDataPtr->pulseRateRawBuf->headPtr)) * 1.15; 
     
     // Adds value to buffer if it goes +15% of -15% of previous value 
-    if((pulseRateSample < low) || (pulseRateSample > high))
+    if(1)//(pulseRateSample < low) || (pulseRateSample > high))
     { 
       cBuffPut((measureDataPtr->pulseRateRawBuf), &pulseRateSample); 
     } 
+    TimerEnable(TIMER2_BASE, TIMER_A);
   } 
 }
 
-void measureBloodPressure(MeasureData* measureDataPtr, int sysComplete, int diaComplete) {
+void measureBloodPressure(MeasureData* measureDataPtr) {
+  static int even = 1; 
+  static int diaComplete = 0; 
+  static int sysComplete = 0; 
   int syst = *(measureDataPtr->systolicPressRawBuf->headPtr); 
   int dias = *(measureDataPtr->diastolicPressRawBuf->headPtr); 
   
@@ -179,7 +181,8 @@ void measureBloodPressure(MeasureData* measureDataPtr, int sysComplete, int diaC
       dias++; 
     } 
     diaComplete = 0; 
-  } 
+  }
+  even = !even; 
   cBuffPut((measureDataPtr->systolicPressRawBuf), &syst); 
   cBuffPut((measureDataPtr->diastolicPressRawBuf), &dias); 
 }

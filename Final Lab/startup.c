@@ -88,17 +88,20 @@ CircularBuffer pulseRateCorrectedBuf;
 unsigned char battCorrected[BUF_CAPACITY][STR_SIZE];
 CircularBuffer battCorrectedBuf;
 
+unsigned char ekgCorrected[BUF_CAPACITY][STR_SIZE];
+CircularBuffer ekgCorrectedBuf;
+
 unsigned short displayMode = 0;
 unsigned short displayScroll = 0;
 
 ComputeData computeData = {&temperatureRawBuf,
-  &systolicPressRawBuf, &diastolicPressRawBuf, &pulseRateRawBuf, &tempCorrectedBuf,
-  &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf, &pulseRateCorrectedBuf,
+  &systolicPressRawBuf, &diastolicPressRawBuf, &pulseRateRawBuf, &ekgFreqBuf, &tempCorrectedBuf,
+  &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf, &pulseRateCorrectedBuf, &ekgCorrectedBuf,
   &battCorrectedBuf, &batteryState};
 
 
 DisplayData displayData = {&tempCorrectedBuf, &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf,
-  &pulseRateCorrectedBuf, &battCorrectedBuf, &measurementSelection, &displayMode,
+  &pulseRateCorrectedBuf, &battCorrectedBuf,  &ekgCorrectedBuf, &measurementSelection, &displayMode,
   &displayScroll};
 
 StatusData statusData = {&batteryState};
@@ -109,7 +112,7 @@ WarningAlarmData warningAlarmData = {&temperatureRawBuf, &systolicPressRawBuf, &
   &pulseRateRawBuf, &batteryState, &alarmAcknowledge};
 
 CommunicationsData communicationsData = {&tempCorrectedBuf, 
-  &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf, &pulseRateCorrectedBuf, &battCorrectedBuf};
+  &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf, &pulseRateCorrectedBuf, &ekgCorrectedBuf, &battCorrectedBuf};
 
 KeypadData keypadData = {&displayMode, &displayScroll, &measurementSelection, 
   &alarmAcknowledge};
@@ -120,6 +123,7 @@ void startup(void* taskDataPtr)
   
   // Setup Timer2A for pulse rate sampling
   SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER2);
+  TimerConfigure(TIMER2_BASE,TIMER_CFG_A_ONE_SHOT);
   TimerLoadSet(TIMER2_BASE, TIMER_A, ( PRSAMPLETIME * SysCtlClockGet() ) );
   IntEnable(INT_TIMER2A);
   IntPrioritySet(INT_TIMER2A, 0x00); // Set highest priority
@@ -128,7 +132,7 @@ void startup(void* taskDataPtr)
   
   // Setup Timer 2B for ekg sampling
   
-  TimerLoadSet(TIMER2_BASE, TIMER_B, ( SysCtlClockGet() / EKG_FREQ) );
+  //TimerLoadSet(TIMER2_BASE, TIMER_B, ( SysCtlClockGet() / EKG_FREQ) );
   //TimerEnable(TIMER2_BASE, TIMER_B);
   //TimerIntEnable(TIMER2_BASE, TIMER_TIMB_TIMEOUT);
   
@@ -155,6 +159,7 @@ void startup(void* taskDataPtr)
   cBuffInit(&diastolicPressCorrectedBuf, diastolicPressCorrected, BUF_CAPACITY, sizeof(diastolicPressCorrected)/BUF_CAPACITY);
   cBuffInit(&pulseRateCorrectedBuf, pulseRateCorrected, BUF_CAPACITY, sizeof(pulseRateCorrected)/BUF_CAPACITY);
   cBuffInit(&battCorrectedBuf, battCorrected, BUF_CAPACITY, sizeof(battCorrected)/BUF_CAPACITY);
+  cBuffInit(&ekgCorrectedBuf, ekgCorrected, BUF_CAPACITY, sizeof(ekgCorrected)/BUF_CAPACITY);
   
   IntMasterEnable(); // enable all interrupts
 
@@ -169,13 +174,13 @@ void schedulerInit()
 {
   // Initialize the task queue
     //         TaskFtn,           "Name",      Stack sz,params,         priority, handle ptr location 
-  xTaskCreate(measure,          "Measure",       100, &measureData,      3,     &taskList[0]);
+  xTaskCreate(measure,          "Measure",       200, &measureData,      3,     &taskList[0]);
   xTaskCreate(compute,          "Compute",       100, &computeData,      2,     &taskList[1]);
-  xTaskCreate(oledDisplay,      "Display",       150, &displayData,      1,     &taskList[2]);
+  xTaskCreate(oledDisplay,      "Display",       300, &displayData,      1,     &taskList[2]);
   xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 1,     &taskList[3]);
   xTaskCreate(status,           "Status",        100, &statusData,       1,     &taskList[4]);
   xTaskCreate(keypad,           "Keypad",        100, &keypadData,       1,     &taskList[5]);
   xTaskCreate(communication,    "Communication", 100, &communicationsData,1,    &taskList[6]);
   xTaskCreate(ekgCapture,       "EKG Capture",   100, &ekgData,           4,    &taskList[7]);
-  xTaskCreate(ekgProcess,       "EKG Processing",1000, &ekgData,           2,    &taskList[8]);
+  xTaskCreate(ekgProcess,       "EKG Processing",500, &ekgData,           2,    &taskList[8]);
 }

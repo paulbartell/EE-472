@@ -949,6 +949,9 @@
       <name>$PROJ_DIR$\..\Final Lab\ekgCapture.c</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\Final Lab\ekgProcess.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\Final Lab\interrupts.c</name>
     </file>
     <file>
@@ -1006,7 +1009,16 @@
       <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\Final Lab\optfft.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\optfft.h</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\rit128x96x4.c</name>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\tables.c</name>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\utils\uartstdio.c</name>

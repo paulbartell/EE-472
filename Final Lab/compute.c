@@ -10,6 +10,7 @@
 #include <string.h>
 #include "tasks.h"
 #include "schedule.h"
+#include <stdio.h>
 
 
 // We are only working with two decimal points
@@ -46,8 +47,8 @@
 void toString(int number, char* convertedNumber);
 int findSize(int number);
 int getDigits(int magnitude);
+extern xTaskHandle taskList[];
 
-extern unsigned long globalTime;
 
 // 2 Decimal places
 void compute(void* taskDataPtr)
@@ -56,52 +57,58 @@ void compute(void* taskDataPtr)
   char newData[STR_SIZE];
   char* target;
   ComputeData* computeDataPtr = (ComputeData*) taskDataPtr;
-  int* temperatureRaw = (int*)(computeDataPtr->temperatureRawBuf->headPtr);
-  int* prRaw = (int*)(computeDataPtr->pulseRateRawBuf->headPtr);
-  unsigned short* battRaw = computeDataPtr->batteryState;
   
-
-  // Messed up right now // Paul fixed this
-  int* systolicRaw = (int*)(computeDataPtr->systolicPressRawBuf->headPtr);
-  int* diastolicRaw = (int*)(computeDataPtr->diastolicPressRawBuf->headPtr);
   
   while(1)
   {
-
+    int* temperatureRaw = (int*)(computeDataPtr->temperatureRawBuf->headPtr);
+    int* prRaw = (int*)(computeDataPtr->pulseRateRawBuf->headPtr);
+    unsigned short* battRaw = computeDataPtr->batteryState;
+    
+    
+    // Messed up right now // Paul fixed this
+    int* systolicRaw = (int*)(computeDataPtr->systolicPressRawBuf->headPtr);
+    int* diastolicRaw = (int*)(computeDataPtr->diastolicPressRawBuf->headPtr);
+    
     // The most we want to deal with is two digits, so we round up the ten-thousandth's place
     // and multiply by 100 to move those decimals to the left side of the decimal point.
     // Casting to an integer will truncate everything after the decimal point, so we will have
     // an integer whose last two digits are actually decimal values.
     //
     // Problem: Numbers less than 0.1
-
+    
     // Temperature correction
     storageSpace = (int)(FPOINT*(147.5 - (2250.0/10230.0)*(*(temperatureRaw)) + ROUND));
-
+    
     // Store the corrected data
     toString(storageSpace, newData);
     target = cBuffPush(computeDataPtr->tempCorrectedBuf);
     strcpy(target, newData);
-
+    
     // Systolic correction
     storageSpace = (int)(FPOINT*(SYSCA + SYSCM*(*(systolicRaw)) + ROUND));
-
+    
     // Store the corrected data
     toString(storageSpace, newData);
     target = cBuffPush(computeDataPtr->systolicPressCorrectedBuf);
     strcpy(target, newData);
-
+    
     // Disastolic correction
     storageSpace = (int)(FPOINT*(DIACA + DIACM*(*(diastolicRaw)) + ROUND));
-
+    
     // Store the corrected data
     toString(storageSpace, newData);
     target = cBuffPush(computeDataPtr->diastolicPressCorrectedBuf);
     strcpy(target, newData);
-
+    
+    // EKG Measurement
+    sprintf(newData,"%d",*((signed int*)(computeDataPtr->ekgFreqBuf->headPtr )));
+    target = cBuffPush(computeDataPtr->ekgCorrectedBuf);
+    strcpy(target, newData);
+    
     // Pulse correction
     storageSpace = (int)(FPOINT*(PRCM*(*(prRaw)) + ROUND));
-
+    
     // Store the corrected data or error message
     if(storageSpace > PULSE_FMAX)
     {
@@ -117,14 +124,15 @@ void compute(void* taskDataPtr)
     }
     target = cBuffPush(computeDataPtr->prCorrectedBuf);
     strcpy(target, newData);
-
+    
     // Battery correction
     storageSpace = (int)(FPOINT * ( (*(battRaw)) / BATTDIV + ROUND));
-
+    
     // Store the corrected data
     toString(storageSpace, newData);
     target = cBuffPush(computeDataPtr->battCorrected);
     strcpy(target, newData);
+    vTaskResume(taskList[TASK_DISPLAY]);
     vTaskSuspend(NULL);
   }
 }
@@ -152,7 +160,7 @@ void toString(int number, char* convertedNumber)
   
   // Used in loops to calculate 10^x. Reset after each calculation
   int base = 1;
-
+  
   // Loop counting
   int i = 0;
   int j = 0;
@@ -214,7 +222,7 @@ int findSize(int number)
   if (number >= 10) return 10;
   else return 1;
 }
- 
+
 
 
 // Finds the number of digits by consecutively dividng by 10

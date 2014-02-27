@@ -58,7 +58,7 @@ void ekgCapture(void* taskDataPtr)
   
   ADCIntClear(ADC0_BASE, EKGSEQ);
   portTickType xLastWakeTime;
-  const portTickType xFrequency = 5000; // for 0.5Hz operation
+  const portTickType xFrequency = 5000; // for 1/5 hz operation
   xLastWakeTime = xTaskGetTickCount();
   
   while (1) {
@@ -85,10 +85,10 @@ void ekgCapture(void* taskDataPtr)
       SysCtlDelay(SysCtlClockGet()/8000/3);
     }
     taskEXIT_CRITICAL();
-        for(int i = 0; i < 256; i++)
-    {
-      UARTprintf("%d,",EKGRaw[i]);
-    }
+//        for(int i = 0; i < 256; i++)
+//    {
+//      UARTprintf("%d,",EKGRaw[i]);
+//    }
     // Read the value from the ADC.
     //ADCSequenceDataGet(ADC0_BASE, EKGSEQ, &(ekgDataPtr->EKGRawBuf[index]));
     index = 0;

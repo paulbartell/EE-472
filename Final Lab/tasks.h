@@ -35,13 +35,13 @@ void measure(void* taskData);
 
 typedef struct EKGData
 {
-	unsigned int* EKGRawBuf;
-	unsigned int* EKGRawTempBuf;
+	signed int* EKGRawBuf;
+	signed int* EKGRawTempBuf;
 	CircularBuffer* EKGFreqBuf;
 } EKGData;
 
 void ekgCapture (void* taskData);
-void EKGProcess (void* taskData);
+void ekgProcess (void* taskData);
 
 
 typedef struct ComputeData
@@ -50,11 +50,13 @@ typedef struct ComputeData
   CircularBuffer* systolicPressRawBuf;
   CircularBuffer* diastolicPressRawBuf;
   CircularBuffer* pulseRateRawBuf;
+  CircularBuffer* ekgFreqBuf;
 
   CircularBuffer* tempCorrectedBuf;
   CircularBuffer* systolicPressCorrectedBuf;
   CircularBuffer* diastolicPressCorrectedBuf;
   CircularBuffer* prCorrectedBuf;
+  CircularBuffer* ekgCorrectedBuf;
   CircularBuffer* battCorrected;
   
   unsigned short* batteryState;
@@ -70,7 +72,7 @@ typedef struct DisplayData
   CircularBuffer* diastolicPressCorrectedBuf;
   CircularBuffer* prCorrectedBuf;
   CircularBuffer* battCorrected;
-  CircularBuffer* EKGFreqBuf;
+  CircularBuffer* ekgCorrectedBuf;
   
   unsigned short* measurementSelection;
   unsigned short* mode;
@@ -119,10 +121,12 @@ typedef struct CommunicationsData
   CircularBuffer* systolicPressCorrectedBuf;
   CircularBuffer* diastolicPressCorrectedBuf;
   CircularBuffer* prCorrectedBuf;
+  CircularBuffer* ekgCorrectedBuf;
   CircularBuffer* battCorrected;
   
   unsigned short measurementSelection;
 } CommunicationsData;
 
 void communication(void* taskData);
+
 

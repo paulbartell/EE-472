@@ -3,7 +3,7 @@
 * task inputs: void* pointer to a DisplayData struct (see tasks.h)
 * task outputs: Text to OLED display
 * task description: Takes strings from the displayData struct and outputs them
-    to an OLED display
+to an OLED display
 * author: Ryan McDaniel
 ******************************************/ 
 #include "FreeRTOS.h"
@@ -33,26 +33,28 @@ extern xTaskHandle taskList[];
 void oledDisplay(void* taskDataPtr)
 {
   portTickType xLastWakeTime;
-   xLastWakeTime = xTaskGetTickCount();
+  xLastWakeTime = xTaskGetTickCount();
   const portTickType xFrequency = 5000; // for 1Hz operation
-  
-  // Grab all the data from the structure
-  DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
-  char* temperaturePtr = displayDataPtr->tempCorrectedBuf->headPtr;
-  char* pulseRatePtr = displayDataPtr->prCorrectedBuf->headPtr;
-  char* batteryPtr = displayDataPtr->battCorrected->headPtr;
-  char* EKGPtr = displayDataPtr->EKGFreqBuf->headPtr; 
-  char* systolicPressPtr = displayDataPtr->systolicPressCorrectedBuf->headPtr;
-  char* diatolicPressPtr = displayDataPtr->diastolicPressCorrectedBuf->headPtr;
-  unsigned short* myScroll = displayDataPtr->scroll;
   
   RIT128x96x4Init(10000000);
   
   
   while(1)
   {
+    
+    // Grab all the data from the structure
+    DisplayData* displayDataPtr = (DisplayData*) taskDataPtr;
+    char* temperaturePtr = displayDataPtr->tempCorrectedBuf->headPtr;
+    char* pulseRatePtr = displayDataPtr->prCorrectedBuf->headPtr;
+    char* batteryPtr = displayDataPtr->battCorrected->headPtr;
+    char* EKGPtr = displayDataPtr->ekgCorrectedBuf->headPtr; 
+    char* systolicPressPtr = displayDataPtr->systolicPressCorrectedBuf->headPtr;
+    char* diatolicPressPtr = displayDataPtr->diastolicPressCorrectedBuf->headPtr;
+    unsigned short* myScroll = displayDataPtr->scroll;
+    
     // Controlling display modes
-    static displayMode lastMode = NORMAL;
+    static displayMode lastMode = SCANALL;
+    static measurement lastMeasure = NORMAL;
     measurement myMeasurement = (measurement) *(displayDataPtr->measurementSelection);
     displayMode currentMode = (displayMode) *(displayDataPtr->mode);
     
@@ -64,12 +66,7 @@ void oledDisplay(void* taskDataPtr)
     {
       // Ignore scroll changes
       if (*(myScroll) == 1) *(myScroll) = 0;
-      
-	  // Print the Temperature, and the units around 35 units after
-      RIT128x96x4StringDraw("Temp:", R_ALLIGN, LINE*2, CNTRST);
-      RIT128x96x4StringDraw(temperaturePtr, R_ALLIGN, LINE*3, CNTRST);
-      RIT128x96x4StringDraw("C", R_ALLIGN + 35, LINE*3, CNTRST); 
-	  
+
       // Blood pressures
       RIT128x96x4StringDraw("Systolic", L_ALLIGN, LINE*0, CNTRST);
       RIT128x96x4StringDraw("Diastolic", R_ALLIGN, LINE*0, CNTRST);
@@ -86,27 +83,32 @@ void oledDisplay(void* taskDataPtr)
       // Print pulse and temperature
       RIT128x96x4StringDraw("Pulse:", L_ALLIGN, LINE*2, CNTRST);
       RIT128x96x4StringDraw("Temp:", R_ALLIGN, LINE*2, CNTRST);
-
+      
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*3, CNTRST);  
+            
+      // Print the Temperature, and the units around 35 units after
+      RIT128x96x4StringDraw("Temp:", R_ALLIGN, LINE*2, CNTRST);
+      RIT128x96x4StringDraw(temperaturePtr, R_ALLIGN, LINE*3, CNTRST);
+      RIT128x96x4StringDraw("C", R_ALLIGN + 35, LINE*3, CNTRST); 
       
       // Print Pulse rate, and the units around 38 pixels after
       RIT128x96x4StringDraw(pulseRatePtr, L_ALLIGN, LINE*3, CNTRST);
       RIT128x96x4StringDraw("BPM", L_ALLIGN + 38, LINE*3, CNTRST);
-	  
-	  // Print EKG
-	  RIT128x96x4StringDraw("EKG:", L_ALLIGN, LINE*4, CNTRST);
-	  RIT128x96x4StringDraw(EKGPtr, L_ALLIGN, LINE*5, CNTRST);
+      
+      // Print EKG
+      RIT128x96x4StringDraw("EKG:", L_ALLIGN, LINE*4, CNTRST);
+      RIT128x96x4StringDraw(EKGPtr, L_ALLIGN, LINE*5, CNTRST);
       RIT128x96x4StringDraw("Hz", L_ALLIGN + 38, LINE*5, CNTRST);
-
+      
       // Print the battery reading, centered a few lines further down
       RIT128x96x4StringDraw("Battery:", C_ALLIGN, LINE*9, CNTRST);
-    
+      
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*10, CNTRST); 
       
       // Print battery percent, units around 40 pixels after the reading
       RIT128x96x4StringDraw(batteryPtr, C_ALLIGN, LINE*10, CNTRST);
       RIT128x96x4StringDraw("%", C_ALLIGN + 40, LINE*10, CNTRST);
-        
+      
       // Directions for changing views
       RIT128x96x4StringDraw("'D' to change Display", L_ALLIGN, LINE*11, CNTRST);
       
@@ -114,78 +116,78 @@ void oledDisplay(void* taskDataPtr)
     } 
     else if (currentMode == NORMAL) 
     {
-
+      if (myMeasurement != lastMeasure) {
+        clearOLED(MAX_LINES);
+      }
       // Display the normal menu
-	  RIT128x96x4StringDraw("'9' to scroll", L_ALLIGN, LINE*0, CNTRST);
-	  RIT128x96x4StringDraw("'D' to change Display", L_ALLIGN, LINE*1, CNTRST);
+      RIT128x96x4StringDraw("'9' to scroll", L_ALLIGN, LINE*0, CNTRST);
+      RIT128x96x4StringDraw("'D' to change Display", L_ALLIGN, LINE*1, CNTRST);
       RIT128x96x4StringDraw("'0' Scan All", L_ALLIGN, LINE*2, CNTRST);
       RIT128x96x4StringDraw("1 Temperature", L_ALLIGN, LINE*3, CNTRST);
       RIT128x96x4StringDraw("2 Blood Pressure            ", L_ALLIGN, LINE*5, CNTRST);
       RIT128x96x4StringDraw("3 Pulse Rate", L_ALLIGN, LINE*7, CNTRST);
       RIT128x96x4StringDraw("4 EKG", L_ALLIGN, LINE*9, CNTRST);
-	  RIT128x96x4StringDraw("5 Battery", L_ALLIGN, LINE*11, CNTRST);
-
-
+      RIT128x96x4StringDraw("5 Battery", L_ALLIGN, LINE*11, CNTRST);
+      
+      
       // Clear all measurement lines in case selected measurement changes
-      RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*2, CNTRST);
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*4, CNTRST);
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*6, CNTRST);
       RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*8, CNTRST);
-	  RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*10, CNTRST);
-	  RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*12, CNTRST);
+      RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*10, CNTRST);
+      RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*12, CNTRST);
       
       // Handle scrolling
       if (*(myScroll) == 1) 
       {
-        myMeasurement = (measurement)(((int)myMeasurement + 1) % NUM_OPTS);
-		if (myMeasurement == SCANALL) myMeasurement = TEMP;
-		
         *(myScroll) = 0;
       }
       
       // Display Temperature measurements
       if (myMeasurement == TEMP || myMeasurement == SCANALL)
       {
-        RIT128x96x4StringDraw(temperaturePtr, L_ALLIGN, LINE*4, CNTRST);
-        RIT128x96x4StringDraw("C", L_ALLIGN + 38, LINE*4, CNTRST); 
+        RIT128x96x4StringDraw(temperaturePtr, L_ALLIGN, LINE*4, CNTRST-5);
+        RIT128x96x4StringDraw("C", L_ALLIGN + 38, LINE*4, CNTRST-5); 
       }
-	  // Display Blood pressure measurements
-	  if (myMeasurement == BLOOD || myMeasurement == SCANALL)
+      // Display Blood pressure measurements
+      if (myMeasurement == BLOOD || myMeasurement == SCANALL)
       {
         RIT128x96x4StringDraw(CLEAR, L_ALLIGN, LINE*5, CNTRST);
         RIT128x96x4StringDraw("Systolic", L_ALLIGN, LINE*5, CNTRST);
         RIT128x96x4StringDraw("Diastolic", R_ALLIGN, LINE*5, CNTRST);
-        RIT128x96x4StringDraw(systolicPressPtr, L_ALLIGN, LINE*6, CNTRST);
-        RIT128x96x4StringDraw("mmHg", L_ALLIGN + 38, LINE*6, CNTRST);
-        RIT128x96x4StringDraw(diatolicPressPtr, R_ALLIGN, LINE*6, CNTRST);
-        RIT128x96x4StringDraw("mmHg", R_ALLIGN + 35, LINE*6, CNTRST); 
+        RIT128x96x4StringDraw(systolicPressPtr, L_ALLIGN, LINE*6, CNTRST-5);
+        RIT128x96x4StringDraw("mmHg", L_ALLIGN + 38, LINE*6, CNTRST-5);
+        RIT128x96x4StringDraw(diatolicPressPtr, R_ALLIGN, LINE*6, CNTRST-5);
+        RIT128x96x4StringDraw("mmHg", R_ALLIGN + 35, LINE*6, CNTRST-5); 
       }
       
       // Display Pulse measurements
       if (myMeasurement == PULSE || myMeasurement == SCANALL)
       {
-        RIT128x96x4StringDraw(pulseRatePtr, L_ALLIGN, LINE*8, CNTRST);
-        RIT128x96x4StringDraw("BPM", L_ALLIGN + 38, LINE*8, CNTRST); 
+        RIT128x96x4StringDraw(pulseRatePtr, L_ALLIGN, LINE*8, CNTRST-5);
+        RIT128x96x4StringDraw("BPM", L_ALLIGN + 38, LINE*8, CNTRST-5); 
       }
-
+      
       // Display Battery measurements
       if (myMeasurement == BATT || myMeasurement == SCANALL)
       {
-        RIT128x96x4StringDraw(batteryPtr, L_ALLIGN, LINE*12, CNTRST);
-        RIT128x96x4StringDraw("%", L_ALLIGN + 38, LINE*12, CNTRST); 
+        RIT128x96x4StringDraw(batteryPtr, R_ALLIGN, LINE*11, CNTRST-5);
+        RIT128x96x4StringDraw("%", R_ALLIGN + 38, LINE*11, CNTRST-5); 
       }
       
-	  // Display EKG measurements
+      // Display EKG measurements
       if (myMeasurement == EKG || myMeasurement == SCANALL)
       {
-        RIT128x96x4StringDraw(EKGPtr, L_ALLIGN, LINE*10, CNTRST);
-        RIT128x96x4StringDraw("Hz", L_ALLIGN + 38, LINE*10, CNTRST); 
+        RIT128x96x4StringDraw(EKGPtr, L_ALLIGN, LINE*10, CNTRST-5);
+        RIT128x96x4StringDraw("Hz", L_ALLIGN + 38, LINE*10, CNTRST-5); 
       }
-	}
+      lastMeasure = myMeasurement;
+    }
     lastMode = currentMode;
     *(displayDataPtr->measurementSelection) = (unsigned short) myMeasurement;
     
-    vTaskDelayUntil( &xLastWakeTime, xFrequency );
+    //vTaskDelayUntil( &xLastWakeTime, xFrequency );
+    vTaskSuspend(NULL);
   }
 }
 
