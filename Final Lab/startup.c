@@ -50,9 +50,12 @@ CircularBuffer diastolicPressRawBuf;
 unsigned int pulseRateRaw[BUF_CAPACITY] =  {50, 50, 50, 50, 50, 50, 50, 50};
 CircularBuffer pulseRateRawBuf;
 
-unsigned int EKGRawBuf[EKG_CAPACITY];
-unsigned int EKGRawTempBuf[EKG_CAPACITY] = { 0 };
-unsigned int EKGRawFreqBuf[EKG_FREQ]; 
+signed int EKGRaw[EKG_CAPACITY];
+signed int EKGRawTemp[EKG_CAPACITY] = { 0 };
+signed int EKGFreq[BUF_CAPACITY * 2]; 
+CircularBuffer ekgFreqBuf;
+
+EKGData ekgData = {&EKGRaw, &EKGRawTemp, &ekgFreqBuf};
 
 unsigned short batteryState =   200;
 unsigned short measurementSelection = 0;
@@ -109,7 +112,7 @@ CommunicationsData communicationsData = {&tempCorrectedBuf,
   &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf, &pulseRateCorrectedBuf, &battCorrectedBuf};
 
 KeypadData keypadData = {&displayMode, &displayScroll, &measurementSelection, 
-  &alarmAcknowledge}; // WHAT ABOUT SELECT.. IS THAT DIFFERENT? USED?
+  &alarmAcknowledge};
 
 
 void startup(void* taskDataPtr)
@@ -145,6 +148,7 @@ void startup(void* taskDataPtr)
   cBuffInit(&systolicPressRawBuf, systolicPressRaw, BUF_CAPACITY, sizeof(systolicPressRaw)/BUF_CAPACITY);
   cBuffInit(&diastolicPressRawBuf, diastolicPressRaw, BUF_CAPACITY, sizeof(diastolicPressRaw)/BUF_CAPACITY);
   cBuffInit(&pulseRateRawBuf, pulseRateRaw, BUF_CAPACITY, sizeof(pulseRateRaw)/BUF_CAPACITY);
+  cBuffInit(&ekgFreqBuf, EKGFreq, BUF_CAPACITY * 2, sizeof(signed int));
   
   cBuffInit(&tempCorrectedBuf, tempCorrected, BUF_CAPACITY, sizeof(tempCorrected)/BUF_CAPACITY);
   cBuffInit(&systolicPressCorrectedBuf, systolicPressCorrected, BUF_CAPACITY, sizeof(systolicPressCorrected)/BUF_CAPACITY);
@@ -171,7 +175,7 @@ void schedulerInit()
   xTaskCreate(warningAlarm,     "Warning Alarm", 100, &warningAlarmData, 1,     &taskList[3]);
   xTaskCreate(status,           "Status",        100, &statusData,       1,     &taskList[4]);
   xTaskCreate(keypad,           "Keypad",        100, &keypadData,       1,     &taskList[5]);
-xTaskCreate(communication,    "Communication", 100, &communicationsData,1,     &taskList[6]);
-xTaskCreate(ekgCapture,       "EKG Capture",   100, NULL,           4,     &taskList[7]);
-  //xTaskCreate(ekgProcess,       "EKG Processing",100, &ekgData,           2,    &taskList[8]);
+  xTaskCreate(communication,    "Communication", 100, &communicationsData,1,    &taskList[6]);
+  xTaskCreate(ekgCapture,       "EKG Capture",   100, &ekgData,           4,    &taskList[7]);
+  xTaskCreate(ekgProcess,       "EKG Processing",1000, &ekgData,           2,    &taskList[8]);
 }

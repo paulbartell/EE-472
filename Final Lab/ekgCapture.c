@@ -20,6 +20,7 @@ function generator
 #include "driverlib/interrupt.h"
 #include "inc/hw_ints.h"
 #include "driverlib/timer.h"
+#include "driverlib/rom.h"
 
 #include "inc/hw_memmap.h"
 
@@ -31,7 +32,7 @@ function generator
 
 volatile unsigned long index = 0;
 extern xTaskHandle taskList[];
-extern unsigned long EKGRawBuf[];
+extern signed long EKGRaw[];
 
 
 void ekgCapture(void* taskDataPtr)
@@ -45,7 +46,7 @@ void ekgCapture(void* taskDataPtr)
   GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_7);
   ADCSequenceDisable(ADC0_BASE, EKGSEQ);
   IntPrioritySet(INT_ADC0SS3, 0x00);
-  ADCSequenceConfigure(ADC0_BASE, EKGSEQ, ADC_TRIGGER_TIMER, 0x00);
+  ADCSequenceConfigure(ADC0_BASE, EKGSEQ, ADC_TRIGGER_PROCESSOR, 0x00);
   ADCSequenceStepConfigure(ADC0_BASE, EKGSEQ, 0,
                            ADC_CTL_IE | ADC_CTL_END | ADC_CTL_CH0);
   ADCIntEnable(ADC0_BASE, EKGSEQ);
@@ -63,24 +64,34 @@ void ekgCapture(void* taskDataPtr)
   while (1) {
     // Trigger the sample sequence.
     ADCSequenceEnable(ADC0_BASE, EKGSEQ);
-    TimerEnable(TIMER2_BASE, TIMER_B);
-    
-    // Wait until the sample sequence has completed.
-    while(!(index == 256))
-    {
-    }
-    UARTprintf("done\n");
+//    TimerEnable(TIMER2_BASE, TIMER_B);
+//    
+//    // Wait until the sample sequence has completed.
+//    while(!(index == 256))
+//    {
+//    }
+//    UARTprintf("done\n");
+//    for(int i = 0; i < 256; i++)
+//    {
+//      UARTprintf("%d,",EKGRawBuf[i]);
+//    }
+//    UARTprintf("\n");
+//    index = 0;
+//    TimerDisable(TIMER2_BASE, TIMER_B);
+    taskENTER_CRITICAL();
     for(int i = 0; i < 256; i++)
     {
-      UARTprintf("%d,",EKGRawBuf[i]);
+      ADCProcessorTrigger(ADC0_BASE, EKGSEQ);
+      SysCtlDelay(SysCtlClockGet()/8000/3);
     }
-    UARTprintf("\n");
-    index = 0;
-    TimerDisable(TIMER2_BASE, TIMER_B);
-    
+    taskEXIT_CRITICAL();
+        for(int i = 0; i < 256; i++)
+    {
+      UARTprintf("%d,",EKGRaw[i]);
+    }
     // Read the value from the ADC.
     //ADCSequenceDataGet(ADC0_BASE, EKGSEQ, &(ekgDataPtr->EKGRawBuf[index]));
-    
+    index = 0;
     vTaskResume(taskList[TASK_EKGPROCESS]); // Resume EKGPROCESS task
     vTaskDelayUntil( &xLastWakeTime, xFrequency );
     
@@ -92,7 +103,7 @@ void ekgCapture(void* taskDataPtr)
 void ekgInterrupt()
 {
   ADCIntClear(ADC0_BASE, EKGSEQ);
-  ADCSequenceDataGet(ADC0_BASE, EKGSEQ, &EKGRawBuf[index]);
+  ADCSequenceDataGet(ADC0_BASE, EKGSEQ, &EKGRaw[index]);
   index++;
   
   if(index == 256)
