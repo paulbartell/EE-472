@@ -148,8 +148,6 @@ clock_time_t clock_time( void )
 {
 	return xTaskGetTickCount();
 }
-// WE SHOULD CHECK OUT IF THESE TIMERS BREAK WITH MORE CLOCK
-// ALSO DO WE NEED THEM?
 extern void timer_set(struct timer *t, clock_time_t interval);
 extern int timer_expired(struct timer *t);
 extern void timer_reset(struct timer *t);

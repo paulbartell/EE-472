@@ -136,13 +136,14 @@ PT_THREAD(handle_script(struct httpd_state *s))
 
     /* Check if we should start executing a script. */
     if(*s->file.data == ISO_percent &&
-       *(s->file.data + 1) == ISO_bang) {
+      *(s->file.data + 1) == ISO_bang) {
       s->scriptptr = s->file.data + 3;
       s->scriptlen = s->file.len - 3;
       if(*(s->scriptptr - 1) == ISO_colon) {
 	httpd_fs_open(s->scriptptr + 1, &s->file);
 	PT_WAIT_THREAD(&s->scriptpt, send_file(s));
       } else {
+        // Httpd_cgi is called here
 	PT_WAIT_THREAD(&s->scriptpt,
 		       httpd_cgi(s->scriptptr)(s, s->scriptptr));
       }
@@ -270,6 +271,7 @@ PT_THREAD(handle_input(struct httpd_state *s))
 
     /* Process any form input being sent to the server. */
     {
+        // Form input called here
         extern void vApplicationProcessFormInput( char *pcInputString, long xInputLength );
         vApplicationProcessFormInput( s->inputbuf, PSOCK_DATALEN(&s->sin) );
     }

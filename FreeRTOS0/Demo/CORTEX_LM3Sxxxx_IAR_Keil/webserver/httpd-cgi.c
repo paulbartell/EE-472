@@ -67,6 +67,8 @@ PT_THREAD(nullfunction(struct httpd_state *s, char *ptr))
   PSOCK_END(&s->sout);
 }
 /*---------------------------------------------------------------------------*/
+// This function is called by httpd.c and returns the function to run
+// Used to start getting our structs passed to generate_rtos_stats
 httpd_cgifunction
 httpd_cgi(char *name)
 {

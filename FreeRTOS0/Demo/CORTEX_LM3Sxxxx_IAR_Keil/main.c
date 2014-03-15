@@ -178,7 +178,7 @@ the jitter time in nano seconds. */
 #define ulSSI_FREQUENCY						( 3500000UL )
 
 /*-----------------------------------------------------------*/
-
+// Add to uip
 /*
  * The task that handles the uIP stack.  All TCP/IP processing is performed in
  * this task.
@@ -236,9 +236,9 @@ int main( void )
 	xOLEDQueue = xQueueCreate( mainOLED_QUEUE_SIZE, sizeof( xOLEDMessage ) );
 
 	/* Start the standard demo tasks. */
-    vStartIntegerMathTasks( mainINTEGER_TASK_PRIORITY );
-    vStartGenericQueueTasks( mainGEN_QUEUE_TASK_PRIORITY );
-    vStartInterruptQueueTasks();
+        vStartIntegerMathTasks( mainINTEGER_TASK_PRIORITY );
+        vStartGenericQueueTasks( mainGEN_QUEUE_TASK_PRIORITY );
+        vStartInterruptQueueTasks();
 	vStartRecursiveMutexTasks();	
 	vStartBlockingQueueTasks( mainBLOCK_Q_PRIORITY );
 	vCreateBlockTimeTasks();
@@ -267,7 +267,7 @@ int main( void )
 	/* The suicide tasks must be created last as they need to know how many
 	tasks were running prior to their creation in order to ascertain whether
 	or not the correct/expected number of tasks are running at any given time. */
-    vCreateSuicidalTasks( mainCREATOR_TASK_PRIORITY );
+        vCreateSuicidalTasks( mainCREATOR_TASK_PRIORITY );
 
 	/* Configure the high frequency interrupt used to measure the interrupt
 	jitter time. */
@@ -276,8 +276,8 @@ int main( void )
 	/* Start the scheduler. */
 	vTaskStartScheduler();
 
-    /* Will only get here if there was insufficient memory to create the idle
-    task. */
+        /* Will only get here if there was insufficient memory to create the idle
+        task. */
 	return 0;
 }
 /*-----------------------------------------------------------*/
@@ -292,6 +292,7 @@ void prvSetupHardware( void )
     }
 	
 	/* Set the clocking to run from the PLL at 50 MHz */
+        // Oh sick we don't have to set the clock to anything different
 	SysCtlClockSet( SYSCTL_SYSDIV_4 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_8MHZ );
 	
 	/* 	Enable Port F for Ethernet LEDs

@@ -108,11 +108,11 @@ __root const uVectorEntry __vector_table[] @ ".intvec" =
     0,                                      // Reserved
     0,                                      // Reserved
     0,                                      // Reserved
-    vPortSVCHandler,                        // SVCall handler
+    vPortSVCHandler,                        // SVCall handler //?
     IntDefaultHandler,                      // Debug monitor handler
     0,                                      // Reserved
-    xPortPendSVHandler,                     // The PendSV handler
-    xPortSysTickHandler,                    // The SysTick handler
+    xPortPendSVHandler,                     // The PendSV handler //?
+    xPortSysTickHandler,                    // The SysTick handler //?
     IntDefaultHandler,                      // GPIO Port A
     IntDefaultHandler,                      // GPIO Port B
     IntDefaultHandler,                      // GPIO Port C

@@ -237,6 +237,7 @@ unsigned portLONG ulTemp;
 	}
 		
     /* Switch to the uIP task. */
+        // Probably important for switching to the proper task
 	portEND_SWITCHING_ISR( xHigherPriorityTaskWoken );
 }
 /*-----------------------------------------------------------*/

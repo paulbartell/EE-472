@@ -306,6 +306,8 @@
           <state>$PROJ_DIR$\FreeRTOS\Common\ethernet\uIP\uip-1.0\uip</state>
           <state>c:\StellarisWare\</state>
           <state>C:\StellarisWare\boards\ek-lm3s8962</state>
+          <state>$PROJ_DIR$\..\Final Lab\webserver</state>
+          <state>$PROJ_DIR$\..\Final Lab\uIP\uip-1.0\uip</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -933,6 +935,42 @@
   </configuration>
   <group>
     <name>AMedicalMonitor files</name>
+    <group>
+      <name>uip</name>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\webserver\emac.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\webserver\http-strings.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\webserver\httpd-cgi.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\webserver\httpd-fs.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\webserver\httpd.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\main.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\uIP\uip-1.0\uip\psock.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\uIP\uip-1.0\uip\timer.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\uIP\uip-1.0\uip\uip.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\uIP\uip-1.0\uip\uip_arp.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Final Lab\webserver\uIP_Task.c</name>
+      </file>
+    </group>
     <file>
       <name>$PROJ_DIR$\..\Final Lab\circularbuffer.c</name>
     </file>
@@ -1048,9 +1086,6 @@
   <group>
     <name>System files</name>
   </group>
-  <file>
-    <name>$PROJ_DIR$\main.c</name>
-  </file>
 </project>
 
 

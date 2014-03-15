@@ -33,7 +33,7 @@ void GPIOFIntHandler(void)
 // Interrupt handler for the pulse rate sampler. Provides hard realtime sampling.
 void prTimerIntHandler(void)
 {
-  TimerIntClear(TIMER2_BASE, TIMER_TIMA_TIMEOUT); // clear the timer interrupt
+  TimerIntClear(TIMER1_BASE, TIMER_TIMA_TIMEOUT); // clear the timer interrupt
   IntDisable(INT_GPIOF);
   IntMasterDisable();
   pulseRateSample = pulseRateCount;
