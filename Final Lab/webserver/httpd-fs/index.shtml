@@ -5,7 +5,7 @@
   </head>
   <BODY onLoad="window.setTimeout(&quot;location.href='index.shtml'&quot;,5000)"bgcolor="#ffffff">
 		<font face="arial">
-		<a href="index.shtml">RTOS Stats</a><b>|</b><a href="io.shtml">IO</a>
+		<a href="index.shtml">RTOS Stats</a><b>|</b><a href="command.shtml">IO</a>
 		<br><p>
 		<hr>
 		<br><p>

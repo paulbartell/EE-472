@@ -171,9 +171,10 @@ PT_THREAD(rtos_stats(struct httpd_state *s, char *ptr))
 /*---------------------------------------------------------------------------*/
 
 // COMMAND INPUT GOES HERE
+extern CommandData commandData;
 static unsigned short generate_io_state( void *arg )
 {
-	sprintf( uip_appdata, "%s",commandData->transmit);
+	sprintf( uip_appdata, "%s",commandData.transmit);
 
 	return strlen( uip_appdata );
 }

@@ -2,7 +2,7 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>2063927343</fileChecksum>
+  <fileChecksum>1665884519</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
@@ -223,6 +223,9 @@
       <file>$PROJ_DIR$\Debug\Obj\schedule.o</file>
       <file>$PROJ_DIR$\..\Final Lab\webserver\httpd-fsdata.c</file>
       <file>$PROJ_DIR$\Debug\Obj\uartstdio.o</file>
+      <file>$PROJ_DIR$\..\Final Lab\command.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\command.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\command.pbi</file>
     </outputs>
     <file>
       <name>$PROJ_DIR$\..\Final Lab\webserver\emac.c</name>
@@ -459,11 +462,11 @@
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 102 174 46 44 42 40 171 49 177 170 24 180 32 22 164 187 178 179 181 111 163 51 194 195 77 185 76 201 190 193 198 200 205 206 197 96 203 202 155 118 189 192 109 210 110</file>
+          <file> 102 174 46 44 42 40 171 49 177 170 24 180 32 22 164 187 178 179 181 111 163 51 194 195 77 185 76 201 190 193 198 200 205 206 197 96 203 202 155 118 189 192 109 210 110 133 137 13</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 102 174 46 44 42 40 171 49 177 170 24 180 32 22 164 187 178 179 181 111 163 51 194 195 199 185 191 196 190 193 198 200 204 206 201 197 96 203 202 155 118 189 192 109 210 110</file>
+          <file> 102 174 46 44 42 40 171 49 177 170 24 180 32 22 164 187 178 179 181 111 163 51 194 195 199 185 191 196 190 193 198 200 204 206 201 197 96 203 202 155 118 189 192 109 210 110 133 137 13</file>
         </tool>
       </inputs>
     </file>
@@ -1011,7 +1014,30 @@
       <inputs>
         <tool>
           <name>ILINK</name>
-          <file> 107 141 106 47 213 183 27 92 161 94 93 97 95 113 101 154 98 104 45 115 168 52 212 157 184 214 31 173 176 120 53 82 67 216 91 85 36 55 114 99</file>
+          <file> 107 141 106 218 47 213 183 27 92 161 94 93 97 95 113 101 154 98 104 45 115 168 52 212 157 184 214 31 173 176 120 53 82 67 216 91 85 36 55 114 99</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Final Lab\command.c</name>
+      <outputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 218</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 219</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCARM</name>
+          <file> 57 174 46 44 42 40 171 49 177 43 102 170 133 137 13 152</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 57 174 46 44 42 40 171 49 177 43 102 170 133 137 13 152</file>
         </tool>
       </inputs>
     </file>

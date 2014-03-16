@@ -975,6 +975,9 @@
       <name>$PROJ_DIR$\..\Final Lab\circularbuffer.h</name>
     </file>
     <file>
+      <name>$PROJ_DIR$\..\Final Lab\command.c</name>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\Final Lab\communication.c</name>
     </file>
     <file>

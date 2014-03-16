@@ -89,6 +89,8 @@
 #include "lcd_message.h"
 
 #include "drivers/rit128x96x4.h"
+#include "../schedule.h"
+#include "../tasks.h"
 
 struct timer {
   clock_time_t start;
@@ -102,7 +104,7 @@ struct timer {
 #define uipIP_ADDR0		128
 #define uipIP_ADDR1		95
 #define uipIP_ADDR2		141
-#define uipIP_ADDR3		250	
+#define uipIP_ADDR3		249	
 
 /* How long to wait before attempting to connect the MAC again. */
 #define uipINIT_WAIT    100
@@ -302,10 +304,10 @@ struct uip_eth_addr xAddr;
 }
 /*-----------------------------------------------------------*/
 extern CommandData commandData;
+extern xTaskHandle taskList[];
 void vApplicationProcessFormInput( portCHAR *pcInputString, portBASE_TYPE xInputLength )
 {
-  char *c, *pcText, *cmd, *measurements;
-  static portCHAR cMessageForDisplay[ 32 ];
+  char* cmd;
   // vvvvvvvvvv REMOVE ALL THIS STUFF 
   // ^^^^^^^^^^
 
@@ -313,13 +315,13 @@ void vApplicationProcessFormInput( portCHAR *pcInputString, portBASE_TYPE xInput
   {
     commandData.measure[i] = 0;
   }
-  cmd = strstr(pcInputString,"measure=");
-  if (cmd) cmd += strlen("measure=");
+  cmd = strstr(pcInputString,"measurements=");
+  if (cmd) cmd += strlen("measurements=");
     
     
   while(cmd != NULL)
   {
-    switch(measure[0])
+    switch(cmd[0])
     {
     case 'T' :
       commandData.measure[0] = 1;
@@ -334,15 +336,15 @@ void vApplicationProcessFormInput( portCHAR *pcInputString, portBASE_TYPE xInput
       commandData.measure[3] = 1;
       break;
     }
-    cmd = strstr(measure,"measure=");
-    if (cmd) cmd += strlen("measure=");
+    cmd = strstr(cmd,"measurements=");
+    if (cmd) cmd += strlen("measurements=");
   }
   cmd = NULL;
   cmd = strstr(pcInputString,"cmd=");
-  if (cmd) cmd += strstr(pcInputString, "cmd=");
+  if (cmd) cmd += strlen("cmd=");
   commandData.recieve = cmd[0];
   
-  vTaskResume(taskList[TASK_COMMAND])
+  vTaskResume(taskList[TASK_COMMAND]);
   
   
 }
