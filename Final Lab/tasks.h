@@ -79,8 +79,6 @@ typedef struct DisplayData
   unsigned short* scroll;
   
 } DisplayData;
-
-
 void oledDisplay(void* taskData);
 void oledDisplaySetup();
 
@@ -88,7 +86,6 @@ typedef struct StatusData
 {
   unsigned short* batteryState;
 } StatusData;
-
 void status(void* taskData);
 
 typedef struct WarningAlarmData
@@ -100,7 +97,6 @@ typedef struct WarningAlarmData
   unsigned short* batteryState;
   unsigned short* alarmAcknowledge;
 } WarningAlarmData;
-
 void warningAlarm(void* taskData);
 void warningAlarmSetup();
 
@@ -126,7 +122,15 @@ typedef struct CommunicationsData
   
   unsigned short measurementSelection;
 } CommunicationsData;
-
 void communication(void* taskData);
 
+typedef struct CommandData
+{
+	unsigned short* commandSelection;
+	unsigned short* error;
+} CommandData;
+void command(void* taskData);
 
+typedef struct UIPData
+{
+} UIPData;
