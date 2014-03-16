@@ -56,7 +56,7 @@ void measure(void* taskDataPtr)
   const portTickType xFrequency = 5000; // for 1Hz operation
   
   // Access the passed in MeasureData struct 
-  MeasureData* measureDataPtr = (MeasureData*) taskDataPtr; 
+  
   while( 1 )
   {
     switch(*(measureDataPtr->measurementSelection)) 

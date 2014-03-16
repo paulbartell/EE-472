@@ -126,11 +126,10 @@ void communication(void* taskData);
 
 typedef struct CommandData
 {
-	unsigned short* commandSelection;
-	unsigned short* error;
+	char recieve;
+	char* transmit;
+	unsigned short* measure;
+	DisplayData* data;
 } CommandData;
 void command(void* taskData);
 
-typedef struct UIPData
-{
-} UIPData;
