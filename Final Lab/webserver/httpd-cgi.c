@@ -50,7 +50,7 @@
 #include "httpd.h"
 #include "httpd-cgi.h"
 #include "httpd-fs.h"
-#include "tasks.h"
+#include "../tasks.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -59,6 +59,8 @@ HTTPD_CGI_CALL(rtos, "rtos-stats", rtos_stats );
 HTTPD_CGI_CALL(io, "led-io", led_io );
 
 static const struct httpd_cgi_call *calls[] = { &rtos, &io, NULL };
+
+extern CommandData commandData;
 
 /*---------------------------------------------------------------------------*/
 static
@@ -142,8 +144,8 @@ generate_rtos_stats(void *arg)
         char* temperature = displayDataPtr->tempCorrectedBuf->headPtr;
         char* pulse = displayDataPtr->prCorrectedBuf->headPtr;
         char* battery = displayDataPtr->battCorrected->headPtr;
-        // char* ekg = displayDataPtr->ekgCorrectedBuf->headPtr; // bugged?
-        char* ekg = "50 hz";
+        char* ekg = displayDataPtr->ekgCorrectedBuf->headPtr; // bugged?
+        //char* ekg = "50 hz";
         char* systolic = displayDataPtr->systolicPressCorrectedBuf->headPtr;
         char* diastolic = displayDataPtr->diastolicPressCorrectedBuf->headPtr;
         
@@ -171,9 +173,7 @@ PT_THREAD(rtos_stats(struct httpd_state *s, char *ptr))
 // COMMAND INPUT GOES HERE
 static unsigned short generate_io_state( void *arg )
 {
-
-	sprintf( uip_appdata,
-		"<input type=\"text\" name=\"Command\" value=\"Enter A Command\" size=\"32\">");
+	sprintf( uip_appdata, "%s",commandData->transmit);
 
 	return strlen( uip_appdata );
 }

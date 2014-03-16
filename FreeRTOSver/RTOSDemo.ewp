@@ -953,9 +953,6 @@
         <name>$PROJ_DIR$\..\Final Lab\webserver\httpd.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\main.c</name>
-      </file>
-      <file>
         <name>$PROJ_DIR$\..\Final Lab\uIP\uip-1.0\uip\psock.c</name>
       </file>
       <file>
@@ -1027,21 +1024,6 @@
     </file>
   </group>
   <group>
-    <name>Demo example files</name>
-    <file>
-      <name>$PROJ_DIR$\FreeRTOS\Common\Minimal\IntQueue.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\IntQueueTimer.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\ParTest\ParTest.c</name>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\timertest.c</name>
-    </file>
-  </group>
-  <group>
     <name>Library files</name>
     <file>
       <name>$PROJ_DIR$\..\..\..\..\..\..\StellarisWare\driverlib\ewarm-cm3\Exe\driverlib-cm3.a</name>
@@ -1086,6 +1068,9 @@
   <group>
     <name>System files</name>
   </group>
+  <file>
+    <name>$PROJ_DIR$\main.c</name>
+  </file>
 </project>
 
 

@@ -126,7 +126,7 @@ void measurePulseRate(MeasureData* measureDataPtr) {
     } 
     ready = 0;
     //IntMasterEnable();
-    TimerEnable(TIMER2_BASE, TIMER_A);
+    TimerEnable(TIMER1_BASE, TIMER_A);
   } 
 }
 

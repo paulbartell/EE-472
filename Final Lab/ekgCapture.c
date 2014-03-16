@@ -52,7 +52,7 @@ void ekgCapture(void* taskDataPtr)
   ADCSequenceStepConfigure(ADC0_BASE, EKGSEQ, 0,
                            ADC_CTL_IE | ADC_CTL_END | ADC_CTL_CH0);
   ADCIntEnable(ADC0_BASE, EKGSEQ);
-  TimerControlTrigger(TIMER2_BASE, TIMER_B, true);
+  TimerControlTrigger(TIMER1_BASE, TIMER_B, true);
   ADCIntClear(ADC0_BASE, EKGSEQ);
   ADCIntEnable(ADC0_BASE, EKGSEQ);
   IntEnable(INT_ADC0SS3);

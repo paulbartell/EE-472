@@ -21,6 +21,8 @@ enum _myBool { FALSE = 0, TRUE = 1 };
 #define TASK_COMMUNICATION 6
 #define TASK_EKGCAPTURE 7
 #define TASK_EKGPROCESS 8
+#define TASK_UIP 9
+#define TASK_COMMAND 10
 
 typedef struct MeasureData
 {
