@@ -136,6 +136,7 @@ clock_time_t clock_time( void );
 /* The semaphore used by the ISR to wake the uIP task. */
 extern xSemaphoreHandle xEMACSemaphore;
 
+extern CommandData commandData;
 /*-----------------------------------------------------------*/
 
 void clock_init(void)
@@ -300,34 +301,49 @@ struct uip_eth_addr xAddr;
 	uip_setethaddr( xAddr );
 }
 /*-----------------------------------------------------------*/
-
+extern CommandData commandData;
 void vApplicationProcessFormInput( portCHAR *pcInputString, portBASE_TYPE xInputLength )
 {
-  char *c, *pcText;
+  char *c, *pcText, *cmd, *measurements;
   static portCHAR cMessageForDisplay[ 32 ];
   // vvvvvvvvvv REMOVE ALL THIS STUFF 
   // ^^^^^^^^^^
-  pcText = strstr( pcInputString, "Command=" );
-  pcText += strlen( "Command=" );
 
-  /* Terminate the LCD string. */
-  c = strstr( pcText, " " );
-  if( c != NULL )
+  for(int i = 0; i < 4; i++)
   {
-      *c = 0x00;
+    commandData.measure[i] = 0;
   }
-
-  /* Add required spaces. */
-  while( ( c = strstr( pcText, "+" ) ) != NULL )
-  {
-      *c = ' ';
-  }
-
-  /* Write the message to the LCD. */
-  // SEND THIS TO THE COMMAND TASK INSTEAD
-  strcpy( cMessageForDisplay, pcText );
-  RIT128x96x4StringDraw(cMessageForDisplay, 0, 8*11, 15);
-  
+  cmd = strstr(pcInputString,"measure=");
+  if (cmd) cmd += strlen("measure=");
     
+    
+  while(cmd != NULL)
+  {
+    switch(measure[0])
+    {
+    case 'T' :
+      commandData.measure[0] = 1;
+      break;
+    case 'B' :
+      commandData.measure[1] = 1;
+      break;
+    case 'P' :
+      commandData.measure[2] = 1;
+      break;
+    case 'E' :
+      commandData.measure[3] = 1;
+      break;
+    }
+    cmd = strstr(measure,"measure=");
+    if (cmd) cmd += strlen("measure=");
+  }
+  cmd = NULL;
+  cmd = strstr(pcInputString,"cmd=");
+  if (cmd) cmd += strstr(pcInputString, "cmd=");
+  commandData.recieve = cmd[0];
+  
+  vTaskResume(taskList[TASK_COMMAND])
+  
+  
 }
 

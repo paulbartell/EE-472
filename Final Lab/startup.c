@@ -27,11 +27,13 @@
 #include "driverlib/timer.h"
 
 #define STR_SIZE 16
+#define TRANS_SIZE 48
 #define BUF_CAPACITY 8
 #define PRSAMPLETIME 10
 #define EKG_CAPACITY 256
 #define EKG_FREQ 10000
-#define NUM_TASKS 10
+#define NUM_TASKS 11
+#define MEASUREMENTS 4
 
 extern void SysTickIntHandler(void);
 extern void vuIP_Task( void *pvParameters );
@@ -92,8 +94,11 @@ CircularBuffer battCorrectedBuf;
 unsigned char ekgCorrected[BUF_CAPACITY][STR_SIZE];
 CircularBuffer ekgCorrectedBuf;
 
+unsigned char transmitData[TRANS_SIZE];
+
 unsigned short displayMode = 0;
 unsigned short displayScroll = 0;
+unsigned short measurements[MEASUREMENTS] = { 0 };
 
 ComputeData computeData = {&temperatureRawBuf,
   &systolicPressRawBuf, &diastolicPressRawBuf, &pulseRateRawBuf, &ekgFreqBuf, &tempCorrectedBuf,
@@ -104,6 +109,8 @@ ComputeData computeData = {&temperatureRawBuf,
 DisplayData displayData = {&tempCorrectedBuf, &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf,
   &pulseRateCorrectedBuf, &battCorrectedBuf,  &ekgCorrectedBuf, &measurementSelection, &displayMode,
   &displayScroll};
+
+CommandData commandData = {0, &transmitData, &measurements, &displayData};
 
 StatusData statusData = {&batteryState};
 
@@ -179,5 +186,6 @@ void schedulerInit()
   xTaskCreate(communication,    "Communication", 100, &communicationsData,1,    &taskList[6]);
   xTaskCreate(ekgCapture,       "EKG Capture",   100, &ekgData,           4,    &taskList[7]);
   xTaskCreate(ekgProcess,       "EKG Processing",500, &ekgData,           2,    &taskList[8]);
-  xTaskCreate(vuIP_Task,        "uIP",          1000, NULL,               4,    &taskList[9]);
+  xTaskCreate(vuIP_Task,        "uIP",           500, NULL,               4,    &taskList[9]);
+  xTaskCreate(command,          "command",       100, &commandData,       1,    &taskList[10]);
 }

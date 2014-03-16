@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<title>Doctor at your Fingertips - Command</title>
+	</head>
+	<BODY bgcolor="#ffffff">
+		<font face="arial">
+			<a href="index.shtml">Status</a><b>|</b><a href="io.shtml">Command</a>
+			<br><p>
+			<hr>
+			<b>LED and LCD IO</b><br>
+			%! led-io
+			<p>
+			Select the command to be run from the list below and select any options required.
+			</p>
+
+			<form name="aForm" action="/command.shtml" method="get">
+			<select name="cmd">
+				<option value="S">Start</option>
+				<option value="P">Stop</option>
+				<option value="D">Toggle OLED Display</option>
+				<option value="M">Display Measurements</option>
+			</select>
+			
+			<input type="checkbox" name="measurements" value="T">Temperature</input>
+			<input type="checkbox" name="measurements"  value="B">Blood Pressure</input>
+			<input type="checkbox" name="measurements"  value="P">Pulse Rate</input>
+			<input type="checkbox" name="measurements"  value="E">EKG</input>
+			<p>
+			<input type="submit" value="Process Command">
+			</form>
+
+			<br><p>
+
+		</font>
+	</body>
+</html>
+

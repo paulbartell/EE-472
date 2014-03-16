@@ -74,9 +74,9 @@ int main(void)
   
   schedulerInit();
   
-  vSetupHighFrequencyTimer();
+  //vSetupHighFrequencyTimer();
   
-  vTaskStartScheduler();
+   vTaskStartScheduler();
   
   while(true);
   return 0;
