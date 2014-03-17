@@ -3,7 +3,16 @@
 
 #include "schedule.h"
 #include "tasks.h"
-#include "semphr.h"
+#include "inc/hw_types.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/gpio.h"
+#include "inc/hw_gpio.h"
+#include "inc/hw_memmap.h"
+#include "driverlib/systick.h"
+#include "driverlib/interrupt.h"
+#include "inc/hw_ints.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/timer.h"
 #include "rit128x96x4.h"
 
 void command (void* taskDataPtr) {
@@ -37,6 +46,8 @@ void command (void* taskDataPtr) {
         vTaskResume(taskList[TASK_EKGCAPTURE]);
         vTaskResume(taskList[TASK_EKGPROCESS]);
         RIT128x96x4DisplayOn();
+        IntEnable(INT_GPIOF);
+        TimerEnable(TIMER1_BASE, TIMER_A);
         started = 1;
       } else {
         strcpy(commandDataPtr->transmit, "System already started!");
@@ -53,6 +64,8 @@ void command (void* taskDataPtr) {
       vTaskSuspend(taskList[TASK_COMMUNICATION]);
       vTaskSuspend(taskList[TASK_EKGCAPTURE]);
       vTaskSuspend(taskList[TASK_EKGPROCESS]);
+      IntDisable(INT_GPIOF);
+      TimerDisable(TIMER1_BASE, TIMER_A);
       started = 0;
       break;
       // enables or disables OLED Display

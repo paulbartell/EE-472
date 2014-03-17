@@ -22,9 +22,10 @@
 #include "driverlib/interrupt.h"
 #include "inc/hw_ints.h"
 #include "driverlib/pin_map.h"
+#include "driverlib/timer.h"
 #include "utils/uartstdio.h"
 #include "tasks.h"
-#include "driverlib/timer.h"
+
 
 #define STR_SIZE 16
 #define TRANS_SIZE 128
@@ -60,7 +61,7 @@ CircularBuffer ekgFreqBuf;
 
 EKGData ekgData = {&EKGRaw, &EKGRawTemp, &ekgFreqBuf};
 
-unsigned short batteryState =   50;
+unsigned short batteryState =   200;
 unsigned short measurementSelection = 0;
 
 /*
@@ -203,4 +204,7 @@ void schedulerInit()
   vTaskSuspend(taskList[TASK_COMMUNICATION]);
   vTaskSuspend(taskList[TASK_EKGCAPTURE]);
   vTaskSuspend(taskList[TASK_EKGPROCESS]);
+  IntDisable(INT_GPIOF);
+  TimerDisable(TIMER1_BASE, TIMER_A);
+
 }

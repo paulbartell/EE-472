@@ -99,7 +99,7 @@ void warningAlarmSetup(void)
   // set PWM period/frequency (Note of the buzzer)
   PWMGenPeriodSet(PWM0_BASE, PWM_GEN_0, ulPeriod);
   // set pulse width (Volume of the buzzer)
-  PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, 0);//ulPeriod / 2);
+  PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, ulPeriod / 2);
   // Enable the PWM output
   PWMOutputState(PWM0_BASE, PWM_OUT_0_BIT | PWM_OUT_1_BIT, true);
   
