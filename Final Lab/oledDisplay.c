@@ -37,7 +37,7 @@ void oledDisplay(void* taskDataPtr)
   const portTickType xFrequency = 5000; // for 1Hz operation
   
   RIT128x96x4Init(10000000);
-  
+  RIT128x96x4DisplayOff();
   
   while(1)
   {

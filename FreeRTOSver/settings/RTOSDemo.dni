@@ -16,7 +16,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-1239933462
+Checksum=-1267434882
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -38,25 +38,6 @@ LMI_ResetMode=0x00000000
 ShowArgs=0
 [Disassembly]
 MixedMode=1
-[Disassemble mode]
-mode=1
-[Breakpoints]
-Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\..\..\E\Dev\FreeRTOS\WorkingCopy2\Demo\Common\Minimal\IntQueue.c}.363.2@1" 0 0 0 0 "" 0 ""
-Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\keypad.c}.124.7" 0 0 0 0 "" 0 ""
-Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.233.5" 1 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{$PROJ_DIR$\main.c}.79.4" 1 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.215.5" 1 0 0 0 "" 0 ""
-Bp5=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.215.5" 1 0 0 0 "" 0 ""
-Bp6=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.215.5" 1 0 0 0 "" 0 ""
-Bp7=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.215.5" 1 0 0 0 "" 0 ""
-Bp8=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.233.5" 1 0 0 0 "" 0 ""
-Bp9=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.215.5" 1 0 0 0 "" 0 ""
-Bp10=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.215.5" 1 0 0 0 "" 0 ""
-Bp11=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\command.c}.44.7" 1 0 0 0 "" 0 ""
-Bp12=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\webserver\uIP_Task.c}.324.5" 1 0 0 0 "" 0 ""
-Bp13=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\command.c}.44.7" 1 0 0 0 "" 0 ""
-Bp14=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\command.c}.44.7" 1 0 0 0 "" 0 ""
-Count=15
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -64,9 +45,6 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-[Aliases]
-Count=0
-SuppressDialog=0
 [CallStackLog]
 Enabled=0
 [DriverProfiling]
@@ -75,3 +53,14 @@ Mode=0
 Graph=0
 Symbiont=0
 Exclusions=
+[Disassemble mode]
+mode=1
+[Breakpoints]
+Bp0=_ "STD_CODE" "{$PROJ_DIR$\..\..\..\..\..\E\Dev\FreeRTOS\WorkingCopy2\Demo\Common\Minimal\IntQueue.c}.363.2@1" 0 0 0 0 "" 0 ""
+Bp1=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\keypad.c}.124.7" 0 0 0 0 "" 0 ""
+Bp2=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.233.5" 1 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\..\Final Lab\startup_ewarm.c}.233.5" 1 0 0 0 "" 0 ""
+Count=4
+[Aliases]
+Count=0
+SuppressDialog=0

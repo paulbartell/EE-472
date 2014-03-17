@@ -14,7 +14,7 @@
 #include "rit128x96x4.h"
 
 /* Application headers*/
-#include "tasks.h"
+#include "../tasks.h"
 
 
 /* 
@@ -65,7 +65,7 @@
 /*-----------------------------------------------------------*/
 
 extern void startup();
-
+extern xTaskHandle taskList[];
 int main(void)
 {
       // Set the clocking to run from the PLL at 50 MHz
@@ -74,11 +74,10 @@ int main(void)
   
   schedulerInit();
   
-  //vSetupHighFrequencyTimer();
   
    vTaskStartScheduler();
   
-  while(true);
+   while(true);
   return 0;
 }
 

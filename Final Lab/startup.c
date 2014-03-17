@@ -27,7 +27,7 @@
 #include "driverlib/timer.h"
 
 #define STR_SIZE 16
-#define TRANS_SIZE 48
+#define TRANS_SIZE 128
 #define BUF_CAPACITY 8
 #define PRSAMPLETIME 10
 #define EKG_CAPACITY 256
@@ -60,7 +60,7 @@ CircularBuffer ekgFreqBuf;
 
 EKGData ekgData = {&EKGRaw, &EKGRawTemp, &ekgFreqBuf};
 
-unsigned short batteryState =   200;
+unsigned short batteryState =   50;
 unsigned short measurementSelection = 0;
 
 /*
@@ -95,6 +95,9 @@ unsigned char ekgCorrected[BUF_CAPACITY][STR_SIZE];
 CircularBuffer ekgCorrectedBuf;
 
 unsigned char transmitData[TRANS_SIZE];
+char docName[32];
+char patName[32];
+xSemaphoreHandle commandSemaphore;
 
 unsigned short displayMode = 0;
 unsigned short displayScroll = 0;
@@ -105,12 +108,14 @@ ComputeData computeData = {&temperatureRawBuf,
   &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf, &pulseRateCorrectedBuf, &ekgCorrectedBuf,
   &battCorrectedBuf, &batteryState};
 
-
 DisplayData displayData = {&tempCorrectedBuf, &systolicPressCorrectedBuf, &diastolicPressCorrectedBuf,
   &pulseRateCorrectedBuf, &battCorrectedBuf,  &ekgCorrectedBuf, &measurementSelection, &displayMode,
   &displayScroll};
 
-CommandData commandData = {0, &transmitData, &measurements, &displayData};
+
+CommandData commandData = {0, &transmitData, &measurements, &displayData, &commandSemaphore};
+
+RemoteData remoteData = {&commandData, &docName, &patName};
 
 StatusData statusData = {&batteryState};
 
@@ -188,4 +193,14 @@ void schedulerInit()
   xTaskCreate(ekgProcess,       "EKG Processing",500, &ekgData,           2,    &taskList[8]);
   xTaskCreate(vuIP_Task,        "uIP",           500, NULL,               4,    &taskList[9]);
   xTaskCreate(command,          "command",       100, &commandData,       1,    &taskList[10]);
+  
+  // Suspend until started by doctor
+  vTaskSuspend(taskList[TASK_MEASURE]);
+  vTaskSuspend(taskList[TASK_COMPUTE]);
+  vTaskSuspend(taskList[TASK_WARNINGALARM]);
+  vTaskSuspend(taskList[TASK_STATUS]);
+  vTaskSuspend(taskList[TASK_KEYPAD]);
+  vTaskSuspend(taskList[TASK_COMMUNICATION]);
+  vTaskSuspend(taskList[TASK_EKGCAPTURE]);
+  vTaskSuspend(taskList[TASK_EKGPROCESS]);
 }

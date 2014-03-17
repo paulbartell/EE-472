@@ -4,6 +4,10 @@
 * author: Paul Bartell
 ******************************************/ 
 #include "circularbuffer.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+
 
 #ifndef NULL
 #define NULL (void *)0
@@ -37,9 +41,9 @@ void measure(void* taskData);
 
 typedef struct EKGData
 {
-	signed int* EKGRawBuf;
-	signed int* EKGRawTempBuf;
-	CircularBuffer* EKGFreqBuf;
+  signed int* EKGRawBuf;
+  signed int* EKGRawTempBuf;
+  CircularBuffer* EKGFreqBuf;
 } EKGData;
 
 void ekgCapture (void* taskData);
@@ -128,10 +132,19 @@ void communication(void* taskData);
 
 typedef struct CommandData
 {
-	char recieve;
-	char* transmit;
-	unsigned short* measure;
-	DisplayData* data;
+  char recieve;
+  char* transmit;
+  unsigned short* measure;
+  DisplayData* displayData;
+  xSemaphoreHandle* commandSemaphorePtr; 
 } CommandData;
 void command(void* taskData);
+
+typedef struct RemoteData
+{
+  CommandData* commandData;
+  char* docName;
+  char* patName;
+  
+} RemoteData;
 

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>Doctor at your Fingertips - Status</title>
+	<script type="text/javascript">
+  function blink() {
+    var blinks = document.getElementsByTagName('blink');
+    for (var i = blinks.length - 1; i >= 0; i--) {
+      var s = blinks[i];
+      s.style.visibility = (s.style.visibility === 'visible') ? 'hidden' : 'visible';
+    }
+    window.setTimeout(blink, 500);
+  }
+  if (document.addEventListener) document.addEventListener("DOMContentLoaded", blink, false);
+  else if (window.addEventListener) window.addEventListener("load", blink, false);
+  else if (window.attachEvent) window.attachEvent("onload", blink);
+  else window.onload = blink;
+</script>
+  </head>
+  <BODY onLoad="window.setTimeout(&quot;location.href='status.shtml'&quot;,5000)"bgcolor="#ffffff">
+		<font face="arial">
+		%! generate-header
+		<a href="status.shtml">Status</a><b>|</b><a href="command.shtml">Command</a>
+		<br><p>
+		<hr>
+		<br><p>
+		<h2>Health Stats</h2>
+		<p>
+			Page will refresh every 5 seconds.
+		</p>
+		<br>
+		%! rtos-stats
+		</font>
+		</body>
+</html>
+

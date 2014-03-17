@@ -1,20 +1,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-    <title>DoctorJunk</title>
+    <title>Doctor at your Fingertips - Enter Info</title>
+	<script type="text/javascript">
+</script>
   </head>
-  <BODY onLoad="window.setTimeout(&quot;location.href='index.shtml'&quot;,5000)"bgcolor="#ffffff">
+  <BODY bgcolor="#ffffff">
 		<font face="arial">
-		<a href="index.shtml">RTOS Stats</a><b>|</b><a href="command.shtml">IO</a>
-		<br><p>
-		<hr>
-		<br><p>
-		<h2>Health Stats</h2>
-		<p>
-			Page will refresh every 5 seconds.
-		</p>
-		<br>
-		%! rtos-stats
+		<form name="doc" action="/status.shtml" method="get">
+		Enter a doctor name: <input type="text" name="do">
+		<br />
+		Enter a patient name: <input type="text" name="p">
+		<br />
+			<input type="submit" value="Start System!">
+		</form>
+
 		</body>
 </html>
 

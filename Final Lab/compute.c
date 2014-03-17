@@ -76,15 +76,17 @@ void compute(void* taskDataPtr)
     // an integer whose last two digits are actually decimal values.
     //
     // Problem: Numbers less than 0.1
-    
+     
     // Temperature correction
-    storageSpace = (int)(FPOINT*(147.5 - (2250.0/10230.0)*(*(temperatureRaw)) + ROUND));
-    
+    // 32 42 <-- 42  44
+    // storageSpace = (int)(FPOINT*((147.5 - (2250.0/10230.0)*(*(temperatureRaw)))  + ROUND));
+    storageSpace = (int)(FPOINT*((1.1086*(*(temperatureRaw))-489.91))  + ROUND);
+    // (ans - 147.5) * (-10230/2250)
     // Store the corrected data
     toString(storageSpace, newData);
     target = cBuffPush(computeDataPtr->tempCorrectedBuf);
     strcpy(target, newData);
-    
+        
     // Systolic correction
     storageSpace = (int)(FPOINT*(SYSCA + SYSCM*(*(systolicRaw)) + ROUND));
     

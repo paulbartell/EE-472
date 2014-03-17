@@ -57,10 +57,11 @@
 
 HTTPD_CGI_CALL(rtos, "rtos-stats", rtos_stats );
 HTTPD_CGI_CALL(io, "led-io", led_io );
+HTTPD_CGI_CALL(header, "generate-header", generate_header);
 
-static const struct httpd_cgi_call *calls[] = { &rtos, &io, NULL };
+static const struct httpd_cgi_call *calls[] = { &rtos, &io, &header, NULL };
 
-extern CommandData commandData;
+extern RemoteData remoteData;
 
 /*---------------------------------------------------------------------------*/
 static
@@ -133,10 +134,22 @@ static const char *states[] = {
 /*---------------------------------------------------------------------------*/
 
 extern void vTaskList( signed char *pcWriteBuffer );
-static char cCountBuf[ 32 ];
+static char cCountBuf[ 128 ];
+static char docpatient[ 128 ];
 extern DisplayData displayData;   // Temporary maybe?
 // ALL OF OUR DATA STRUCTURE STUFF GOES HERE
 long lRefreshCount = 0;
+
+extern long numWarnings;
+extern Bool bpOutOfRange;
+extern Bool tempOutOfRange;
+extern Bool pulseOutOfRange;
+extern Bool batteryOutOfRange;
+
+char blinkStart[] = "<blink>";
+char blinkEnd[] = "</blink>";
+char empty[] = " ";
+
 static unsigned short
 generate_rtos_stats(void *arg)
 {
@@ -144,17 +157,54 @@ generate_rtos_stats(void *arg)
         char* temperature = displayDataPtr->tempCorrectedBuf->headPtr;
         char* pulse = displayDataPtr->prCorrectedBuf->headPtr;
         char* battery = displayDataPtr->battCorrected->headPtr;
-        char* ekg = displayDataPtr->ekgCorrectedBuf->headPtr; // bugged?
-        //char* ekg = "50 hz";
+        char* ekg = displayDataPtr->ekgCorrectedBuf->headPtr;
         char* systolic = displayDataPtr->systolicPressCorrectedBuf->headPtr;
         char* diastolic = displayDataPtr->diastolicPressCorrectedBuf->headPtr;
+        char* bpBlink;
+        char* bpBlinkE;
+        char* tBlink;
+        char* tBlinkE;
+        char* pBlink;
+        char* pBlinkE;
+        char* bBlink;
+        char* bBlinkE;
+        if (bpOutOfRange) {
+          bpBlink = blinkStart;
+          bpBlinkE = blinkEnd;
+        } else {
+          bpBlink = empty;
+          bpBlinkE = empty;
+        }
+        if (tempOutOfRange) {
+          tBlink = blinkStart;
+          tBlinkE = blinkEnd;
+        } else {
+          tBlink = empty;
+          tBlinkE = empty;
+        }
+        if (pulseOutOfRange) {
+          pBlink = blinkStart;
+          pBlinkE = blinkEnd;
+        } else {
+          pBlink = empty;
+          pBlinkE = empty;
+        }
+        if (batteryOutOfRange) {
+          bBlink = blinkStart;
+          bBlinkE = blinkEnd;
+        } else {
+          bBlink = empty;
+          bBlinkE = empty;
+        }
         
         unsigned short* myScroll = displayDataPtr->scroll;
 	lRefreshCount++;
-	sprintf( cCountBuf, "<p><br>Refresh count = %d", lRefreshCount );
-        sprintf( uip_appdata, "<ul><li>Temperature: %s C</li><li>SystolicPressure: %s mmHg</li><li>DiastolicPressure: %s mmHg</li><li>Pulse Rate: %s BPM</li><li>EKG: %s Hz</li><li>Battery %s %%</li></ul>",
-                temperature, systolic, diastolic, pulse, ekg, battery);
+        
+	sprintf( cCountBuf, "<br />Refresh count = %d<br />Warnings in the last 8 hours: %d", lRefreshCount, numWarnings );
+        sprintf( uip_appdata, "<ul><li>%sTemperature: %s C%s</li><li>%sSystolicPressure: %s mmHg%s</li><li>%sDiastolicPressure: %s mmHg%s</li><li>%sPulse Rate: %s BPM%s</li><li>EKG: %s Hz</li><li>%sBattery %s %%%s</li></ul>",
+                  tBlink, temperature, tBlinkE, bpBlink, systolic, bpBlinkE, bpBlink, diastolic, bpBlinkE, pBlink, pulse, pBlinkE, ekg, bBlink, battery, bBlinkE);
 	strcat( uip_appdata, cCountBuf );
+        strcat( uip_appdata, docpatient);
 
 	return strlen( uip_appdata );
 }
@@ -168,17 +218,32 @@ PT_THREAD(rtos_stats(struct httpd_state *s, char *ptr))
   PSOCK_GENERATOR_SEND(&s->sout, generate_rtos_stats, NULL);
   PSOCK_END(&s->sout);
 }
+
+
 /*---------------------------------------------------------------------------*/
 
 // COMMAND INPUT GOES HERE
 extern CommandData commandData;
 static unsigned short generate_io_state( void *arg )
 {
-	sprintf( uip_appdata, "%s",commandData.transmit);
-
-	return strlen( uip_appdata );
+  
+  xSemaphoreTake(*(remoteData.commandData->commandSemaphorePtr),500); // wait for command task to finish
+  sprintf( uip_appdata, "<p>%s</p>",remoteData.commandData->transmit);
+  xSemaphoreGive(*(remoteData.commandData->commandSemaphorePtr));
+  return strlen( uip_appdata );
 }
 /*---------------------------------------------------------------------------*/
+
+static unsigned short generate_header_output( void *arg )
+{
+  
+  xSemaphoreTake(*(remoteData.commandData->commandSemaphorePtr),500); // wait for command task to finish
+  sprintf( uip_appdata, "<p>Doctor: %s &nbsp;&nbsp;&nbsp;Patient: %s</p><hr>",remoteData.docName, remoteData.patName);
+  xSemaphoreGive(*(remoteData.commandData->commandSemaphorePtr));
+  return strlen( uip_appdata );
+}
+/*---------------------------------------------------------------------------*/
+
 
 static PT_THREAD(led_io(struct httpd_state *s, char *ptr))
 {
@@ -186,7 +251,13 @@ static PT_THREAD(led_io(struct httpd_state *s, char *ptr))
   PSOCK_GENERATOR_SEND(&s->sout, generate_io_state, NULL);
   PSOCK_END(&s->sout);
 }
-
+static
+PT_THREAD(generate_header(struct httpd_state *s, char *ptr))
+{
+  PSOCK_BEGIN(&s->sout);
+  PSOCK_GENERATOR_SEND(&s->sout, generate_header_output, NULL);
+  PSOCK_END(&s->sout);
+}
 /** @} */
 
 

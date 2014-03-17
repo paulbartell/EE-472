@@ -30,10 +30,10 @@ and 10% respectively.
 #define PULSE_ALARM_LOW 15
 #define PULSE_ALARM_HIGH 34
 
-#define TEMP_WARNING_LOW 39
-#define TEMP_WARNING_HIGH 46
-#define TEMP_ALARM_LOW 37
-#define TEMP_ALARM_HIGH 48
+#define TEMP_WARNING_LOW 473
+#define TEMP_WARNING_HIGH 477
+#define TEMP_ALARM_LOW 471
+#define TEMP_ALARM_HIGH 479
 
 #define BPS_WARNING 58
 #define BPD_WARNING 52
@@ -61,10 +61,18 @@ Bool tempOutOfRange = FALSE;
 Bool pulseOutOfRange = FALSE;
 Bool batteryOutOfRange = FALSE;
 
+Bool lastBp = FALSE;
+Bool lastTemp = FALSE;
+Bool lastPulse = FALSE;
+Bool lastBatt = FALSE;
+
 Bool bpAlarm = FALSE;
 Bool tempAlarm = FALSE;
 Bool pulseAlarm = FALSE;
 Bool batteryAlarm = FALSE;
+
+long numWarnings = 0;
+
 State state = NORMAL;
 
 unsigned int ackCounter = 0;
@@ -109,6 +117,7 @@ void warningAlarmSetup(void)
 
 void warningAlarm(void* taskDataPtr)
 {
+  unsigned long expTime = 28800;
   WarningAlarmData* warningAlarmData = (WarningAlarmData*) taskDataPtr;
   warningAlarmSetup();
   portTickType xLastWakeTime;
@@ -226,6 +235,22 @@ void warningAlarm(void* taskDataPtr)
       }
     }
     
+    // Check for Number of warnings
+    if ((lastBp != bpOutOfRange) && !lastBp) numWarnings++;
+    if ((lastTemp != tempOutOfRange) && !lastTemp) numWarnings++;
+    if ((lastPulse != pulseOutOfRange) && !lastPulse) numWarnings++;
+    if ((lastBatt != batteryOutOfRange)&& !lastBatt) numWarnings++;
+    
+    lastBp = bpOutOfRange;
+    lastTemp = tempOutOfRange;
+    lastPulse = pulseOutOfRange;
+    lastBatt = batteryOutOfRange;
+    
+    // Precondition: infinite timer
+    if ((xTaskGetTickCount() / 1000) >= expTime) {
+      numWarnings = 0;
+      expTime += 28800;
+    }
     for(int i = 0; i < 8; i++)
     {
       button = *(warningAlarmData->alarmAcknowledge);
@@ -284,6 +309,7 @@ void warningAlarm(void* taskDataPtr)
           PWMGenEnable(PWM0_BASE, PWM_GEN_0);                // Enable Alarm buzzer
         }
       }
+      
       
       // 2 Hz operations end
       if(i % 2 == 1)
